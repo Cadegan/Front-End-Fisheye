@@ -11,14 +11,17 @@ function photographerFactory(data) {
         const h2 = document.createElement('h2');
         h2.textContent = name;
 
-        const location = document.createElement('h3');
+        const location = document.createElement('location');
+        location.className = 'location'
         location.textContent = `${city}, ${country}`;
 
-        const quote = document.createElement('p');
+        const quote = document.createElement('div');
+        quote.className = 'quote';
         quote.textContent = tagline;
 
-        const priceDay = document.createElement('p');
-        priceDay.textContent = price + "€";
+        const priceDay = document.createElement('div');
+        priceDay.className = 'priceDay'
+        priceDay.textContent = price + "€/jour";
 
         article.appendChild(img);
         article.appendChild(h2);
