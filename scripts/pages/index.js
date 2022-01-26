@@ -1,4 +1,4 @@
-async function getPhotographers(id) {
+async function getPhotographers() {
     let photographers = []; //Changement de la constant en variable. On déclare un tableau "photographers" 
 
     // et bien retourner le tableau photographers seulement une fois
