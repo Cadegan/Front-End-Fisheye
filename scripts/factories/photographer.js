@@ -1,5 +1,6 @@
+// eslint-disable-next-line no-unused-vars
 function photographerFactory(data) {
-    const { name, city, country, tagline, price, portrait} = data;
+    const { name, city, country, tagline, price, portrait, id } = data;
     const picture = `assets/photographers/${portrait}`;
 
     function getUserCardDOM() {
@@ -23,11 +24,16 @@ function photographerFactory(data) {
         priceDay.className = 'priceDay'
         priceDay.textContent = price + "€/jour";
 
+        function linkProfile() {
+            window.open(`photographer.html?id=${id}`);
+        }
+
         article.appendChild(img);
         article.appendChild(h2);
         article.appendChild(location);
         article.appendChild(quote);
         article.appendChild(priceDay);
+        article.addEventListener("click", linkProfile)
         return (article);
     }
     return { name, picture, location, tagline, price, getUserCardDOM }
