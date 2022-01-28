@@ -1,6 +1,3 @@
-//Page profil du photographe
-let urlProfile = new URL(window.location.search).get('id');
-
 function photographerProfileFactory(profile) {
     const { name, city, country, tagline, price, portrait } = profile;
     const picture = `assets/photographers/${portrait}`;
