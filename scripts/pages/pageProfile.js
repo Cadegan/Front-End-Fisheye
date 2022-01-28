@@ -6,11 +6,11 @@ let person = []
 async function getPhotographersProfile() {
 
     await fetch("/data/photographersDdata.json")
-    .then(res =>res.json())
-    .then((data) => {
-        person = data.photographersDdata.find((photographer) => photographer.id === +id );
-    });
-    return {person};
+        .then(res => res.json())
+        .then((data) => {
+            person = data.photographersDdata.find(photographer => photographer.id === +id);
+        });
+    return { person };
 }
 
 async function init() {
