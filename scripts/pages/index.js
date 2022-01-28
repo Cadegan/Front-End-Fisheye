@@ -2,7 +2,7 @@ async function getPhotographers() {
     let photographers = []; //Changement de la constant en variable. On déclare un tableau "photographers" 
 
     // et bien retourner le tableau photographers seulement une fois
-    await fetch("/data/photographers.json") //On attend la resolution de la promesse : l'extraction des données
+    await fetch("/data/photographers-data.json") //On attend la resolution de la promesse : l'extraction des données
         .then(res => res.json())
         .then((data) => (photographers = data.photographers))
     return { photographers }

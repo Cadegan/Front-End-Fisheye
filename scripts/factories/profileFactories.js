@@ -1,10 +1,11 @@
 //Page profil du photographe
-// eslint-disable-next-line no-unused-vars
-function photographerFactory(photographe) {
-    const { name, city, country, tagline, price, portrait, id } = photographe;
+let urlProfile = new URL(window.location.search).get('id');
+
+function photographerProfileFactory(profile) {
+    const { name, city, country, tagline, price, portrait } = profile;
     const picture = `assets/photographers/${portrait}`;
 
-    function getUserCardDOM() {
+    function cardProfile() {
         const article = document.createElement('article');
 
         const img = document.createElement('img');
@@ -25,17 +26,12 @@ function photographerFactory(photographe) {
         priceDay.className = 'priceDay'
         priceDay.textContent = price + "€/jour";
 
-        function linkProfile() {
-            window.open(`photographer.html?id=${id}`);
-        }
-
         article.appendChild(img);
         article.appendChild(h2);
         article.appendChild(location);
         article.appendChild(quote);
         article.appendChild(priceDay);
-        article.addEventListener("click", linkProfile)
         return (article);
     }
-    return { name, picture, location, tagline, price, getUserCardDOM }
+    return { name, picture, location, tagline, price, photographerProfileFactory }
 }
