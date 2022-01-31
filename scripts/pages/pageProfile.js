@@ -1,28 +1,31 @@
 //Page profil du photographe
-let urlProfile = new URL(window.location.search)
+let urlProfile = new URLSearchParams(window.location.search)
 let id = urlProfile.get('id');
-const header = document.getElementsByClassName(".photograph-header")
+const header = document.querySelector(".photograph-header")
 
-let person = [];
-let photos = [];
+let profile = [];
+let media = [];
 
 async function getPhotographerProfile() {
     await fetch("/data/photographersData.json")
         .then(res => res.json())
-        .then((data) => (person = data.photographers.find(photographer => photographer.id === +id)
-        ));
-    return { person, photos }
-}
+        .then((data) => {
+            profile = data.photographers.find(photographer => photographer.id === +id);
+            media = data.media.filter(media => media.photographerId === +id);
+        });
 
-async function displayProfile(person) {
-    const profileModel = profileFactories(person);
-    const profileCardDOM = profileModel.cardProfile();
-    header.appendChild(profileCardDOM);
+    return { profile, media }
 }
 
 async function init() {
-    const { photographerProfile } = await getPhotographerProfile();
-    displayProfile(photographerProfile);
+    const data = await getPhotographerProfile();
+    displayProfile(data);
 }
 
 init();
+
+async function displayProfile(profile) {
+    const profileModel = profileFactories(profile);
+    const profileCardDOM = profileModel.cardProfile();
+    header.appendChild(profileCardDOM);
+}

@@ -30,5 +30,5 @@ function profileFactories(profile) {
         article.appendChild(priceDay);
         return (article);
     }
-    return { name, picture, location, tagline, price, cardProfile }
+    return { cardProfile }
 }
