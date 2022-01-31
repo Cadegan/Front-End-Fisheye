@@ -3,7 +3,7 @@ async function getPhotographers() {
 
     // et bien retourner le tableau photographers seulement une fois
     await fetch("/data/photographersData.json") //On attend la resolution de la promesse : l'extraction des données
-        .then(res => res.json())
+        .then(reponse => reponse.json())
         .then((data) => (photographers = data.photographers))
     return { photographers }
 }

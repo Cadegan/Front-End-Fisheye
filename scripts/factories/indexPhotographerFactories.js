@@ -36,5 +36,5 @@ function photographerFactory(data) {
         article.addEventListener("click", linkProfile)
         return (article);
     }
-    return { name, picture, location, tagline, price, getUserCardDOM }
+    return { getUserCardDOM }
 }

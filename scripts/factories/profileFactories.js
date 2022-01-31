@@ -1,4 +1,4 @@
-function photographerProfileFactory(profile) {
+function profileFactories(profile) {
     const { name, city, country, tagline, price, portrait } = profile;
     const picture = `assets/photographers/${portrait}`;
 
@@ -30,5 +30,5 @@ function photographerProfileFactory(profile) {
         article.appendChild(priceDay);
         return (article);
     }
-    return { name, picture, location, tagline, price, photographerProfileFactory }
+    return { name, picture, location, tagline, price, cardProfile }
 }
