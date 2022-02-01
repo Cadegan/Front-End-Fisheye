@@ -1,7 +1,6 @@
 //Page profil du photographe
 let urlProfile = new URLSearchParams(window.location.search)
 let id = urlProfile.get('id');
-const header = document.querySelector(".photograph-header")
 
 let profile = [];
 let media = [];
@@ -25,6 +24,8 @@ async function init() {
 init();
 
 async function displayProfile(profile) {
+    const header = document.querySelector(".photograph-header")
+    
     const profileModel = profileFactories(profile);
     const profileCardDOM = profileModel.cardProfile();
     header.appendChild(profileCardDOM);
