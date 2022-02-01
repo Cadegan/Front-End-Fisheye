@@ -3,13 +3,13 @@ function profileFactories() {
     const picture = `assets/photographers/${portrait}`;
 
     function cardProfile() {
-        const article = document.createElement('article');
+        const contact = document.querySelector(".contact_button");
 
         const img = document.createElement('img');
         img.setAttribute("src", picture)
 
-        const h2 = document.createElement('h2');
-        h2.textContent = name;
+        const h1 = document.createElement('h1');
+        h1.textContent = name;
 
         const location = document.createElement('location');
         location.className = 'location'
@@ -23,12 +23,17 @@ function profileFactories() {
         priceDay.className = 'priceDay'
         priceDay.textContent = price + "€/jour";
 
+        const presentation = document.createElement('div');
+        presentation.className = 'presentation'
+        presentation.appendChild(h1);
+        presentation.appendChild(location);
+        presentation.appendChild(quote);
+
+        const article = document.createElement('article');
+        article.appendChild(presentation);
+        article.appendChild(contact);
         article.appendChild(img);
-        article.appendChild(h2);
-        article.appendChild(location);
-        article.appendChild(quote);
-        article.appendChild(priceDay);
         return (article);
     }
-    return { cardProfile }
+    return { name, picture, location, tagline, cardProfile }
 }
