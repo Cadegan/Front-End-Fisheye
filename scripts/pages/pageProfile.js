@@ -25,14 +25,16 @@ init();
 
 async function displayProfile(profile, media) {
     const header = document.querySelector(".photograph-header")
+    const mediaSection = document.querySelector(".book");
     
     const profileModel = profileFactories(profile);
     const profileCardDOM = profileModel.cardProfile();
     header.appendChild(profileCardDOM);
 
-    /*
+
     media.forEach((media) =>  {
     const mediaModel = mediaFactories(media);
-    const cardMedia = 
-    })*/
+    const mediaCardDOM = mediaModel.getMediaCardDOM();
+    mediaSection.appendChild(mediaCardDOM);
+    })
 };

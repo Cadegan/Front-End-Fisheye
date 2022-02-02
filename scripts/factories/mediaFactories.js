@@ -8,11 +8,19 @@ function mediaFactories(media) {
         const article = document.createElement('article');
         
         const title = document.createElement('span');
+        title.className = 'title';
+        title.textContent = title;
+
         const img = document.createElement('img');
         img.setAttribute("src", photo);
+
         const movie = document.createElement('video');
         movie.setAttribute("src", clip);
+
         const likes = document.createElement('span');
+        likes.className = 'likes';
+        likes.textContent = likes;
+        
         const heart = document.createElement('span');
 
         if (media === 'image') {
@@ -24,7 +32,9 @@ function mediaFactories(media) {
         } else {
             console.log("error")
         }
+
+        return (article);
         
     }
-    return { photo, clip, likes, title, id, getMediaCardDOM};
+    return { photo, clip, likes, title, id, photographerId, getMediaCardDOM};
 }
