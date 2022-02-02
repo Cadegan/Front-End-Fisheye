@@ -23,10 +23,16 @@ async function init() {
 
 init();
 
-async function displayProfile(profile) {
+async function displayProfile(profile, media) {
     const header = document.querySelector(".photograph-header")
     
     const profileModel = profileFactories(profile);
     const profileCardDOM = profileModel.cardProfile();
     header.appendChild(profileCardDOM);
-}
+
+    /*
+    media.forEach((media) =>  {
+    const mediaModel = mediaFactories(media);
+    const cardMedia = 
+    })*/
+};
