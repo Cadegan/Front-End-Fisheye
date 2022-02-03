@@ -33,8 +33,8 @@ async function displayProfile(profile, media) {
 
 
     media.forEach((media) =>  {
-    const mediaModel = mediaFactories(media);
-    const mediaCardDOM = mediaModel.getMediaCardDOM();
-    mediaSection.appendChild(mediaCardDOM);
+        const mediaModel = mediaFactories(media);
+        const mediaCardDOM = mediaModel.getMediaCardDOM();
+        mediaSection.appendChild(mediaCardDOM);
     })
-};
+}
