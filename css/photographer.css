@@ -111,7 +111,7 @@ form input {
 }
 
 .gallery-section {
-    width: 90%;
+    width: 100%;
     margin-right: auto;
     margin-left: auto;
     display: grid;
@@ -119,6 +119,8 @@ form input {
 }
 
 .media-container img {
-    width: 300px;
-    height:auto;
+    width: 25vw;
+    height: 25vw;
+    object-fit: cover;
+    border-radius : 5px;
 }
