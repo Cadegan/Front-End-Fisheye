@@ -1,4 +1,4 @@
-// Recupere les medias des photographes
+//Informations des productions des photographes
 class photographBook {
     constructor (media) {
         this._id = media.id

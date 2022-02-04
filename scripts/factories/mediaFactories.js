@@ -20,11 +20,11 @@ function mediaFactories(media) {
 
         //const heart = document.createElement('span');
 
-        if (media == 'image') {
+        if (typeof image === 'string') {
             article.appendChild(img);
             article.appendChild(title);
             img.setAttribute("src", photo);
-        } else if (media == 'video') {
+        } else if (typeof video === 'string') {
             article.appendChild(video);
             article.appendChild(title);
             movie.setAttribute("src", clip);

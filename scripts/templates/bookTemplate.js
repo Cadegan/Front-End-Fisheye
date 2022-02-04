@@ -1,16 +1,20 @@
 // Template pour les medias
-class photographBook {
-    constructor (media) {
-      this._media = media;  
+class bookTemplate {
+    constructor(media) {
+        this._media = media;
+
+        this.$warpper = document.createElement('div');
+        this.$warpper.classList.add('media-card-warpper');
+
     }
 
-    get media () {
-        return this.media
+    get media() {
+        return this._media
     }
 
-    createImageBook () {
-        const imageBook = 
-        `   <article>
+    createImageBook() {
+        const imageBook = `
+            <article>
                 <img
                     alt="${this._media.title}"
                     src="${this._media.image}"
