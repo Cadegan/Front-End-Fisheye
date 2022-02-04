@@ -26,7 +26,7 @@ main {
     margin-right: 0px;
     color: #D3573C;
     font-size: 60px;
-    font-weight : unset;
+    font-weight: unset;
 }
 
 .location {
@@ -108,4 +108,17 @@ form input {
     height: 68px;
     border: none;
     border-radius: 5px;
+}
+
+.gallery-section {
+    width: 90%;
+    margin-right: auto;
+    margin-left: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.media-container img {
+    width: 300px;
+    height:auto;
 }

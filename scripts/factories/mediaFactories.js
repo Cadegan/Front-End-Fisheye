@@ -6,6 +6,7 @@ function mediaFactories(media) {
     function getMediaCardDOM() {
 
         const article = document.createElement('article');
+        article.className = 'media-container'
 
         const title = document.createElement('span');
         title.className = 'title';
