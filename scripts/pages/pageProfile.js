@@ -39,8 +39,8 @@ async function displayProfile(profile) {
     })
   
 }
-
-//Filtre
+/*
+//Filtre v0
 const dropdownIcon = () => {
     const dropdown = document.createElement('span');
     dropdown.innerHTML = `<svg width="14px" height="7px" viewBox="0 0 10 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -125,7 +125,6 @@ const showDropdown = () => {
         const n = document.createElement("h5");
         n.textContent = choixId;
 
-
         option.appendChild(n);
         structure.appendChild(option);
     });
@@ -148,3 +147,5 @@ const selectOption = (choixId) => {
 };
 
 dropdown();
+*/
+
