@@ -1,46 +1,3 @@
-//Page profil du photographe
-let urlProfile = new URLSearchParams(window.location.search)
-let id = urlProfile.get('id');
-const mediaSection = document.querySelector(".gallery-section");
-
-let profile = [];
-let media = [];
-
-async function getPhotographerProfile() {
-    await fetch("/data/photographersData.json")
-        .then(res => res.json())
-        .then((data) => {
-            profile = data.photographers.find(photographer => photographer.id === +id);
-            media = data.media.filter(media => media.photographerId === +id);
-        });
-
-    return { profile, media }
-}
-
-async function init() {
-    const data = await getPhotographerProfile();
-    displayProfile(data);
-}
-
-init();
-
-async function displayProfile(profile) {
-    const header = document.querySelector(".photograph-header")
-    
-    const profileModel = profileFactories(profile);
-    const profileCardDOM = profileModel.cardProfile();
-    header.appendChild(profileCardDOM);
-
-
-    media.forEach((media) =>  {
-        const mediaModel = mediaFactories(media);
-        const mediaCardDOM = mediaModel.getMediaCardDOM();
-        mediaSection.appendChild(mediaCardDOM);
-    })
-  
-}
-
-//Filtre
 const dropdownIcon = () => {
     const dropdown = document.createElement('span');
     dropdown.innerHTML = `<svg width="14px" height="7px" viewBox="0 0 10 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -97,7 +54,7 @@ const createInput = () => {
     inputPlaceholder.classList = "input__placeholder";
 
     const placeholder = document.createElement("p");
-    placeholder.textContent = "Popularité";
+    placeholder.textContent = "Select user";
     placeholder.classList.add('placeholder')
 
     // Appends the placeholder and chevron (stored in assets.js)

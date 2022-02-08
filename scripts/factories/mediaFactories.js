@@ -19,8 +19,6 @@ function mediaFactories(media) {
         likes.className = 'likes';
         likes.textContent = likes;
 
-        //const heart = document.createElement('span');
-
         if (typeof image === 'string') {
             article.appendChild(img);
             article.appendChild(title);
