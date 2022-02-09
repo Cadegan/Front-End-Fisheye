@@ -39,8 +39,59 @@ async function displayProfile(profile) {
     })
   
 }
+//Filtre v2
+let btDropdown = document.getElementById("btDropdown")
+let dropdownContent = document.getElementById("dropdownContent")
+let dropdownItem = document.getElementsByClassName("dropdownItem")
+console.log(dropdownItem)
+
+function dropdownFc () {
+    dropdownContent.classList.toggle("show")
+}
+
+btDropdown.addEventListener("click", dropdownFc);
+
+// Fermeture du menu
+window.onclick = function (event) {
+    if (!event.target.matches('.btDropdown')) {
+        let dropdownContentClass = document.getElementsByClassName("dropdown-content");
+        for (let i = 0; i < dropdownContentClass.length; i++) {
+            let dropdownContentOpen = dropdownContentClass[i];
+            if (dropdownContentOpen.classList.contains("show")) {
+                dropdownContentOpen.classList.remove("show");
+            }
+
+        }
+    }
+    if (event.target.matches('.dropdownItem')) {
+        document.getElementById.getElementById('btDropdown').textContent = event.target.textContent;
+        if (event.target.textContent === "Popularité") {
+            likesFiltrer();
+        }
+        if (event.target.textContent === "Date") {
+            dateFiltrer();
+        }
+        if (event.target.textcontent === "Titre") {
+            titreFiltrer();
+        }
+    }
+}
+
+function likesFiltrer() {
+
+}
+
+function dateFiltrer() {
+
+}
+
+function titreFiltrer() {
+
+}
+
+
 /*
-//Filtre v0
+//Filtre v1
 const dropdownIcon = () => {
     const dropdown = document.createElement('span');
     dropdown.innerHTML = `<svg width="14px" height="7px" viewBox="0 0 10 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -87,12 +138,10 @@ const dropdown = () => {
 };
 
 const createInput = () => {
-    // Creates the input outline
     const input = document.createElement("div");
     input.classList = "input";
     input.addEventListener("click", toggleDropdown);
 
-    // Creates the input placeholder content
     const inputPlaceholder = document.createElement("div");
     inputPlaceholder.classList = "input__placeholder";
 
@@ -100,7 +149,6 @@ const createInput = () => {
     placeholder.textContent = "Popularité";
     placeholder.classList.add('placeholder')
 
-    // Appends the placeholder and chevron (stored in assets.js)
     inputPlaceholder.appendChild(placeholder);
     inputPlaceholder.appendChild(dropdownIcon());
     input.appendChild(inputPlaceholder);

@@ -18,11 +18,15 @@
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
       </div>
       <div id="filtre">
-        <div id="Trier">Trier par</div>
-        <a class="menu_dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-          <span class="menu_dropdown-content">
-          </span>
-        </a>
+        <label id="label_trier">Trier par</div>
+        <div id="menu_dropdown" aria-expanded="false" href="#">
+          <button id="btDropdown">Populartité</button>
+          <div id="dropdownContent" class="dropdown-content">
+            <p class="dropdownItem" onkeypress="dropdownFc()">Popularité</p>
+            <p class="dropdownItem" onkeypress="dropdownFc()">Date</p>
+            <p class="dropdownItem" onkeypress="dropdownFc()">Titre</p>
+          </div>
+        </div>
       </div>
       <div class="gallery-section">
 
