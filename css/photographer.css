@@ -125,6 +125,16 @@ form input {
     border-radius: 5px;
 }
 
+/*Filtre*/
+#filtre {
+    display: flex;
+    align-items: center;
+}
+
+#menu_dropdown {
+    display: inline-flex;
+}
+
 #btDropdown {
     font-size: 20px;
     font-weight: bold;
@@ -153,13 +163,25 @@ form input {
     top: 19px;
 }
 
+#dropdownFirst::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-right: 3px solid white;
+    border-bottom: 3px solid white;
+    transform: rotate(45deg);
+    position: absolute;
+    right: 20px;
+    top: 19px;
+}
+
 #btDropdown:hover,
 #btDropdown:focus {
     background-color: #D3573C;
 }
 
 .dropdown-content {
-
+    display: none;
     position: absolute;
     background-color: #901C1C;
     min-width: 170px;
@@ -176,7 +198,6 @@ form input {
     padding-left: 25px;
     cursor: pointer;
     margin: 0px;
-
 }
 
 .dropdown-content p:hover {
@@ -199,4 +220,8 @@ form input {
     position: absolute;
     left: 15px;
     top: 0;
+}
+
+.show {
+    display: block;
 }

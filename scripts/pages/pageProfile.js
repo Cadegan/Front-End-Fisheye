@@ -40,18 +40,19 @@ async function displayProfile(profile) {
   
 }
 //Filtre v2
-let btDropdown = document.getElementById("btDropdown")
+let btDropdown = document.getElementById("btDropdown") //Par défaut sur "Popularité"
 let dropdownContent = document.getElementById("dropdownContent")
 let dropdownItem = document.getElementsByClassName("dropdownItem")
-console.log(dropdownItem)
 
 function dropdownFc () {
     dropdownContent.classList.toggle("show")
 }
 
-btDropdown.addEventListener("click", dropdownFc);
+btDropdown.addEventListener('click', dropdownFc);
 
 // Fermeture du menu
+// On ecoute si un evenement se realise à l'exterieur du menu
+// On le cache si c'est le cas
 window.onclick = function (event) {
     if (!event.target.matches('.btDropdown')) {
         let dropdownContentClass = document.getElementsByClassName("dropdown-content");
@@ -63,8 +64,10 @@ window.onclick = function (event) {
 
         }
     }
+    //Le titre du filtre est injecté dans le titre du bouton
+    // Une fonction est lancée selon le contenu du bouton
     if (event.target.matches('.dropdownItem')) {
-        document.getElementById.getElementById('btDropdown').textContent = event.target.textContent;
+        document.getElementById('btDropdown').textContent = event.target.textContent;
         if (event.target.textContent === "Popularité") {
             likesFiltrer();
         }

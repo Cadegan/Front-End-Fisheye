@@ -18,13 +18,13 @@
         <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
       </div>
       <div id="filtre">
-        <label id="label_trier">Trier par</div>
+        <label id="label_trier">Trier par</label>
         <div id="menu_dropdown" aria-expanded="false" href="#">
           <button id="btDropdown">Populartité</button>
           <div id="dropdownContent" class="dropdown-content">
-            <p class="dropdownItem" onkeypress="dropdownFc()">Popularité</p>
-            <p class="dropdownItem" onkeypress="dropdownFc()">Date</p>
-            <p class="dropdownItem" onkeypress="dropdownFc()">Titre</p>
+            <p class="dropdownItem" id="dropdownFirst" tabindex="0" onkeypress="dropdownFc()">Popularité</p>
+            <p class="dropdownItem" tabindex="0" onkeypress="dropdownFc()">Date</p>
+            <p class="dropdownItem" tabindex="0" onkeypress="dropdownFc()">Titre</p>
           </div>
         </div>
       </div>
