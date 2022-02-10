@@ -34,6 +34,14 @@ main {
     font-size: 23px;
 }
 
+.quote {
+    color: #525252
+}
+
+#label_trier {
+    font-weight: bold;
+}
+
 
 .photograph-header img {
     height: 200px;
@@ -118,6 +126,12 @@ form input {
     grid-template-columns: repeat(3, 1fr);
 }
 
+.media-container {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+}
+
 .media-container img {
     width: 25vw;
     height: 25vw;
@@ -125,10 +139,16 @@ form input {
     border-radius: 5px;
 }
 
+.reviewElement {
+    display: flex;
+}
+
 /*Filtre*/
 #filtre {
     display: flex;
     align-items: center;
+    margin-top: 10px;
+    margin-bottom: 50px;
 }
 
 #menu_dropdown {
@@ -224,4 +244,29 @@ form input {
 
 .show {
     display: block;
+}
+
+.titleContent {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.titleContent * {
+    color: #901C1C;
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+.reviewElement {
+    display: flex;
+    align-items: center;
+}
+
+.heartIcon {
+    background-image: url(../assets/icons/heart.svg);
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
 }

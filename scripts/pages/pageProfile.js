@@ -44,8 +44,11 @@ let btDropdown = document.getElementById("btDropdown") //Par défaut sur "Popula
 let dropdownContent = document.getElementById("dropdownContent")
 let dropdownItem = document.getElementsByClassName("dropdownItem")
 
+
 function dropdownFc () {
-    dropdownContent.classList.toggle("show")
+    dropdownContent.classList.toggle('show')
+    console.log("show ::", dropdownContent)
+    console.log(document.body)
 }
 
 btDropdown.addEventListener('click', dropdownFc);
