@@ -132,7 +132,7 @@ form input {
     justify-self: center;
 }
 
-.media-container img {
+.media-container img, .video {
     width: 25vw;
     height: 25vw;
     object-fit: cover;

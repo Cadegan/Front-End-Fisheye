@@ -1,7 +1,7 @@
 function mediaFactories(media) {
     const { id, photographerId, title, image, video, likes } = media;
-    const photo = `assets/photos/${image}`;
-    const clip = `assets/photos/${video}`;
+    const mediaData = `assets/photos/${image || video}`;
+    //const clip = `assets/photos/${video}`;
 
     function getMediaCardDOM() {
 
@@ -14,7 +14,10 @@ function mediaFactories(media) {
         titles.textContent = title;
 
         const img = document.createElement('img');
+        img.className = 'photo'
+
         const movie = document.createElement('video');
+        movie.className = 'video'
 
         const likeCount = document.createElement('span');
         likeCount.className = 'likes';
@@ -36,20 +39,27 @@ function mediaFactories(media) {
         titleContent.appendChild(reviewElement);
         
 
-        if (typeof image === 'string') {
+        if (image) {
+            img.setAttribute('src', mediaData);
+            img.setAttribute('aria-label', `${title}`);
+            img.setAttribute('tabindex', 0);
+            img.dataset.id = id;
             article.appendChild(img);
             article.appendChild(titleContent);
-            img.setAttribute("src", photo);
-        } else if (typeof video === 'string') {
-            article.appendChild(video);
+            article.dataset.type = 'image';
+            
+        } if (video) {
+            movie.setAttribute('src', mediaData);
+            movie.setAttribute('aria-label', `${title}`);
+            movie.setAttribute('tabindex', 0);
+            movie.dataset.id = id;
+            article.appendChild(movie);
             article.appendChild(titleContent);
-            movie.setAttribute("src", clip);
-        } else {
-            console.log("error")
+            article.dataset.type = 'video';
         }
 
         return (article);
 
     }
-    return { photo, clip, likes, title, id, photographerId, getMediaCardDOM };
+    return { image, video, likes, title, id, photographerId, getMediaCardDOM };
 }
