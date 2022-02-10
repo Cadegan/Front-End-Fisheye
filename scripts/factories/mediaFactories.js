@@ -56,6 +56,7 @@ function mediaFactories(media) {
             article.appendChild(movie);
             article.appendChild(titleContent);
             article.dataset.type = 'video';
+            movie.setAttribute('controls', 'controls');
         }
 
         return (article);
