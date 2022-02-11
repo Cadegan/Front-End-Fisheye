@@ -105,7 +105,15 @@ function mediaFactories(media) {
                     nextBtn.hidden = true;
                 }
 
-                
+                screenItem.addEventListener("click", function(e) {
+                    if (e.target == this || e.target == close) hide();
+                });
+
+                function hide() {
+                    root.style.overflow = "auto";
+                    screenItem.remove();
+                }
+
             })
         };
     }
