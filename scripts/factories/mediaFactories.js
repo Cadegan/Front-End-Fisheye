@@ -62,5 +62,56 @@ function mediaFactories(media) {
         return (article);
 
     }
+
+    // Lightbox
+    const root = document.querySelector("body, html");
+    const mediaSection = document.querySelector(".gallery-section");
+    const l = mediaData.length;
+
+
+    function lightbox() {
+        for (let i = 0; i < l; i++) {
+            mediaData[i].addEventListener("click", function(i) {
+                var currentMedia = this;
+                const parentItem = currentMedia.parentElement, screenItem = document.createElement('div');
+                screenItem.id = 'Lightbox-screen';
+                mediaSection.prepend(screenItem);
+                if (parentItem.hasAttribute('data-theme')) screenItem.setAttribute('data-theme', "lightTheme");
+                var route = currentMedia.scr;
+                root.style.innerHTML = 'hidden';
+                screenItem.innerHTML = '<div class="gg-image"></div><div class="gg-close gg-btn">&times</div><div class="gg-next gg-btn">&rarr;</div><div class="gg-prev gg-btn">&larr;</div>';
+                const first = mediaData[0].scr, last = mediaData[l-1].scr;
+                const mediaItem = document.querySelector('gg-image'), prevBtn = document.querySelector('gg-next'), nextBtn = document.querySelector('gg-next'), close = document.querySelector('gg-close');
+                mediaItem.innerHTML = '< src="' + route + '">';
+
+                if (l > 1) {
+                    if (route == first) {
+                        prevBtn.hidden = true;
+                        var prevMedia = false;
+                        var nextMedia = currentMedia.nextelementSibling;
+                    }
+                    else if (route == last) {
+                        nextBtn.hidden = true;
+                        var nextMedia = false;
+                        var prevMedia = currentMedia.nextelementSibling;
+                    }
+                    else {
+                        var prevMedia = currentMedia.previousElementSibling;
+                        var nextMedia = currentMedia.nextElementSibling;
+                    }
+                }
+                else {
+                    prevBtn.hidden = true;
+                    nextBtn.hidden = true;
+                }
+
+                
+            })
+        };
+    }
+
+
     return { image, video, likes, title, id, photographerId, getMediaCardDOM };
 }
+
+
