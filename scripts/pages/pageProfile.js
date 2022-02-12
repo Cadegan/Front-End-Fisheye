@@ -57,7 +57,7 @@ btDropdown.addEventListener('click', dropdownFc);
 // On ecoute si un evenement se realise à l'exterieur du menu
 // On le cache si c'est le cas
 window.onclick = function (event) {
-    if (!event.target.matches('.btDropdown')) {
+    if (!event.target.matches('#btDropdown')) {
         let dropdownContentClass = document.getElementsByClassName("dropdown-content");
         for (let i = 0; i < dropdownContentClass.length; i++) {
             let dropdownContentOpen = dropdownContentClass[i];

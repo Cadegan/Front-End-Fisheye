@@ -132,7 +132,8 @@ form input {
     justify-self: center;
 }
 
-.media-container img, .video {
+.media-container img,
+.video {
     width: 25vw;
     height: 25vw;
     object-fit: cover;
@@ -155,7 +156,7 @@ form input {
     display: inline-flex;
 }
 
-#btDropdown {
+.btDropdown {
     font-size: 20px;
     font-weight: bold;
     color: white;
@@ -171,7 +172,12 @@ form input {
     position: relative;
 }
 
-#btDropdown::before {
+.btDropdown:hover,
+.btDropdown:focus {
+    background-color: #D3573C;
+}
+
+.btDropdown::before {
     content: '';
     width: 7px;
     height: 7px;
@@ -193,11 +199,6 @@ form input {
     position: absolute;
     right: 20px;
     top: 19px;
-}
-
-#btDropdown:hover,
-#btDropdown:focus {
-    background-color: #D3573C;
 }
 
 .dropdown-content {
