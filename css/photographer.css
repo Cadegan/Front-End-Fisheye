@@ -40,6 +40,7 @@ main {
 
 #label_trier {
     font-weight: bold;
+    font-size: 20px;
 }
 
 
@@ -177,7 +178,7 @@ form input {
     background-color: #D3573C;
 }
 
-.btDropdown::before {
+.btDropdown::after {
     content: '';
     width: 7px;
     height: 7px;
@@ -189,16 +190,16 @@ form input {
     top: 19px;
 }
 
-#dropdownFirst::before {
+#dropdownFirst::after {
     content: '';
     width: 7px;
     height: 7px;
     border-right: 3px solid white;
     border-bottom: 3px solid white;
-    transform: rotate(45deg);
+    transform: rotate(225deg);
     position: absolute;
     right: 20px;
-    top: 19px;
+    top: 25px;
 }
 
 .dropdown-content {
