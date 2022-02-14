@@ -1,5 +1,5 @@
 function mediaFactories(data) {
-    const { id, photographerId, title, image, video, likes } = data;
+    const { id, photographerId, title, image, video, likes, date } = data;
     const mediaData = `assets/photos/${image || video}`;
     //const clip = `assets/photos/${video}`;
 

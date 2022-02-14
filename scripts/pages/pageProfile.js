@@ -6,24 +6,24 @@ const mediaSection = document.querySelector(".gallery-section");
 let profile = [];
 let media = [];
 
-async function getPhotographerProfile(filter = "popularity") {
+async function getPhotographerProfile(filter) {
     await fetch("/data/photographersData.json")
         .then(res => res.json())
         .then((data) => {
             profile = data.photographers.find(photographer => photographer.id === +id);
             media = data.media.filter(media => media.photographerId === +id);
-            let mediaFitred = [];
+            let mediaFlitred = [];
             switch (filter) {
                 case "popularity":
-                    mediaFitred = media.sort((a, b) => b.likes - a.likes);
+                    mediaFlitred = media.sort((a, b) => b.likes - a.likes);
                     break;
                 case "date":
-                    mediaFitred = media.sort((a, b) => {
+                    mediaFlitred = media.sort((a, b) => {
                         return new Date(a.date).valueOf() - new Date(b.date).valueOf();
                     });
                     break;
-                case "titre":
-                    mediaFitred = media.sort((a, b) => {
+                case "title":
+                    mediaFlitred = media.sort((a, b) => {
                         if (a.title.toLowerCase() < b.title.toLowerCase()) {
                             return -1;
                         } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
@@ -31,19 +31,11 @@ async function getPhotographerProfile(filter = "popularity") {
                         }
                     });
             }
-            displayMedia(mediaFitred);
         });
 
     return { profile, media }
 }
 
-async function init() {
-    const data = await getPhotographerProfile();
-    displayProfile(data);
-    displayMedia(data);
-}
-
-init();
 
 async function displayProfile(profile) {
     const header = document.querySelector(".photograph-header")
@@ -59,9 +51,9 @@ media.forEach((media) => {
     const mediaCardDOM = mediaModel.getMediaCardDOM();
     mediaSection.appendChild(mediaCardDOM);
 })
-};
+}
 
-//Filtre v2
+//Filtre menu v2
 let btDropdown = document.getElementById("btDropdown") //Par défaut sur "Popularité"
 let dropdownContent = document.getElementById("dropdownContent")
 let dropdownItem = document.getElementsByClassName("dropdownItem")
@@ -86,38 +78,41 @@ window.onclick = function (event) {
             if (dropdownContentOpen.classList.contains("show")) {
                 dropdownContentOpen.classList.remove("show");
             }
-
+            //Le titre du filtre est injecté dans le titre du bouton
+            if (event.target.matches('.dropdownItem')) {
+                document.getElementById('btDropdown').textContent = event.target.textContent;
+            }
         }
     }
-    //Le titre du filtre est injecté dans le titre du bouton
     // Une fonction est lancée selon le contenu du bouton
-    if (event.target.matches('.dropdownItem')) {
-        document.getElementById('btDropdown').textContent = event.target.textContent;
-        if (event.target.textContent === "Popularité") {
-            likesFiltrer();
-        }
-        if (event.target.textContent === "Date") {
-            dateFiltrer();
-        }
-        if (event.target.textcontent === "Titre") {
-            titreFiltrer();
-        }
+    
+}
+
+/*
+if (event.target.matches('dropdownItem')) {
+    const filters = document.getElementById('btDropdown')
+    if (event.target.textContent === "Popularité") {
+        getPhotographerProfile("popularity")
+    }
+    if (event.target.textContent === "Date") {
+        getPhotographerProfile("date")
+    }
+    if (event.target.textcontent === "Titre") {
+        getPhotographerProfile("title")
     }
 }
-
-function likesFiltrer() {
-
 }
 
-function dateFiltrer() {
+function filterUse() {
+    const filters = document.getElementById('btDropdown');
 
+    filters.addEventListener("change", function () {
+        getPhotographerProfile(filters.value);
+    });
 }
 
-function titreFiltrer() {
-
-}
-
-
+filterUse();
+*/
 /*
 //Filtre v1
 const dropdownIcon = () => {
