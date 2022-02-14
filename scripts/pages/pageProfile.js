@@ -6,12 +6,32 @@ const mediaSection = document.querySelector(".gallery-section");
 let profile = [];
 let media = [];
 
-async function getPhotographerProfile() {
+async function getPhotographerProfile(filter = "popularity") {
     await fetch("/data/photographersData.json")
         .then(res => res.json())
         .then((data) => {
             profile = data.photographers.find(photographer => photographer.id === +id);
             media = data.media.filter(media => media.photographerId === +id);
+            let mediaFitred = [];
+            switch (filter) {
+                case "popularity":
+                    mediaFitred = media.sort((a, b) => b.likes - a.likes);
+                    break;
+                case "date":
+                    mediaFitred = media.sort((a, b) => {
+                        return new Date(a.date).valueOf() - new Date(b.date).valueOf();
+                    });
+                    break;
+                case "titre":
+                    mediaFitred = media.sort((a, b) => {
+                        if (a.title.toLowerCase() < b.title.toLowerCase()) {
+                            return -1;
+                        } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+                            return 1;
+                        }
+                    });
+            }
+            displayMedia(mediaFitred);
         });
 
     return { profile, media }
@@ -20,6 +40,7 @@ async function getPhotographerProfile() {
 async function init() {
     const data = await getPhotographerProfile();
     displayProfile(data);
+    displayMedia(data);
 }
 
 init();
@@ -30,15 +51,16 @@ async function displayProfile(profile) {
     const profileModel = profileFactories(profile);
     const profileCardDOM = profileModel.cardProfile();
     header.appendChild(profileCardDOM);
-
-
-    media.forEach((media) =>  {
-        const mediaModel = mediaFactories(media);
-        const mediaCardDOM = mediaModel.getMediaCardDOM();
-        mediaSection.appendChild(mediaCardDOM);
-    })
-  
 }
+
+async function displayMedia() {
+media.forEach((media) => {
+    const mediaModel = mediaFactories(media);
+    const mediaCardDOM = mediaModel.getMediaCardDOM();
+    mediaSection.appendChild(mediaCardDOM);
+})
+};
+
 //Filtre v2
 let btDropdown = document.getElementById("btDropdown") //Par défaut sur "Popularité"
 let dropdownContent = document.getElementById("dropdownContent")
