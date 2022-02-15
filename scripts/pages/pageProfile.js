@@ -12,18 +12,17 @@ async function getPhotographerProfile(filter) {
         .then((data) => {
             profile = data.photographers.find(photographer => photographer.id === +id);
             media = data.media.filter(media => media.photographerId === +id);
-            let mediaFlitred = [];
             switch (filter) {
                 case "popularity":
-                    mediaFlitred = media.sort((a, b) => b.likes - a.likes);
+                    media.sort((a, b) => b.likes - a.likes);
                     break;
                 case "date":
-                    mediaFlitred = media.sort((a, b) => {
+                    media.sort((a, b) => {
                         return new Date(a.date).valueOf() - new Date(b.date).valueOf();
                     });
                     break;
                 case "title":
-                    mediaFlitred = media.sort((a, b) => {
+                    media.sort((a, b) => {
                         if (a.title.toLowerCase() < b.title.toLowerCase()) {
                             return -1;
                         } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
@@ -35,6 +34,14 @@ async function getPhotographerProfile(filter) {
 
     return { profile, media }
 }
+
+async function init() {
+    const data = await getPhotographerProfile();
+    displayProfile(data);
+    displayMedia(data);
+}
+
+init();
 
 
 async function displayProfile(profile) {
@@ -85,34 +92,21 @@ window.onclick = function (event) {
         }
     }
     // Une fonction est lancée selon le contenu du bouton
-    
-}
-
-/*
-if (event.target.matches('dropdownItem')) {
-    const filters = document.getElementById('btDropdown')
-    if (event.target.textContent === "Popularité") {
-        getPhotographerProfile("popularity")
-    }
-    if (event.target.textContent === "Date") {
-        getPhotographerProfile("date")
-    }
-    if (event.target.textcontent === "Titre") {
-        getPhotographerProfile("title")
+    if (event.target.matches('dropdownItem')) {
+        const filters = document.getElementById('btDropdown')
+        if (filters.textContent === "Popularité") {
+            getPhotographerProfile("popularity")
+        }
+        if (filters.textContent === "Date") {
+            getPhotographerProfile("date")
+        }
+        if (filters.textcontent === "Titre") {
+            getPhotographerProfile("title")
+        }
     }
 }
-}
 
-function filterUse() {
-    const filters = document.getElementById('btDropdown');
 
-    filters.addEventListener("change", function () {
-        getPhotographerProfile(filters.value);
-    });
-}
-
-filterUse();
-*/
 /*
 //Filtre v1
 const dropdownIcon = () => {
