@@ -171,6 +171,8 @@ form input {
     text-align: left;
     margin-left: 50px;
     position: relative;
+    border-top: 1px solid #FFF;
+    border-bottom: 1px solid #FFF;
 }
 
 .btDropdown:hover,
@@ -187,19 +189,16 @@ form input {
     transform: rotate(45deg);
     position: absolute;
     right: 20px;
-    top: 19px;
+    top: 22px;
+    z-index: 10;
 }
 
-#dropdownFirst::after {
-    content: '';
-    width: 7px;
-    height: 7px;
-    border-right: 3px solid white;
-    border-bottom: 3px solid white;
+.btDropdown:focus::after {
     transform: rotate(225deg);
-    position: absolute;
-    right: 20px;
-    top: 25px;
+}
+
+.dropdownItem {
+    border-top: 1px solid #FFF;
 }
 
 .dropdown-content {
@@ -232,16 +231,6 @@ form input {
 
 .dropdown-content p:last-child {
     border-radius: 0px 0px 5px 5px;
-}
-
-.dropdown-content p:last-child::after {
-    content: '';
-    background-color: white;
-    width: 140px;
-    height: 1px;
-    position: absolute;
-    left: 15px;
-    top: 0;
 }
 
 .show {
