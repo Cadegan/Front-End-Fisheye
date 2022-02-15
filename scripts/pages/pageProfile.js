@@ -5,15 +5,16 @@ const mediaSection = document.querySelector(".gallery-section");
 
 let profile = [];
 let media = [];
+var filter = "date"
 
-async function getPhotographerProfile(filter) {
+async function getPhotographerProfile() {
     await fetch("/data/photographersData.json")
         .then(res => res.json())
         .then((data) => {
             profile = data.photographers.find(photographer => photographer.id === +id);
             media = data.media.filter(media => media.photographerId === +id);
             switch (filter) {
-                case "popularity":
+                case "review":
                     media.sort((a, b) => b.likes - a.likes);
                     break;
                 case "date":
@@ -46,18 +47,18 @@ init();
 
 async function displayProfile(profile) {
     const header = document.querySelector(".photograph-header")
-    
+
     const profileModel = profileFactories(profile);
     const profileCardDOM = profileModel.cardProfile();
     header.appendChild(profileCardDOM);
 }
 
 async function displayMedia() {
-media.forEach((media) => {
-    const mediaModel = mediaFactories(media);
-    const mediaCardDOM = mediaModel.getMediaCardDOM();
-    mediaSection.appendChild(mediaCardDOM);
-})
+    media.forEach((media) => {
+        const mediaModel = mediaFactories(media);
+        const mediaCardDOM = mediaModel.getMediaCardDOM();
+        mediaSection.appendChild(mediaCardDOM);
+    })
 }
 
 //Filtre menu v2
@@ -65,8 +66,12 @@ let btDropdown = document.getElementById("btDropdown") //Par défaut sur "Popula
 let dropdownContent = document.getElementById("dropdownContent")
 let dropdownItem = document.getElementsByClassName("dropdownItem")
 
+btDropdown.addEventListener("change", function () {
+    filter = btDropdown.value;
+})
 
-function dropdownFc () {
+
+function dropdownFc() {
     dropdownContent.classList.toggle('show')
     console.log("show ::", dropdownContent)
     console.log(document.body)
@@ -91,21 +96,24 @@ window.onclick = function (event) {
             }
         }
     }
-    // Une fonction est lancée selon le contenu du bouton
-    if (event.target.matches('dropdownItem')) {
-        const filters = document.getElementById('btDropdown')
-        if (filters.textContent === "Popularité") {
-            getPhotographerProfile("popularity")
-        }
-        if (filters.textContent === "Date") {
-            getPhotographerProfile("date")
-        }
-        if (filters.textcontent === "Titre") {
-            getPhotographerProfile("title")
-        }
+}
+
+function filterSelected () {
+    if (dropdownItem.textContent === "Popularité") {
+        return "review";
+    }
+    if (dropdownItem.textContent === "Date") {
+        return "date"
+    }
+    if (dropdownItem.textcontent === "Titre") {
+        return "title"
     }
 }
 
+
+// Fermeture du menu
+// On ecoute si un evenement se realise à l'exterieur du menu
+// On le cache si c'est le cas
 
 /*
 //Filtre v1
