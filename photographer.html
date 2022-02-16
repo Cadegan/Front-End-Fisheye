@@ -22,14 +22,20 @@
         <div id="menu_dropdown" aria-expanded="false" href="#">
         <button aria-labelledby="order-button" aria-label="Order by" id="btDropdown" class="btDropdown">Popularité</button>
           <div id="dropdownContent" class="dropdown-content">
-            <p class="dropdownItem" id="dropdownFirst popularity" tabindex="0" onkeypress="dropdownFc()">Popularité</p>
-            <p class="dropdownItem" id="date" tabindex="0" onkeypress="dropdownFc()">Date</p>
-            <p class="dropdownItem" id="title" tabindex="0" onkeypress="dropdownFc()">Titre</p>
+            <p class="dropdownItem" id="dropdownFirst popularity" tabindex="0" data-filter="popularity">Popularité</p>
+            <p class="dropdownItem" id="date" tabindex="0" data-filter="date">Date</p>
+            <p class="dropdownItem" id="title" tabindex="0" data-filter="title">Titre</p>
           </div>
         </div>
       </div>
       <div class="gallery-section">
-
+      </div>
+      <div id="likesAndPrice">
+        <div id="likes">
+          <div id="totalLikesNumber">test</div>
+          <img src="/assets/icons/heart.svg" alt="Likes" />
+        </div>
+        <div class="priceDay"></div>
       </div>
     </main>
     <div id="contact_modal">
@@ -47,6 +53,7 @@
 				</form>
 			</div>
 		</div>
+    <script src="scripts/factories/indexPhotographerFactories.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
     <script src="/scripts/factories/mediaFactories.js"></script>
     <script src="scripts/factories/profileFactories.js"></script>
