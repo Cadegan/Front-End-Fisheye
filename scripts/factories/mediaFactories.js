@@ -30,21 +30,19 @@ function mediaFactories(data) {
         heart.setAttribute("alt", "Likes");
         heart.tabIndex = 0;
 
-        heart.addEventListener("keyup", function (event) {
-            if (event.keyCode === 13) {
-                event.stopPropagation();
-                mediaLike += 1;
-                likeCount.innerText = mediaLike;
-                addLikes();
-            }
-        });
-
-        heart.addEventListener("click", () => {
+        heart.addEventListener("click", (event) => {
+            event.stopPropagation()
             mediaLike += 1;
             likeCount.innerText = mediaLike;
             addLikes();
         }, {once : true}
         );
+
+        //Fonction des likes
+        function addLikes() {
+            const likes = document.getElementById("totalLikesNumber")
+            likes.innerHTML = Number(likes.innerHTML) + 1;
+        }        
 
         const reviewElement = document.createElement('div');
         reviewElement.className = 'reviewElement';
@@ -78,9 +76,6 @@ function mediaFactories(data) {
             movie.setAttribute('controls', 'controls');
         }
 
-        //Fonction des likes
-
-
         return (article);
 
     }
@@ -88,9 +83,4 @@ function mediaFactories(data) {
     return { image, video, likes, title, id, photographerId, getMediaCardDOM };
 }
 
-function addLikes () {
-    const likes = document.getElementById("totalLikesNumber")
-    likes.innerHTML = Number(likes.innerHTML) + 1;
-
-    document.getElementById("totalLikesNumber").innerHTML = totalLikesNumber;
-}
+ 
