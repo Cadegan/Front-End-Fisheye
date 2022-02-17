@@ -7,6 +7,7 @@ function mediaFactories(data) {
 
         const article = document.createElement('article');
         article.className = 'media-container'
+        article.tabIndex = 0;
 
 
         const titles = document.createElement('span');
@@ -19,13 +20,31 @@ function mediaFactories(data) {
         const movie = document.createElement('video');
         movie.className = 'photo video'
 
+        let mediaLike = likes;
         const likeCount = document.createElement('span');
         likeCount.className = 'likes';
         likeCount.textContent = likes;
 
-        const heart = document.createElement('span');
+        const heart = document.createElement('i');
         heart.className = 'heartIcon';
         heart.setAttribute("alt", "Likes");
+        heart.tabIndex = 0;
+
+        heart.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.stopPropagation();
+                mediaLike += 1;
+                likeCount.innerText = mediaLike;
+                addLikes();
+            }
+        });
+
+        heart.addEventListener("click", () => {
+            mediaLike += 1;
+            likeCount.innerText = mediaLike;
+            addLikes();
+        }, {once : true}
+        );
 
         const reviewElement = document.createElement('div');
         reviewElement.className = 'reviewElement';
@@ -59,9 +78,19 @@ function mediaFactories(data) {
             movie.setAttribute('controls', 'controls');
         }
 
+        //Fonction des likes
+
+
         return (article);
 
     }
 
     return { image, video, likes, title, id, photographerId, getMediaCardDOM };
+}
+
+function addLikes () {
+    const likes = document.getElementById("totalLikesNumber")
+    likes.innerHTML = Number(likes.innerHTML) + 1;
+
+    document.getElementById("totalLikesNumber").innerHTML = totalLikesNumber;
 }
