@@ -3,6 +3,7 @@ let urlProfile = new URLSearchParams(window.location.search)
 let id = urlProfile.get('id');
 const mediaSection = document.querySelector(".gallery-section");
 
+
 let profile = [];
 let media = [];
 var filter = "date"
@@ -39,27 +40,27 @@ async function getPhotographerProfile() {
 
 async function init() {
     const data = await getPhotographerProfile();
-    displayProfile(data);
-    displayMedia(data);
+    displayData(data);
 }
 
 init();
 
 
-function displayProfile(profile) {
+function displayData({profile, media}) {
     const header = document.querySelector(".photograph-header")
-
     const profileModel = profileFactories(profile);
     const profileCardDOM = profileModel.cardProfile();
     header.appendChild(profileCardDOM);
-}
 
-function displayMedia() {
+
     media.forEach((media) => {
         const mediaModel = mediaFactories(media);
         const mediaCardDOM = mediaModel.getMediaCardDOM();
         mediaSection.appendChild(mediaCardDOM);
     })
+    
+    var priceDay = profile.price + "€ / Jour";
+    document.getElementById("priceDay").innerHTML = priceDay
 }
 
 //Filtre menu v2
@@ -109,4 +110,3 @@ function filterSelected () {
 
 //Calcul des likes
 document.getElementById("totalLikesNumber").innerHTML = totalLikesNumber;
-document.getElementsByClassName("priceDay")

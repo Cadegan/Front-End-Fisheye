@@ -19,9 +19,11 @@ function profileFactories() {
         quote.className = 'quote';
         quote.textContent = tagline;
 
+        /*
         const priceDay = document.createElement('div');
         priceDay.className = 'priceDay'
         priceDay.textContent = price + "€/jour";
+        */
 
         const presentation = document.createElement('div');
         presentation.className = 'presentation'
