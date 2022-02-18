@@ -7,7 +7,7 @@ const mediaSection = document.querySelector(".gallery-section");
 let profile = [];
 let media = [];
 var filter = "date"
-var totalLikesNumber = 0;
+var totalLikesNumberShow = 0;
 
 async function getPhotographerProfile() {
     await fetch("/data/photographersData.json")
@@ -52,15 +52,17 @@ function displayData({profile, media}) {
     const profileCardDOM = profileModel.cardProfile();
     header.appendChild(profileCardDOM);
 
+    var priceDay = profile.price + "€ / Jour";
+    document.getElementById("priceDay").innerHTML = priceDay
 
     media.forEach((media) => {
         const mediaModel = mediaFactories(media);
         const mediaCardDOM = mediaModel.getMediaCardDOM();
         mediaSection.appendChild(mediaCardDOM);
     })
+    //Calcul des likes
+    document.getElementById("totalLikesNumber").innerHTML = totalLikesNumberShow;
     
-    var priceDay = profile.price + "€ / Jour";
-    document.getElementById("priceDay").innerHTML = priceDay
 }
 
 //Filtre menu v2
@@ -107,6 +109,3 @@ function filterSelected () {
         return "title"
     }
 }
-
-//Calcul des likes
-document.getElementById("totalLikesNumber").innerHTML = totalLikesNumber;

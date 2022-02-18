@@ -36,13 +36,7 @@ function mediaFactories(data) {
             likeCount.innerText = mediaLike;
             addLikes();
         }, {once : true}
-        );
-
-        //Fonction des likes
-        function addLikes() {
-            const likes = document.getElementById("totalLikesNumber")
-            likes.innerHTML = Number(likes.innerHTML) + 1;
-        }        
+        );    
 
         const reviewElement = document.createElement('div');
         reviewElement.className = 'reviewElement';
@@ -83,4 +77,8 @@ function mediaFactories(data) {
     return { image, video, likes, title, id, photographerId, getMediaCardDOM };
 }
 
- 
+ //Fonction des likes
+        function addLikes() {
+            const likes = document.getElementById("totalLikesNumber")
+            likes.innerHTML = Number(likes.innerHTML) + 1;
+        }
