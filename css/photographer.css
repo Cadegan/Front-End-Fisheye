@@ -125,6 +125,7 @@ form input {
     margin-left: auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 40px;
 }
 
 .media-container {
@@ -139,6 +140,7 @@ form input {
     height: 25vw;
     object-fit: cover;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .reviewElement {
@@ -260,6 +262,7 @@ form input {
     height: 20px;
     width: 20px;
     margin-left: 5px;
+    cursor: pointer;
 }
 
 #likesAndPrice {
@@ -279,6 +282,7 @@ form input {
     height: 20px;
     width: 20px;
     filter: brightness(0);
+    margin-left: 5px;
 }
 
 #likesAndPrice * {
@@ -288,5 +292,5 @@ form input {
 
 #likes {
     display: flex;
-    align-items : center;
+    align-items: center;
 }

@@ -19,8 +19,7 @@ function mediaFactories(data) {
 
         const movie = document.createElement('video');
         movie.className = 'photo video'
-
-        let mediaLike = likes;
+        
         const likeCount = document.createElement('span');
         likeCount.className = 'likes';
         likeCount.textContent = likes;
@@ -29,6 +28,9 @@ function mediaFactories(data) {
         heart.className = 'heartIcon';
         heart.setAttribute("alt", "Likes");
         heart.tabIndex = 0;
+
+        //Declare la variable mediaLike et charge les likes
+        let mediaLike = likes;
 
         heart.addEventListener("click", (event) => {
             event.stopPropagation()
@@ -74,7 +76,7 @@ function mediaFactories(data) {
 
     }
 
-    return { image, video, likes, title, id, photographerId, getMediaCardDOM };
+    return { image, video, likes, title, id, photographerId, date, getMediaCardDOM };
 }
 
  //Fonction des likes

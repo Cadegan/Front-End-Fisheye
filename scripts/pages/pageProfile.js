@@ -3,18 +3,23 @@ let urlProfile = new URLSearchParams(window.location.search)
 let id = urlProfile.get('id');
 const mediaSection = document.querySelector(".gallery-section");
 
-
+//Déclaration des variables
 let profile = [];
 let media = [];
 var filter = "date"
 var totalLikesNumberShow = 0;
 
+//Aquisition des éléments du photographe
 async function getPhotographerProfile() {
+    //Consultation de l'API
     await fetch("/data/photographersData.json")
         .then(res => res.json())
         .then((data) => {
+            //Charge les éléments du profile dans la variable profile selon l'id du photographe
             profile = data.photographers.find(photographer => photographer.id === +id);
+            //Charge les éléments des media dans la variable media selon l'id du photographe
             media = data.media.filter(media => media.photographerId === +id);
+            //Fonction de filtrage selon les données du taableau
             switch (filter) {
                 case "review":
                     media.sort((a, b) => b.likes - a.likes);
@@ -34,7 +39,7 @@ async function getPhotographerProfile() {
                     });
             }
         });
-
+    //Retourne le profil et les medias
     return { profile, media }
 }
 
@@ -47,6 +52,7 @@ init();
 
 
 function displayData({profile, media}) {
+    //Charges les informations du photographes selon le profileFactories
     const header = document.querySelector(".photograph-header")
     const profileModel = profileFactories(profile);
     const profileCardDOM = profileModel.cardProfile();
@@ -56,11 +62,15 @@ function displayData({profile, media}) {
     document.getElementById("priceDay").innerHTML = priceDay
 
     media.forEach((media) => {
+        //Charge les likes des medias et les additionne
+        const { likes } = media;
+        totalLikesNumberShow += likes;
+        //Charge les medias selon le mediaFactories
         const mediaModel = mediaFactories(media);
         const mediaCardDOM = mediaModel.getMediaCardDOM();
         mediaSection.appendChild(mediaCardDOM);
     })
-    //Calcul des likes
+    //Affiches le total des likes
     document.getElementById("totalLikesNumber").innerHTML = totalLikesNumberShow;
     
 }
