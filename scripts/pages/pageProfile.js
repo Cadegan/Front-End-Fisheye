@@ -69,6 +69,30 @@ function displayData({profile, media}) {
         const mediaModel = mediaFactories(media);
         const mediaCardDOM = mediaModel.getMediaCardDOM();
         mediaSection.appendChild(mediaCardDOM);
+
+
+        //lightbox
+        function lightbox () {
+            const root = document.querySelector("body, html");
+            const medias = document.querySelectorAll(".photo")
+            const l = medias.length;
+
+            for (var i = 0; i < l; i++) {
+                medias[i].addEventListener("click", function (i) {
+                    var currentMedia = this;
+                    const screenItem = document.createElement('div');
+                    screenItem.id = 'Lightbox-screen';
+                    mediaSection.prepend(screenItem);
+                    var route = currentMedia.scr;
+                    root.style.innerHTML = 'hidden';
+                    screenItem.innerHTML = '<div class="gg-media">';
+                    const mediaItem = document.querySelector('gg-media');
+                    mediaItem.innerHTML = '< src="' + route + '">';
+                });
+            }
+        }
+
+        lightbox ();
     })
     //Affiches le total des likes
     document.getElementById("totalLikesNumber").innerHTML = totalLikesNumberShow;
