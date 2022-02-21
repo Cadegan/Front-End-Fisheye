@@ -6,7 +6,6 @@ const mediaSection = document.querySelector(".gallery-section");
 //Déclaration des variables
 let profile = [];
 let media = [];
-var filter = "date"
 var totalLikesNumberShow = 0;
 
 //Aquisition des éléments du photographe
@@ -69,30 +68,6 @@ function displayData({profile, media}) {
         const mediaModel = mediaFactories(media);
         const mediaCardDOM = mediaModel.getMediaCardDOM();
         mediaSection.appendChild(mediaCardDOM);
-
-
-        //lightbox
-        function lightbox () {
-            const root = document.querySelector("body, html");
-            const medias = document.querySelectorAll(".photo")
-            const l = medias.length;
-
-            for (var i = 0; i < l; i++) {
-                medias[i].addEventListener("click", function (i) {
-                    var currentMedia = this;
-                    const screenItem = document.createElement('div');
-                    screenItem.id = 'Lightbox-screen';
-                    mediaSection.prepend(screenItem);
-                    var route = currentMedia.scr;
-                    root.style.innerHTML = 'hidden';
-                    screenItem.innerHTML = '<div class="gg-media">';
-                    const mediaItem = document.querySelector('gg-media');
-                    mediaItem.innerHTML = '< src="' + route + '">';
-                });
-            }
-        }
-
-        lightbox ();
     })
     //Affiches le total des likes
     document.getElementById("totalLikesNumber").innerHTML = totalLikesNumberShow;
@@ -102,7 +77,8 @@ function displayData({profile, media}) {
 //Filtre menu v2
 let btDropdown = document.getElementById("btDropdown") //Par défaut sur "Popularité"
 let dropdownContent = document.getElementById("dropdownContent")
-let dropdownItem = document.getElementsByClassName("dropdownItem")
+let dropdownItem = document.getElementsByTagName("dropdownItem")
+let dropdownItemValue = dropdownItem.textContent;
 
 
 function dropdownFc() {
@@ -133,13 +109,40 @@ window.onclick = function (event) {
 }
 
 function filterSelected () {
-    if (dropdownItem.textContent === "Popularité") {
-        return "review";
+    if (btDropdown === 'Popularité') {
+        const filter = 'review';
+        return filter;
     }
-    if (dropdownItem.textContent === "Date") {
-        return "date"
+    if (btDropdown === 'Date') {
+        const filter = 'date';
+        return filter;
     }
-    if (dropdownItem.textcontent === "Titre") {
-        return "title"
+    if (btDropdown === 'Titre') {
+        const filter = 'title';
+        return filter;
     }
 }
+
+const filter = filterSelected();
+
+/*
+//Lightbox
+    const root = document.querySelector("body, html");
+    const medias = document.querySelectorAll(".photo")
+    const l = medias.length;
+
+    for (var i = 0; i < l; i++) {
+        medias[i].addEventListener("click", function (i) {
+            var currentMedia = this;
+            screenItem = document.createElement('div');
+            screenItem.id = 'Lightbox-screen';
+            mediaSection.prepend(screenItem);
+            var route = currentMedia.scr;
+            root.style.innerHTML = 'hidden';
+            screenItem.innerHTML = '<div class="gg-media"></div><div class="gg-close gg-btn">&times</div><div class="gg-next gg-btn">&rarr;</div><div class="gg-prev gg-btn">&larr;</div>';
+            //const first = medias[0].scr, last = medias[l - 1].scr;
+            const mediaItem = document.querySelector('gg-media');
+            mediaItem.innerHTML = '< src="' + route + '">';
+        });
+    }
+*/
