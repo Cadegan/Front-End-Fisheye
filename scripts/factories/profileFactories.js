@@ -25,6 +25,10 @@ function profileFactories() {
         priceDay.textContent = price + "€/jour";
         */
 
+        const photographeName = document.querySelector(".modal-header")
+        photographeName.innerHTML = "Contactez-moi" + "<br/>" + name;
+        
+
         const presentation = document.createElement('div');
         presentation.className = 'presentation'
         presentation.appendChild(h1);
@@ -35,10 +39,6 @@ function profileFactories() {
         article.appendChild(presentation);
         article.appendChild(contact);
         article.appendChild(img);
-
-        const photographeName = document.getElementsByClassName('#photographeName');
-        photographeName.textContent = name;
-
         return (article);
     }
     return { name, picture, location, tagline, cardProfile }
