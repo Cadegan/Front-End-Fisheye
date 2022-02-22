@@ -44,13 +44,13 @@ async function getPhotographerProfile() {
 
 async function init() {
     const data = await getPhotographerProfile();
-    displayData(data);
+    displayProfile(data);
 }
 
 init();
 
 
-function displayData({profile, media}) {
+function displayProfile({profile, media}) {
     //Charges les informations du photographes selon le profileFactories
     const header = document.querySelector(".photograph-header")
     const profileModel = profileFactories(profile);
@@ -103,28 +103,15 @@ window.onclick = function (event) {
             //Le titre du filtre est injecté dans le titre du bouton
             if (event.target.matches('.dropdownItem')) {
                 document.getElementById('btDropdown').textContent = event.target.textContent;
+                filter = event.target.dataset.filterType;
+                mediaSection.innerHTML=""
+                init();
             }
         }
     }
 }
 
-var filter = 'popularity'
-
-dropdownItemValue.onchange = function filterSelected() {
-    if (dropdownItemValue === 'Titre') {
-        return 'title';
-    }
-    
-    if (dropdownItemValue === 'Date') {
-        return 'date';
-    }
-
-    if (dropdownItemValue === 'Popularité') {
-        return 'review'; 
-    }
-}
-
-console.log(filter)
+var filter = 'date'
 
 /*
 //Lightbox
