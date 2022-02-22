@@ -35,6 +35,10 @@ function profileFactories() {
         article.appendChild(presentation);
         article.appendChild(contact);
         article.appendChild(img);
+
+        const photographeName = document.getElementsByClassName('#photographeName');
+        photographeName.textContent = name;
+
         return (article);
     }
     return { name, picture, location, tagline, cardProfile }

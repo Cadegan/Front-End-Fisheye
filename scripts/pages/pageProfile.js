@@ -83,7 +83,6 @@ let dropdownItemValue = btDropdown.textContent;
 
 function dropdownFc() {
     dropdownContent.classList.toggle('show')
-    filter();
     /*console.log("show ::", dropdownContent)
     console.log(document.body)*/
 }
@@ -109,11 +108,13 @@ window.onclick = function (event) {
     }
 }
 
-const filter = () => {
+var filter = 'popularity'
+
+dropdownItemValue.onchange = function filterSelected() {
     if (dropdownItemValue === 'Titre') {
         return 'title';
     }
-
+    
     if (dropdownItemValue === 'Date') {
         return 'date';
     }
@@ -121,7 +122,7 @@ const filter = () => {
     if (dropdownItemValue === 'Popularité') {
         return 'review'; 
     }
-};
+}
 
 console.log(filter)
 
