@@ -18,7 +18,7 @@ async function getPhotographerProfile() {
             profile = data.photographers.find(photographer => photographer.id === +id);
             //Charge les éléments des media dans la variable media selon l'id du photographe
             media = data.media.filter(media => media.photographerId === +id);
-            //Fonction de filtrage selon les données du taableau
+            //Fonction de filtrage selon les données du tableau
             switch (filter) {
                 case "review":
                     media.sort((a, b) => b.likes - a.likes);
@@ -74,17 +74,18 @@ function displayData({profile, media}) {
     
 }
 
-//Filtre menu v2
-let btDropdown = document.getElementById("btDropdown") //Par défaut sur "Popularité"
+//Filtre menu
+let btDropdown = document.querySelector(".btDropdown") //Par défaut sur "Popularité"
 let dropdownContent = document.getElementById("dropdownContent")
 let dropdownItem = document.getElementsByTagName("dropdownItem")
-let dropdownItemValue = dropdownItem.textContent;
+let dropdownItemValue = btDropdown.textContent;
 
 
 function dropdownFc() {
     dropdownContent.classList.toggle('show')
-    console.log("show ::", dropdownContent)
-    console.log(document.body)
+    filter();
+    /*console.log("show ::", dropdownContent)
+    console.log(document.body)*/
 }
 
 btDropdown.addEventListener('click', dropdownFc);
@@ -108,22 +109,21 @@ window.onclick = function (event) {
     }
 }
 
-function filterSelected () {
-    if (btDropdown === 'Popularité') {
-        const filter = 'review';
-        return filter;
+const filter = () => {
+    if (dropdownItemValue === 'Titre') {
+        return 'title';
     }
-    if (btDropdown === 'Date') {
-        const filter = 'date';
-        return filter;
-    }
-    if (btDropdown === 'Titre') {
-        const filter = 'title';
-        return filter;
-    }
-}
 
-const filter = filterSelected();
+    if (dropdownItemValue === 'Date') {
+        return 'date';
+    }
+
+    if (dropdownItemValue === 'Popularité') {
+        return 'review'; 
+    }
+};
+
+console.log(filter)
 
 /*
 //Lightbox

@@ -1,3 +1,105 @@
+//filtre v3
+
+let mediasToFilter = getPhotographerProfile();
+//Filtre par likes
+async function filterReview() {
+    return mediasToFilter.sort((a, b) => b.likes - a.likes);
+}
+//Filtre par date
+async function filterDate() {
+    return mediasToFilter.sort((a, b) => {
+        if (a.title.toLowerCase() < b.title.toLowerCase()) {
+            return -1;
+        } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+            return 1;
+        }
+    });
+}
+//Filtre par titre
+async function filterTitle() {
+    return mediasToFilter.sort((a, b) => {
+        if (a.title.toLowerCase() < b.title.toLowerCase()) {
+            return -1;
+        } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+            return 1;
+        }
+    });
+}
+
+async function filterOptions() {
+    const filterSelected = document.getElementById("btDropdown")
+    if (filterSelected.value === "popularity") {
+        mediasToFilter = await filterReview();
+    }
+    if (filterSelected.value === "date") {
+        mediasToFilter = await filterDate();
+    }
+    if (filterSelected.value === "title") {
+        mediasToFilter = await filterTitle();
+    }
+    console.log(mediasToFilter)
+}
+
+//Filtre v2
+function filterSelected (media) {
+    var btDropdown = document.querySelector(".btDropdown")
+
+    btDropdown.addEventListener("change", (event) => {
+        if (event.target.value === "Popularité") {
+            media.sort( function (a, b) {
+                console.log(event.target.value);
+                return b.likes - a.likes
+            });
+        } else if (event.target.value === "Date") {
+            media.sort( function (a, b) {
+                console.log(event.target.value);
+                return new Date(a.date).valueOf() - new Date(b.date).valueOf();
+            });
+        } else if (event.target.value === "Titre") {
+            media.sort(function (a, b) {
+                console.log(event.target.value);
+                if (a.title.toLowerCase() < b.title.toLowerCase()) {
+                    return -1;
+                } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+                    return 1;
+                }
+            });
+        }
+        console.log(event.target.value);
+        const mediaSection = document.querySelector(".gallery-section");
+        mediaSection.innerHTML = "";
+
+        displayData(media)
+
+    });
+}
+
+//Filtre v1
+function filterSelected () {
+    if (btDropdown.textContent === 'Popularité') {
+        const filter = 'review';
+        return filter;
+    }
+    if (btDropdown.textContent === 'Date') {
+        const filter = 'date';
+        return filter;
+    }
+    if (btDropdown.textContent === 'Titre') {
+        const filter = 'title';
+        return filter;
+    }
+}
+
+filterSelected();
+
+// Filtre v0
+
+function filterSelected (option) {
+    var filter = option.getAttribute('filter-type');
+    return filter;
+}
+
+
 const popularitySelected = document.getElementById('popularity')
 const dateSelected = document.getElementById('date')
 const titleSelected = document.getElementById('title')
@@ -31,7 +133,7 @@ function filterTitle () {
     filterTitle(titleSelection)
 }
 
-/*
+
 
 async function filterMedia(filter) {
     await fetch("/data/photographersData.json")
@@ -60,9 +162,9 @@ async function filterMedia(filter) {
 
             displayMedia(mediaFitred);
         });
+    }
 
-
-        /*
+/*
 
     const dropdownIcon = () => {
         const dropdown = document.createElement('span');
