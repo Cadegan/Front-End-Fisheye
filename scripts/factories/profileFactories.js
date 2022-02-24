@@ -1,4 +1,4 @@
-function profileFactories() {
+function profileFactories(profile) {
     const { name, city, country, tagline, price, portrait } = profile;
     const picture = `assets/photographers/${portrait}`;
 

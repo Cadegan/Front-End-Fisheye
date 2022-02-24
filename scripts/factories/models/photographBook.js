@@ -1,5 +1,5 @@
 //Informations des productions des photographes
-class photographBook {
+export default class PhotographBook {
     constructor (media) {
         this._id = media.id
         this._photographerId = media.photographerId

@@ -1,3 +1,24 @@
+//V4 fonctionnel
+
+switch (filter) {
+    case "review":
+        media.sort((a, b) => b.likes - a.likes);
+        break;
+    case "date":
+        media.sort((a, b) => {
+            return new Date(a.date).valueOf() - new Date(b.date).valueOf();
+        });
+        break;
+    case "title":
+        media.sort((a, b) => {
+            if (a.title.toLowerCase() < b.title.toLowerCase()) {
+                return -1;
+            } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+                return 1;
+            }
+        });
+}
+
 //filtre v3
 
 let mediasToFilter = getPhotographerProfile();

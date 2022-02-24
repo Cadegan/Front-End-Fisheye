@@ -1,4 +1,6 @@
 //Page profil du photographe
+import PhotographBook from '../factories/models/photographBook.js'
+import BookTemplate from '../factories/templates/bookTemplate.js'
 let urlProfile = new URLSearchParams(window.location.search)
 let id = urlProfile.get('id');
 const mediaSection = document.querySelector(".gallery-section");
@@ -6,10 +8,11 @@ const mediaSection = document.querySelector(".gallery-section");
 //Déclaration des variables
 let profile = [];
 let media = [];
+let gallery = [];
 var totalLikesNumberShow = 0;
 
 //Aquisition des éléments du photographe
-async function getPhotographerProfile() {
+async function init() {
     //Consultation de l'API
     await fetch("/data/photographersData.json")
         .then(res => res.json())
@@ -18,39 +21,23 @@ async function getPhotographerProfile() {
             profile = data.photographers.find(photographer => photographer.id === +id);
             //Charge les éléments des media dans la variable media selon l'id du photographe
             media = data.media.filter(media => media.photographerId === +id);
-            //Fonction de filtrage selon les données du tableau
-            switch (filter) {
-                case "review":
-                    media.sort((a, b) => b.likes - a.likes);
-                    break;
-                case "date":
-                    media.sort((a, b) => {
-                        return new Date(a.date).valueOf() - new Date(b.date).valueOf();
-                    });
-                    break;
-                case "title":
-                    media.sort((a, b) => {
-                        if (a.title.toLowerCase() < b.title.toLowerCase()) {
-                            return -1;
-                        } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
-                            return 1;
-                        }
-                    });
-            }
+            profileDisplay()
+            mediaDisplay()
         });
     //Retourne le profil et les medias
     return { profile, media }
 }
 
+/*
 async function init() {
     const data = await getPhotographerProfile();
     displayData(data);
 }
 
 init();
+*/
 
-
-function displayData({profile, media}) {
+const profileDisplay = () => {
     //Charges les informations du photographes selon le profileFactories
     const header = document.querySelector(".photograph-header")
     const profileModel = profileFactories(profile);
@@ -59,20 +46,38 @@ function displayData({profile, media}) {
 
     var priceDay = profile.price + "€ / Jour";
     document.getElementById("priceDay").innerHTML = priceDay
-
-    media.forEach((media) => {
-        //Charge les likes des medias et les additionne
-        const { likes } = media;
-        totalLikesNumberShow += likes;
-        //Charge les medias selon le mediaFactories
-        const mediaModel = mediaFactories(media);
-        const mediaCardDOM = mediaModel.getMediaCardDOM();
-        mediaSection.appendChild(mediaCardDOM);
-    })
-    //Affiches le total des likes
-    document.getElementById("totalLikesNumber").innerHTML = totalLikesNumberShow;
-    
 }
+
+const mediaDisplay = () => {
+    //Réinitialise la gallery
+    mediaSection.innerHTML = ''
+    //Pour chaque media recupéré et injecté dans la const "media"
+    //On les ajoute au tableau "gallery"
+    media.forEach((media) => {
+        gallery.push(media);
+    })
+    //On affiche le nouveau tableau "gallery" selon les instructions de la fonction "showGallery"
+    showGallery(gallery)
+}
+
+function showGallery(medias) {
+    //Pour chaque media (data)
+    medias.forEach((media) => {
+        //On récupère les informations
+        const photographBook = new PhotographBook(media)
+        //On applique une mise en forme selon si c'est une
+        //image ou autre, donc video
+        const BookTemplateData = new BookTemplate(photographBook)
+        if (media.image) {
+            mediaSection.innerHTML += BookTemplateData.createImage()
+        } else {
+            mediaSection.innerHTML += BookTemplateData.createVideo()
+        }
+    })
+}
+
+//Affiches le total des likes
+document.getElementById("totalLikesNumber").innerHTML = totalLikesNumberShow;
 
 //Filtre menu
 let btDropdown = document.querySelector(".btDropdown") //Par défaut sur "Popularité"
@@ -105,30 +110,16 @@ window.onclick = function (event) {
                 document.getElementById('btDropdown').textContent = event.target.textContent;
                 filter = event.target.dataset.filterType;
                 mediaSection.innerHTML=""
-                init();
+                mediaDisplay();
             }
         }
     }
 }
 
 var filter = 'date'
-/*
-dropdownItemValue.onchange = function filterSelected() {
-    if (dropdownItemValue === 'Titre') {
-        return 'title';
-    }
-    
-    if (dropdownItemValue === 'Date') {
-        return 'date';
-    }
 
-    if (dropdownItemValue === 'Popularité') {
-        return 'review'; 
-    }
-}
+init()
 
-console.log(filter)
-*/
 /*
 //Lightbox
     const root = document.querySelector("body, html");
