@@ -63,7 +63,7 @@ const mediaDisplay = () => {
 function showGallery(medias) {
     //Pour chaque media (data)
     medias.forEach((media) => {
-        //On récupère les informations
+        //On récupère les informations à chaque media
         const photographBook = new PhotographBook(media)
         //On applique une mise en forme selon si c'est une
         //image ou autre, donc video

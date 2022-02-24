@@ -2,34 +2,19 @@
 export default class BookTemplate {
     constructor(media) {
         this._media = media;
-
-        //this.$warpper = document.createElement('div');
-        //this.$warpper.classList.add('media-card-warpper');
     }
 
     //Si c'est une image
     createImage() {
         return `
-            <article
-            class="media-container"
-            tabindex="0"
-            data-type="image">
-                <img class="photo
-                    alt="${this._media.title}"
-                    src="${this._media.image}"
-                    aria-label="${this._media.title}"
-                />
+            <article class="media-container" tabindex="0" data-type="image">
+                <img class="photo" alt="${this._media.title}" src="${this._media.image}"/>
                 <div class="titleContent">
                     <h3 class="title">${this._media.title}</h3>
                     <div class="reviewElement">
                         <span class="likes">${this._media.likes}</span>
-                        <i 
-                        class="heartIcon"
-                        alt="Likes"
-                        tabindex="0">
-                        </i>
+                        <i class="heartIcon" alt="Likes" tabindex="0"></i>
                     </div>
-                    
                 </div>
             </article>
         `
@@ -38,26 +23,15 @@ export default class BookTemplate {
     // Si c'est une video
     createVideo () {
         return `
-            <article
-            class="media-container"
-            tabindex="0"
-            data-type="video">
-                <video class="video
-                    alt="${this._media.title}"
-                    src="${this._media.image}"
-                    aria-label="${this._media.title}"
-                />
+            <article class="media-container" tabindex="0" data-type="video">
+                <video class="video" alt="${this._media.title}" src="${this._media.video}" aria-label="${this._media.title}" controls="controls"></video>
                 <div class="titleContent">
                     <h3 class="title">${this._media.title}</h3>
                     <div class="reviewElement">
                         <span class="likes">${this._media.likes}</span>
-                        <i 
-                        class="heartIcon"
-                        alt="Likes"
-                        tabindex="0">
+                        <i class="heartIcon" alt="Likes" tabindex="0">
                         </i>
                     </div>
-                    
                 </div>
             </article>
         `
