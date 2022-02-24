@@ -63,14 +63,17 @@ const mediaDisplay = () => {
 function showGallery(medias) {
     //Pour chaque media (data)
     medias.forEach((media) => {
+        const { likes } = media;
+        totalLikesNumberShow += likes;
         //On récupère les informations à chaque media
         const photographBook = new PhotographBook(media)
-        //On applique une mise en forme selon si c'est une
-        //image ou autre, donc video
+        //On applique une mise en forme selon si c'est une image ou autre, donc video
         const BookTemplateData = new BookTemplate(photographBook)
         if (media.image) {
+            //Ajoute un nouveau media "image"
             mediaSection.innerHTML += BookTemplateData.createImage()
         } else {
+            //Ajoute un nouveau media "video"
             mediaSection.innerHTML += BookTemplateData.createVideo()
         }
     })
