@@ -9,7 +9,6 @@ const mediaSection = document.querySelector(".gallery-section");
 let profile = [];
 let media = [];
 let gallery = [];
-var totalLikesNumberShow = 0;
 
 //Aquisition des éléments du photographe
 async function init() {
@@ -23,19 +22,12 @@ async function init() {
             media = data.media.filter(media => media.photographerId === +id);
             profileDisplay()
             mediaDisplay()
+            getAllLikes()
+            addLikes()
         });
     //Retourne le profil et les medias
     return { profile, media }
 }
-
-/*
-async function init() {
-    const data = await getPhotographerProfile();
-    displayData(data);
-}
-
-init();
-*/
 
 const profileDisplay = () => {
     //Charges les informations du photographes selon le profileFactories
@@ -51,8 +43,7 @@ const profileDisplay = () => {
 const mediaDisplay = () => {
     //Réinitialise la gallery
     mediaSection.innerHTML = ''
-    //Pour chaque media recupéré et injecté dans la const "media"
-    //On les ajoute au tableau "gallery"
+    //Pour chaque media recupéré et injecté dans la const "media", on les ajoute au tableau "gallery"
     media.forEach((media) => {
         gallery.push(media);
     })
@@ -63,8 +54,6 @@ const mediaDisplay = () => {
 function showGallery(medias) {
     //Pour chaque media (data)
     medias.forEach((media) => {
-        const { likes } = media;
-        totalLikesNumberShow += likes;
         //On récupère les informations à chaque media
         const photographBook = new PhotographBook(media)
         //On applique une mise en forme selon si c'est une image ou autre, donc video
@@ -78,9 +67,6 @@ function showGallery(medias) {
         }
     })
 }
-
-//Affiches le total des likes
-document.getElementById("totalLikesNumber").innerHTML = totalLikesNumberShow;
 
 //Filtre menu
 let btDropdown = document.querySelector(".btDropdown") //Par défaut sur "Popularité"
@@ -120,9 +106,78 @@ window.onclick = function (event) {
 }
 
 var filter = 'date'
-
 init()
 
+//Fonction likes
+//Aquisition des likes
+function getAllLikes () {
+    let totalLikesNumber = 0;
+    const heartIcon = document.querySelectorAll('.heartIcon')
+    const likes = document.getElementById("likes")
+    heartIcon.forEach((review) => {
+        const x = parseInt(review.previousElementSibling.innerHTML)
+        totalLikesNumber += x
+    })
+    if (likes != null) {
+        likes.firstElementChild.innerHTML = totalLikesNumber
+    }
+}
+
+/*
+async function getAllLikes () {
+    
+    let likes = 0;
+    for (let i = 0; i < media.length; i++) {
+        likes += media[i].likes;
+    }
+    console.log("Totaux des likes : " + likes);
+    return likes;
+}
+
+//Cumule des likes et affichage des resultats
+async function showAllLikes () {
+    const allLikes = await getAllLikes();
+    const likes = document.getElementById("totalLikesNumber")
+    likes.innerHTML = `${allLikes}`
+}
+*/
+
+//Like par media
+function addLikes () {
+    const heartIcon = document.querySelectorAll('.heartIcon')
+    heartIcon.forEach((icon) => {
+        icon.addEventListener("click", () => {
+            let mediaLikes = parseInt(icon.previousElementSibling.innerHTML)
+            mediaLikes++
+            icon.previousElementSibling.innerHTML = mediaLikes
+            getAllLikes()
+        }, { once: true })
+    })
+}
+
+
+/*
+document.getElementById('btDropdown').textContent = event.target.textContent;
+filter = event.target.dataset.filterType;
+
+
+
+const heart = document.createElement('i');
+        heart.className = 'heartIcon';
+        heart.setAttribute("alt", "Likes");
+        heart.tabIndex = 0;
+
+        //Declare la variable mediaLike et charge les likes
+        let mediaLike = likes;
+
+        heart.addEventListener("click", (event) => {
+            event.stopPropagation()
+            mediaLike += 1;
+            likeCount.innerText = mediaLike;
+            addLikes();
+        }, {once : true}
+        );  
+*/
 /*
 //Lightbox
     const root = document.querySelector("body, html");
