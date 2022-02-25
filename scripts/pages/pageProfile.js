@@ -1,6 +1,7 @@
 //Page profil du photographe
 import PhotographBook from '../factories/models/photographBook.js'
 import BookTemplate from '../factories/templates/bookTemplate.js'
+import { filterBy } from '../utils/filtre.js';
 let urlProfile = new URLSearchParams(window.location.search)
 let id = urlProfile.get('id');
 const mediaSection = document.querySelector(".gallery-section");
@@ -8,7 +9,7 @@ const mediaSection = document.querySelector(".gallery-section");
 //Déclaration des variables
 let profile = [];
 let media = [];
-let gallery = [];
+export let gallery = [];
 
 //Aquisition des éléments du photographe
 async function init() {
@@ -51,7 +52,7 @@ const mediaDisplay = () => {
     showGallery(gallery)
 }
 
-function showGallery(medias) {
+export function showGallery(medias) {
     //Pour chaque media (data)
     medias.forEach((media) => {
         //On récupère les informations à chaque media
@@ -69,17 +70,69 @@ function showGallery(medias) {
 }
 
 //Filtre menu
-let btDropdown = document.querySelector(".btDropdown") //Par défaut sur "Popularité"
-let dropdownContent = document.getElementById("dropdownContent")
-let dropdownItem = document.getElementsByTagName("dropdownItem")
+let menuDropdown = document.getElementById("menu_dropdown") //Menu principal
+let btDropdown = document.querySelector(".btDropdown") //Bouton contenant le label
+let dropdownContent = document.getElementById("dropdownContent") //Liste (div) contenant les filtres. Show ou non show
+const premierEnfant = dropdownContent.firstElementChild //Cible le 1er enfant de la liste
+let dropdownItem = document.getElementsByTagName("dropdownItem") //Cible les 3 filtres
 let dropdownItemValue = btDropdown.textContent;
 
 
+
 function dropdownFc() {
-    dropdownContent.classList.toggle('show')
+    btDropdown.addEventListener('click', () => toggleFc('Popularité'))
+    menuDropdown.addEventListener('keypress', enterNavKey)
+    //dropdownContent.classList.toggle('show')
     /*console.log("show ::", dropdownContent)
     console.log(document.body)*/
 }
+
+dropdownFc()
+
+function enterNavKey(e) {
+    if (e.keyCode === 13) {
+        toggleFc('Popularité')
+        filterBy
+    }
+}
+
+function toggleFc(value) {
+    if (!dropdownContent.classList.contains('show')) {
+        menuDropdown.setAttribute('aria-expanded', 'true')
+        menuDropdown.addEventListener('keypress', keyNav)
+        dropdownContent.classList.toggle('show')
+    } else {
+        btDropdown.textContent = value
+        dropdownContent.classList.toggle('show')
+        menuDropdown.setAttribute('aria-expanded', 'false')
+        menuDropdown.removeEventListener('keypress', keyNav)
+        
+    }
+}
+
+function keyNav (event) {
+event.preventDefault()
+ let focusElement = document.activeElement
+ focusElement.setAttribute('aria-selected', 'true')
+ if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+     focusElement.setAttribute('aria-selected', 'false')
+     if (event.key === 'ArrowUp') {
+         if (focusElement.previousElementSibling != null) {
+             focusElement = focusElement.previousElementSibling
+         } else {
+             focusElement = focusElement.parentNode.lastElementChild
+         }
+     } else if (event.key === 'ArrowDown') {
+         if (focusElement.nextElement != null) {
+             focusElement = focusElement.nextElementSibling
+         } else {
+             focusElement = focusElement.parentNode.firstElementChild
+         }
+     }
+ }
+}
+
+/*
 
 btDropdown.addEventListener('click', dropdownFc);
 
@@ -99,14 +152,14 @@ window.onclick = function (event) {
                 document.getElementById('btDropdown').textContent = event.target.textContent;
                 filter = event.target.dataset.filterType;
                 mediaSection.innerHTML=""
-                mediaDisplay();
+                mediaDisplay(filter);
             }
         }
     }
 }
 
 var filter = 'date'
-init()
+*/
 
 //Fonction likes
 //Aquisition des likes
@@ -122,6 +175,21 @@ function getAllLikes () {
         likes.firstElementChild.innerHTML = totalLikesNumber
     }
 }
+
+//Like par media
+export function addLikes() {
+    const heartIcon = document.querySelectorAll('.heartIcon')
+    heartIcon.forEach((icon) => {
+        icon.addEventListener("click", () => {
+            let mediaLikes = parseInt(icon.previousElementSibling.innerHTML)
+            mediaLikes++
+            icon.previousElementSibling.innerHTML = mediaLikes
+            getAllLikes()
+        }, { once: true })
+    })
+}
+
+init()
 
 /*
 async function getAllLikes () {
@@ -141,19 +209,6 @@ async function showAllLikes () {
     likes.innerHTML = `${allLikes}`
 }
 */
-
-//Like par media
-function addLikes () {
-    const heartIcon = document.querySelectorAll('.heartIcon')
-    heartIcon.forEach((icon) => {
-        icon.addEventListener("click", () => {
-            let mediaLikes = parseInt(icon.previousElementSibling.innerHTML)
-            mediaLikes++
-            icon.previousElementSibling.innerHTML = mediaLikes
-            getAllLikes()
-        }, { once: true })
-    })
-}
 
 
 /*

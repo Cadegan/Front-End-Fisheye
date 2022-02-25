@@ -1,5 +1,85 @@
-//V4 fonctionnel
+import { showGallery, gallery, addLikes } from '../pages/pageProfile.js'
 
+const popularitySelected = document.getElementById('popularity')
+const dateSelected = document.getElementById('date')
+const titleSelected = document.getElementById('title')
+
+
+export function filterBy() {
+    popularitySelected.addEventListener('click', filterPopularity)
+    dateSelected.addEventListener('click', filterDate)
+    titleSelected.addEventListener('click', filterTitle)
+}
+
+export function filterPopularity() {
+    const popularitySelection = gallery.sort((a, b) => b.likes - a.likes);
+    showGallery(popularitySelection)
+    addLikes()
+}
+
+export function filterDate() {
+    const dateSelection = gallery.sort((a, b) => {
+        return new Date(a.date).valueOf() - new Date(b.date).valueOf();
+    });
+    showGallery(dateSelection)
+    addLikes()
+}
+
+export function filterTitle() {
+    const titleSelection = gallery.sort((a, b) => {
+        if (a.title.toLowerCase() < b.title.toLowerCase()) {
+            return -1;
+        } else if (a.title.toLowerCase() > b.title.toLowerCase()) {
+            return 1;
+        }
+    });
+    showGallery(titleSelection)
+    addLikes()
+}
+
+
+//let dropdownItem = document.getElementsByTagName("dropdownItem")
+//let dropdownItemValue = btDropdown.textContent;
+/*
+const menuDropdown = document.querySelector(".menu_dropdown") //menu
+const btDropdown = document.querySelector(".btDropdown") //Boutton avec le label, sur "Popularité" (bouton lui meme)
+const dropdownContent = document.getElementById("dropdownContent") //Contient la liste des options
+const firstChoice = dropdownContent.firstElementChild
+
+function dropdownFc () {
+    btDropdown.addEventListener('click', () => toggle('Popularité'))
+    menuDropdown.addEventListener('keypress', dropFc)
+}
+
+dropdownFc ()
+
+function dropFc (e) {
+    if (e.keyCode === 13) {
+        toggle('Popularité')
+        filterBy()
+    }
+}
+
+function toggle (value) {
+    if (!btDropdown.classList.contains('show')) {
+        btDropdown.classList.add('show')
+    } else {
+        btDropdown.classList.remove('show')
+        btDropdown.textContent = value
+    }
+}
+*/
+
+
+
+
+
+
+
+
+
+/*
+//V4 fonctionnel
 switch (filter) {
     case "review":
         media.sort((a, b) => b.likes - a.likes);
@@ -18,7 +98,8 @@ switch (filter) {
             }
         });
 }
-
+*/
+/*
 //filtre v3
 
 let mediasToFilter = getPhotographerProfile();
