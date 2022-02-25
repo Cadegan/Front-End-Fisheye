@@ -1,4 +1,4 @@
-import { showGallery, gallery, addLikes } from '../pages/pageProfile.js'
+import { showGallery, gallery, addLikes, toggleFc } from '../pages/pageProfile.js'
 
 const popularitySelected = document.getElementById('popularity')
 const dateSelected = document.getElementById('date')
@@ -14,6 +14,7 @@ export function filterBy() {
 export function filterPopularity() {
     const popularitySelection = gallery.sort((a, b) => b.likes - a.likes);
     showGallery(popularitySelection)
+    toggleFc('Popularité')
     addLikes()
 }
 
@@ -22,6 +23,7 @@ export function filterDate() {
         return new Date(a.date).valueOf() - new Date(b.date).valueOf();
     });
     showGallery(dateSelection)
+    toggleFc('Date')
     addLikes()
 }
 
@@ -34,6 +36,7 @@ export function filterTitle() {
         }
     });
     showGallery(titleSelection)
+    toggleFc('Titre')
     addLikes()
 }
 
