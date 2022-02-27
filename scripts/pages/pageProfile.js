@@ -1,6 +1,7 @@
 //Page profil du photographe
 import PhotographBook from '../factories/models/photographBook.js'
 import BookTemplate from '../factories/templates/bookTemplate.js'
+import { getAllLikes, addLikes } from '../utils/like.js'
 let urlProfile = new URLSearchParams(window.location.search)
 let id = urlProfile.get('id');
 const mediaSection = document.querySelector(".gallery-section");
@@ -71,9 +72,6 @@ export function showGallery(medias) {
 //Filtre menu
 let btDropdown = document.querySelector(".btDropdown") //Par défaut sur "Popularité"
 let dropdownContent = document.getElementById("dropdownContent")
-let dropdownItem = document.getElementsByTagName("dropdownItem")
-let dropdownItemValue = btDropdown.textContent;
-
 
 function dropdownFc() {
     dropdownContent.classList.toggle('show')
@@ -132,77 +130,7 @@ async function switchFilter(selectedFilter) {
 
 init()
 
-//Fonction likes
-//Aquisition des likes
-function getAllLikes () {
-    let totalLikesNumber = 0;
-    const heartIcon = document.querySelectorAll('.heartIcon')
-    const likes = document.getElementById("likes")
-    heartIcon.forEach((review) => {
-        const x = parseInt(review.previousElementSibling.innerHTML)
-        totalLikesNumber += x
-    })
-    if (likes != null) {
-        likes.firstElementChild.innerHTML = totalLikesNumber
-    }
-}
 
-/*
-async function getAllLikes () {
-    
-    let likes = 0;
-    for (let i = 0; i < media.length; i++) {
-        likes += media[i].likes;
-    }
-    console.log("Totaux des likes : " + likes);
-    return likes;
-}
-
-//Cumule des likes et affichage des resultats
-async function showAllLikes () {
-    const allLikes = await getAllLikes();
-    const likes = document.getElementById("totalLikesNumber")
-    likes.innerHTML = `${allLikes}`
-}
-*/
-
-//Like par media
-export function addLikes () {
-    const heartIcon = document.querySelectorAll('.heartIcon')
-    heartIcon.forEach((icon) => {
-        icon.addEventListener("click", () => {
-            let mediaLikes = parseInt(icon.previousElementSibling.innerHTML)
-            mediaLikes++
-            icon.previousElementSibling.innerHTML = mediaLikes
-            getAllLikes()
-        }, { once: true })
-    })
-}
-
-
-/*
-document.getElementById('btDropdown').textContent = event.target.textContent;
-filter = event.target.dataset.filterType;
-
-
-
-const heart = document.createElement('i');
-        heart.className = 'heartIcon';
-        heart.setAttribute("alt", "Likes");
-        heart.tabIndex = 0;
-
-        //Declare la variable mediaLike et charge les likes
-        let mediaLike = likes;
-
-        heart.addEventListener("click", (event) => {
-            event.stopPropagation()
-            mediaLike += 1;
-            likeCount.innerText = mediaLike;
-            addLikes();
-        }, {once : true}
-        );  
-*/
-/*
 //Lightbox
     const root = document.querySelector("body, html");
     const medias = document.querySelectorAll(".photo")
@@ -222,4 +150,3 @@ const heart = document.createElement('i');
             mediaItem.innerHTML = '< src="' + route + '">';
         });
     }
-*/

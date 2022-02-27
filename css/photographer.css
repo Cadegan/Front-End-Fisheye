@@ -147,6 +147,7 @@ form input {
     width: 25vw;
     height: 25vw;
     object-fit: cover;
+    object-position: center;
     border-radius: 5px;
     cursor: pointer;
 }
