@@ -134,32 +134,101 @@ init()
 
 
 //Lightbox
+
 async function lightbox () {
     const root = document.querySelector("body, html");
-    const mediasLightbox = document.querySelectorAll(".mediasLightbox")
-
-    console.log(mediasLightbox)
-
+    const mediasLightbox = document.querySelectorAll(".mediasLightbox");
+    console.log("Ensemble des medias lightbox" , mediasLightbox)
     const l = mediasLightbox.length;
-    console.log(l);
+    console.log("Nombre total de medias", l)
 
     for (var i = 0; i < l; i++) {
         mediasLightbox[i].addEventListener("click", function (i) {
             var currentMedia = this;
-            console.log(this)
-            let screenItem = document.createElement('div');
-            screenItem.id = 'lightbox-screen';
-            galleryContainer.prepend(screenItem);
-            var mediasLightbox = currentMedia.scr;
-            root.style.innerHTML = 'hidden';
-            screenItem.innerHTML = `
-                                    <div class="gg-media"></div>
-                                    <div class="gg-close gg-btn">&times</div>
-                                    <div class="gg-next gg-btn">&rarr;</div>
-                                    <div class="gg-prev gg-btn">&larr;</div>`;
-            //const first = medias[0].scr, last = medias[l - 1].scr;
-            const mediaItem = document.querySelector('gg-media');
-            mediaItem.innerHTML = '< src="' + mediasLightbox + '">';
+            console.log("Media selectionné", this)
+            //const parentItem = currentMedia.parentElement
+            const screenView = document.createElement('div');
+            screenView.id = "lightbox-screen";
+            galleryContainer.prepend(screenView);
+            //if (parentItem.hasAttribute('data-theme')) screenView.setAttribute("data-theme", "dark");
+            var mediaFocus = currentMedia.src;
+            console.log("Chemin du média affiché", mediaFocus)
+            root.style.overflow = 'hidden';
+            screenView.innerHTML = `
+                            <div class="gg-image"></div>
+                            <div class="gg-close gg-btn"></div>
+                            <div class="gg-next gg-btn"></div>
+                            <div class="gg-prev gg-btn"></div>`;
+            const first = mediasLightbox[0].src, last = mediasLightbox[l - 1].src;
+            const imgItem = document.querySelector(".gg-image"), prevBtn = document.querySelector(".gg-prev"), nextBtn = document.querySelector(".gg-next"), close = document.querySelector(".gg-close");
+            imgItem.innerHTML = '<img src="' + mediaFocus + '">';
+
+            if (l > 1) {
+                if (mediaFocus == first) {
+                    prevBtn.hidden = true;
+                    var prevImg = false;
+                    var nextImg = currentMedia.nextElementSibling;
+                }
+                else if (mediaFocus == last) {
+                    nextBtn.hidden = true;
+                    var nextImg = false;
+                    var prevImg = currentMedia.previousElementSibling;
+                }
+                else {
+                    var prevImg = currentMedia.previousElementSibling;
+                    var nextImg = currentMedia.nextElementSibling;
+                }
+            }
+            else {
+                prevBtn.hidden = true;
+                nextBtn.hidden = true;
+            }
+
+            screenView.addEventListener("click", function (e) {
+                if (e.target == this || e.target == close) hide();
+            });
+
+            root.addEventListener("keydown", function (e) {
+                if (e.keyCode == 37 || e.keyCode == 38) prev();
+                if (e.keyCode == 39 || e.keyCode == 40) next();
+                if (e.keyCode == 27) hide();
+            });
+
+            prevBtn.addEventListener("click", prev);
+            nextBtn.addEventListener("click", next);
+
+            function prev() {
+                prevImg = currentMedia.previousElementSibling;
+                imgItem.innerHTML = '<img src="' + prevImg.src + '">';
+                currentMedia = currentMedia.previousElementSibling;
+                var mainImg = document.querySelector(".mediasLightbox").src;
+                nextBtn.hidden = false;
+                prevBtn.hidden = mainImg === first;
+            };
+
+            function next() {
+                nextImg = currentMedia.nextElementSibling;
+                imgItem.innerHTML = '<img src="' + nextImg.src + '">';
+                currentMedia = currentMedia.nextElementSibling;
+                var mainImg = document.querySelector(".mediasLightbox").src;
+                prevBtn.hidden = false;
+                nextBtn.hidden = mainImg === last;
+            };
+
+            function hide() {
+                root.style.overflow = 'auto';
+                screenView.remove();
+            };
         });
     }
+/*
+    function gridGallery(options) {
+        if (options.selector) selector = document.querySelector(options.selector);
+        if (options.darkMode) selector.setAttribute("data-theme", "dark");
+        if (options.layout == "horizontal" || options.layout == "square") selector.setAttribute("data-layout", options.layout);
+        if (options.gaplength) selector.style.setProperty('--gap-length', options.gaplength + 'px');
+        if (options.rowHeight) selector.style.setProperty('--row-height', options.rowHeight + 'px');
+        if (options.columnWidth) selector.style.setProperty('--column-width', options.columnWidth + 'px');
+    }
+    */
 }

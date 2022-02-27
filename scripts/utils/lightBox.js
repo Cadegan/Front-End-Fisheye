@@ -1,3 +1,70 @@
+async function lightbox() {
+    const root = document.querySelector("body, html");
+    const mediasLightbox = document.querySelectorAll(".mediasLightbox")
+    console.log(mediasLightbox)
+    const l = mediasLightbox.length;
+    console.log(l);
+
+    for (var i = 0; i < l; i++) {
+        mediasLightbox[i].addEventListener("click", function (i) {
+            var currentMedia = this;
+            console.log(this)
+            let screenView = document.createElement('div');
+            screenView.id = 'lightbox-screen';
+            galleryContainer.prepend(screenView);
+            var mediaFocus = currentMedia.scr;
+            console.log(mediaFocus);
+            root.style.overflow = 'hidden';
+            screenView.innerHTML = `
+                                    <div class="gg-media"></div>
+                                    <div class="gg-close gg-btn">&times</div>
+                                    <div class="gg-next gg-btn">&rarr;</div>
+                                    <div class="gg-prev gg-btn">&larr;</div>`;
+            //const first = mediasLightbox[0].scr;
+            //const last = mediasLightbox[l - 1].scr;
+            const mediaItem = document.querySelector('gg-media');
+            mediaItem.innerHTML = '<img src="' + mediaFocus + '">';
+        });
+    }
+
+}
+
+/*
+//Lightbox
+async function lightbox() {
+    const root = document.querySelector("body, html");
+    const mediasLightbox = document.querySelectorAll(".mediasLightbox")
+
+    //console.log(mediasLightbox)
+
+    const l = mediasLightbox.length;
+    console.log(l);
+
+    for (var i = 0; i < l; i++) {
+        mediasLightbox[i].addEventListener("click", function (i) {
+            var currentMedia = this;
+            const parentItem = currentMedia.parentElement
+            const screenItem = document.createElement("div")
+            screenItem.id = 'lightbox-screen';
+            galleryContainer.prepend(screenItem);
+            var mediaFocus = currentMedia.scr;
+            console.log(mediaFocus)
+            //root.style.overflow = 'hidden';
+            screenItem.innerHTML = `
+                                    <div class="gg-media"></div>
+                                    <div class="gg-close gg-btn">&times</div>
+                                    <div class="gg-next gg-btn">&rarr;</div>
+                                    <div class="gg-prev gg-btn">&larr;</div>`;
+            const first = mediasLightbox[0].scr;
+            const last = mediasLightbox[l - 1].scr;
+            const mediaItem = document.querySelector('gg-media');
+            mediaItem.innerHTML = '<img src="' + mediaFocus + '">';
+
+            console.log(currentMedia)
+        });
+    }
+}
+
 // Lightbox
 
 function lightbox() {
