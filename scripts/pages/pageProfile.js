@@ -4,7 +4,7 @@ import BookTemplate from '../factories/templates/bookTemplate.js'
 import { getAllLikes, addLikes } from '../utils/like.js'
 let urlProfile = new URLSearchParams(window.location.search)
 let id = urlProfile.get('id');
-const mediaSection = document.querySelector(".gallery-section");
+const galleryContainer = document.querySelector(".gallery-container");
 
 //Déclaration des variables
 let profile = [];
@@ -25,6 +25,7 @@ async function init() {
             mediaDisplay()
             getAllLikes()
             addLikes()
+            lightbox()
         });
     //Retourne le profil et les medias
     return { profile, media }
@@ -43,7 +44,7 @@ const profileDisplay = () => {
 
 const mediaDisplay = () => {
     //Réinitialise la gallery
-    mediaSection.innerHTML = ''
+    galleryContainer.innerHTML = ''
     //Pour chaque media recupéré et injecté dans la const "media", on les ajoute au tableau "gallery"
     media.forEach((media) => {
         gallery.push(media);
@@ -61,10 +62,10 @@ export function showGallery(medias) {
         const BookTemplateData = new BookTemplate(photographBook)
         if (media.image) {
             //Ajoute un nouveau media "image"
-            mediaSection.innerHTML += BookTemplateData.createImage()
+            galleryContainer.innerHTML += BookTemplateData.createImage()
         } else {
             //Ajoute un nouveau media "video"
-            mediaSection.innerHTML += BookTemplateData.createVideo()
+            galleryContainer.innerHTML += BookTemplateData.createVideo()
         }
     })
 }
@@ -97,7 +98,7 @@ window.onclick = function (event) {
             if (event.target.matches('.dropdownItem')) {
                 document.getElementById('btDropdown').textContent = event.target.textContent;
                 filter = event.target.dataset.filterType;
-                mediaSection.innerHTML=""
+                galleryContainer.innerHTML=""
                 switchFilter(filter)
             }
         }
@@ -126,27 +127,39 @@ async function switchFilter(selectedFilter) {
     }
     showGallery(mediaFiltred)
     addLikes()
+    lightbox()
 }
 
 init()
 
 
 //Lightbox
+async function lightbox () {
     const root = document.querySelector("body, html");
-    const medias = document.querySelectorAll(".photo")
-    const l = medias.length;
+    const mediasLightbox = document.querySelectorAll(".mediasLightbox")
+
+    console.log(mediasLightbox)
+
+    const l = mediasLightbox.length;
+    console.log(l);
 
     for (var i = 0; i < l; i++) {
-        medias[i].addEventListener("click", function (i) {
+        mediasLightbox[i].addEventListener("click", function (i) {
             var currentMedia = this;
-            screenItem = document.createElement('div');
-            screenItem.id = 'Lightbox-screen';
-            mediaSection.prepend(screenItem);
-            var route = currentMedia.scr;
+            console.log(this)
+            let screenItem = document.createElement('div');
+            screenItem.id = 'lightbox-screen';
+            galleryContainer.prepend(screenItem);
+            var mediasLightbox = currentMedia.scr;
             root.style.innerHTML = 'hidden';
-            screenItem.innerHTML = '<div class="gg-media"></div><div class="gg-close gg-btn">&times</div><div class="gg-next gg-btn">&rarr;</div><div class="gg-prev gg-btn">&larr;</div>';
+            screenItem.innerHTML = `
+                                    <div class="gg-media"></div>
+                                    <div class="gg-close gg-btn">&times</div>
+                                    <div class="gg-next gg-btn">&rarr;</div>
+                                    <div class="gg-prev gg-btn">&larr;</div>`;
             //const first = medias[0].scr, last = medias[l - 1].scr;
             const mediaItem = document.querySelector('gg-media');
-            mediaItem.innerHTML = '< src="' + route + '">';
+            mediaItem.innerHTML = '< src="' + mediasLightbox + '">';
         });
     }
+}
