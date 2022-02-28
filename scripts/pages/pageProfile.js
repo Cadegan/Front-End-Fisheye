@@ -134,7 +134,6 @@ init()
 
 
 //Lightbox
-
 async function lightbox () {
     const root = document.querySelector("body, html");
     const mediasLightbox = document.querySelectorAll(".mediasLightbox");
@@ -146,21 +145,19 @@ async function lightbox () {
         mediasLightbox[i].addEventListener("click", function (i) {
             var currentMedia = this;
             console.log("Media selectionné", this)
-            //const parentItem = currentMedia.parentElement
             const screenView = document.createElement('div');
             screenView.id = "lightbox-screen";
             galleryContainer.prepend(screenView);
-            //if (parentItem.hasAttribute('data-theme')) screenView.setAttribute("data-theme", "dark");
             var mediaFocus = currentMedia.src;
             console.log("Chemin du média affiché", mediaFocus)
             root.style.overflow = 'hidden';
             screenView.innerHTML = `
-                            <div class="gg-image"></div>
-                            <div class="gg-close gg-btn"></div>
-                            <div class="gg-next gg-btn"></div>
-                            <div class="gg-prev gg-btn"></div>`;
+                            <div class="btClose btnScreenview"></div>
+                            <div class="mediaShow"></div>
+                            <div class="btNext btnScreenview"></div>
+                            <div class="btPrev btnScreenview"></div>`;
             const first = mediasLightbox[0].src, last = mediasLightbox[l - 1].src;
-            const imgItem = document.querySelector(".gg-image"), prevBtn = document.querySelector(".gg-prev"), nextBtn = document.querySelector(".gg-next"), close = document.querySelector(".gg-close");
+            const imgItem = document.querySelector(".mediaShow"), prevBtn = document.querySelector(".btPrev"), nextBtn = document.querySelector(".btNext"), close = document.querySelector(".btClose");
             imgItem.innerHTML = '<img src="' + mediaFocus + '">';
 
             if (l > 1) {
@@ -204,7 +201,7 @@ async function lightbox () {
                 var mainImg = document.querySelector(".mediasLightbox").src;
                 nextBtn.hidden = false;
                 prevBtn.hidden = mainImg === first;
-            };
+            }
 
             function next() {
                 nextImg = currentMedia.nextElementSibling;
@@ -213,22 +210,12 @@ async function lightbox () {
                 var mainImg = document.querySelector(".mediasLightbox").src;
                 prevBtn.hidden = false;
                 nextBtn.hidden = mainImg === last;
-            };
+            }
 
             function hide() {
                 root.style.overflow = 'auto';
                 screenView.remove();
-            };
+            }
         });
     }
-/*
-    function gridGallery(options) {
-        if (options.selector) selector = document.querySelector(options.selector);
-        if (options.darkMode) selector.setAttribute("data-theme", "dark");
-        if (options.layout == "horizontal" || options.layout == "square") selector.setAttribute("data-layout", options.layout);
-        if (options.gaplength) selector.style.setProperty('--gap-length', options.gaplength + 'px');
-        if (options.rowHeight) selector.style.setProperty('--row-height', options.rowHeight + 'px');
-        if (options.columnWidth) selector.style.setProperty('--column-width', options.columnWidth + 'px');
-    }
-    */
 }
