@@ -337,7 +337,7 @@ input {
     left: 0;
     background-color: white;
     z-index: 9999;
-    text-align: center;
+    /*text-align: center;*/
 }
 
 #lightbox-screen .mediaShow {
@@ -357,4 +357,28 @@ input {
     max-width: 80%;
     max-height: 80%;
     object-fit: cover;
+}
+
+.btnScreenview {
+    position: fixed;
+    color: #901C1C;
+    cursor: pointer;
+    background-color : transparent;
+    border: none;
+    font-size : 4em;
+}
+
+.btNext {
+    top: 50%;
+    left: 50px;
+}
+
+.btPrev {
+    top: 50%;
+    right: 50px;
+}
+
+.btClose {
+    top: 20%;
+    right: 50px;
 }

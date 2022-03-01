@@ -152,10 +152,10 @@ async function lightbox () {
             console.log("Chemin du média affiché", mediaFocus)
             root.style.overflow = 'hidden';
             screenView.innerHTML = `
-                            <div class="btClose btnScreenview"></div>
                             <div class="mediaShow"></div>
-                            <div class="btNext btnScreenview"></div>
-                            <div class="btPrev btnScreenview"></div>`;
+                            <button class="btClose btnScreenview">&times;</button>
+                            <button class="btNext btnScreenview">&lsaquo;</button>
+                            <button class="btPrev btnScreenview">&rsaquo;</button>`;
             const first = mediasLightbox[0].src, last = mediasLightbox[l - 1].src;
             const imgItem = document.querySelector(".mediaShow"), prevBtn = document.querySelector(".btPrev"), nextBtn = document.querySelector(".btNext"), close = document.querySelector(".btClose");
             imgItem.innerHTML = '<img src="' + mediaFocus + '">';
