@@ -98,7 +98,7 @@ window.onclick = function (event) {
             if (event.target.matches('.dropdownItem')) {
                 document.getElementById('btDropdown').textContent = event.target.textContent;
                 filter = event.target.dataset.filterType;
-                galleryContainer.innerHTML=""
+                galleryContainer.innerHTML = ""
                 switchFilter(filter)
             }
         }
@@ -134,40 +134,44 @@ init()
 
 
 //Lightbox
-async function lightbox () {
-    const root = document.querySelector("body, html");
-    const mediasLightbox = document.querySelectorAll(".mediasLightbox");
-    console.log("Ensemble des medias lightbox" , mediasLightbox)
-    const l = mediasLightbox.length;
-    console.log("Nombre total de medias", l)
+async function lightbox() {
+    const root = document.querySelector("body, html"); //Va servir à ecouter les evenements et cacher toute la page
+    const mediasLightbox = document.querySelectorAll(".mediasLightbox"); //Slecetionne tous les medias (images et videos)
+    console.log("Ensemble des medias lightbox :", mediasLightbox)
+    const l = mediasLightbox.length; //Longeur de la collection
+    console.log("Nombre total de medias :", l)
 
     for (var i = 0; i < l; i++) {
-        mediasLightbox[i].addEventListener("click", function (i) {
-            var currentMedia = this;
-            console.log("Media selectionné", this)
-            const screenView = document.createElement('div');
+        mediasLightbox[i].addEventListener("click", function (i) { //Pour chaque media, on ecoute le click
+            var currentMedia = this; //Chargera le media actuellement visionné
+            console.log("Media visionné :", this)
+            const screenView = document.createElement('div'); //Zonne d'ouverture du media
             screenView.id = "lightbox-screen";
             galleryContainer.prepend(screenView);
-            var mediaFocus = currentMedia.src;
-            console.log("Chemin du média affiché", mediaFocus)
-            root.style.overflow = 'hidden';
+            var mediaFocus = currentMedia.src; //Recupere le media
+            var mediaFocusTitle = currentMedia.alt //Recupere le titre du media
+            console.log("Titre du media selectionné :", mediaFocusTitle);
+            console.log("Chemin du média affiché :", mediaFocus)
+            root.style.overflow = 'hidden'; //Cache la page générale
             screenView.innerHTML = `
                             <div class="mediaShow"></div>
                             <button class="btClose btnScreenview">&times;</button>
                             <button class="btNext btnScreenview">&lsaquo;</button>
-                            <button class="btPrev btnScreenview">&rsaquo;</button>`;
-            const first = mediasLightbox[0].src, last = mediasLightbox[l - 1].src;
+                            <button class="btPrev btnScreenview">&rsaquo;</button>
+                            <p classe="mediaTitle">${mediaFocusTitle}</p>`;
+            const first = mediasLightbox[0].src, last = mediasLightbox[l - 1].src; //Determine le 1er et le dernier media de la liste
+            //Cible les différents éléments pour la visualisation
             const imgItem = document.querySelector(".mediaShow"), prevBtn = document.querySelector(".btPrev"), nextBtn = document.querySelector(".btNext"), close = document.querySelector(".btClose");
-            imgItem.innerHTML = '<img src="' + mediaFocus + '">';
-
+            imgItem.innerHTML = '<img src="' + mediaFocus + '">'; //Affiche le media
+            //Conditions qui détermine si c'est le 1er, un ou le dernier media
             if (l > 1) {
                 if (mediaFocus == first) {
-                    prevBtn.hidden = true;
+                    nextBtn.hidden = true;
                     var prevImg = false;
-                    var nextImg = currentMedia.nextElementSibling;
+                    var nextImg = currentMedia.nextElementSibling; //!!!Impossible d'accéder au media suivant
                 }
                 else if (mediaFocus == last) {
-                    nextBtn.hidden = true;
+                    prevBtn.hidden = true;
                     var nextImg = false;
                     var prevImg = currentMedia.previousElementSibling;
                 }
@@ -180,7 +184,7 @@ async function lightbox () {
                 prevBtn.hidden = true;
                 nextBtn.hidden = true;
             }
-
+            //Fonctions de navigation
             screenView.addEventListener("click", function (e) {
                 if (e.target == this || e.target == close) hide();
             });
@@ -194,22 +198,18 @@ async function lightbox () {
             prevBtn.addEventListener("click", prev);
             nextBtn.addEventListener("click", next);
 
+            //Fonction d'appel du media précédent
             function prev() {
-                prevImg = currentMedia.previousElementSibling;
+                prevImg = currentMedia.previousElementSibling; //Fonctionnne pas
                 imgItem.innerHTML = '<img src="' + prevImg.src + '">';
                 currentMedia = currentMedia.previousElementSibling;
-                var mainImg = document.querySelector(".mediasLightbox").src;
-                nextBtn.hidden = false;
-                prevBtn.hidden = mainImg === first;
             }
 
+            //Fonction d'appel du media d'après
             function next() {
                 nextImg = currentMedia.nextElementSibling;
                 imgItem.innerHTML = '<img src="' + nextImg.src + '">';
                 currentMedia = currentMedia.nextElementSibling;
-                var mainImg = document.querySelector(".mediasLightbox").src;
-                prevBtn.hidden = false;
-                nextBtn.hidden = mainImg === last;
             }
 
             function hide() {

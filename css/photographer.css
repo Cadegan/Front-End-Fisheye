@@ -359,13 +359,20 @@ input {
     object-fit: cover;
 }
 
+#lightbox-screen p {
+    position: relative;
+    bottom: 90px;
+    left: 26%;
+    color: #901C1C;
+}
+
 .btnScreenview {
     position: fixed;
     color: #901C1C;
     cursor: pointer;
-    background-color : transparent;
+    background-color: transparent;
     border: none;
-    font-size : 4em;
+    font-size: 4em;
 }
 
 .btNext {
@@ -380,5 +387,5 @@ input {
 
 .btClose {
     top: 20%;
-    right: 50px;
+    right: 43px;
 }
