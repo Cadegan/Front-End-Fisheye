@@ -1,3 +1,33 @@
+/*
+
+export default class LightBox {
+
+//Url de l'image
+    constructor() {
+        const element = this.buildDOM()
+        document.body.appendChild(element)
+    }
+
+//Retourne un element HTML
+    buildDOM(url, alt) {
+        const screenView = document.createElement('div')
+        screenView.classList.add('lightbox-screen')
+        screenView.innerHTML = `
+        
+            <button class="btClose btnScreenview">&times;</button>
+            <button class="btNext btnScreenview">&lsaquo;</button>
+            <button class="btPrev btnScreenview">&rsaquo;</button>
+            <div class="mediaShow">
+                <img src="${url}" alt="${alt}">
+                <div class="mediaTitle"></div>
+            </div>`
+
+    return screenView
+    }
+    
+}
+*/
+
 //Lightbox v2
 export function lightbox() {
     const root = document.querySelector("body, html"); //Va servir à ecouter les evenements et cacher toute la page
@@ -20,11 +50,13 @@ export function lightbox() {
             console.log("Chemin du média affiché :", mediaFocus)
             root.style.overflow = 'hidden'; //Cache la page générale
             screenView.innerHTML = `
-                            <div class="mediaShow"></div>
                             <button class="btClose btnScreenview">&times;</button>
                             <button class="btNext btnScreenview">&lsaquo;</button>
                             <button class="btPrev btnScreenview">&rsaquo;</button>
-                            <p classe="mediaTitle">${mediaFocusTitle}</p>`;
+                            <div class="lightboxScreenContainer">
+                                <div class="mediaShow"></div>
+                                <p classe="mediaTitle">${mediaFocusTitle}</p>
+                            </div>`;
             const first = mediasLightbox[0].src, last = mediasLightbox[l - 1].src; //Determine le 1er et le dernier media de la liste
             //Cible les différents éléments pour la visualisation
             const imgItem = document.querySelector(".mediaShow"), prevBtn = document.querySelector(".btPrev"), nextBtn = document.querySelector(".btNext"), close = document.querySelector(".btClose");
@@ -85,6 +117,7 @@ export function lightbox() {
         });
     }
 }
+
 
 /*
 //Lightbox v1
