@@ -38,7 +38,7 @@ export function lightbox() {
     console.log("Nombre total de medias :", l)
 
     for (var i = 0; i < l; i++) {
-        mediasLightbox[i].addEventListener("click", function (i) { //Pour chaque media, on ecoute le click
+        mediasLightbox[i].addEventListener("click", function loadMedia (i) { //Pour chaque media, on ecoute le click
             var currentMedia = this; //Chargera le media actuellement visionné
             console.log("Media visionné :", this)
             const screenView = document.createElement('div'); //Zonne d'ouverture du media
@@ -98,9 +98,17 @@ export function lightbox() {
 
             //Fonction d'appel du media précédent
             function prev() {
-                prevImg = currentMedia.previousElementSibling; //Fonctionnne pas
-                imgItem.innerHTML = '<img src="' + prevImg.src + '">';
-                currentMedia = currentMedia.previousElementSibling;
+                var index = mediasLightbox.findIndex(this);
+
+                if (index == this.mediasLightbox.length - 1) {
+                    this.currentMedia = this.mediasLightbox[0];
+                } else {
+                    this.currentMedia = this.mediasLightbox[index + 1];
+                }
+
+                // prevImg = currentMedia.previousElementSibling; //Fonctionnne pas
+                // imgItem.innerHTML = '<img src="' + prevImg.src + '">';
+                // currentMedia = currentMedia.previousElementSibling;
             }
 
             //Fonction d'appel du media d'après

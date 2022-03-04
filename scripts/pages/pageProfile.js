@@ -27,6 +27,7 @@ async function init() {
             getAllLikes()
             addLikes()
             lightbox()
+            console.log(media)
         });
     //Retourne le profil et les medias
     return { profile, media }

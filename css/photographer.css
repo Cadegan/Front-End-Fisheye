@@ -352,6 +352,7 @@ input {
 .mediaShow {
     text-align: center;
     line-height: 1px;
+    max-height: 80vh; /*ajout*/
 }
 
 .mediaShow img {
