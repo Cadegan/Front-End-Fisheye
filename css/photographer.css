@@ -305,6 +305,10 @@ form input {
 }
 
 /*Formulaire*/
+#formulaire {
+    margin-top: 50px;
+}
+
 #message_input {
     height: 200px;
 }
@@ -326,6 +330,16 @@ input {
 
 .no-scroll {
     overflow: hidden;
+}
+
+#formulaire textarea {
+    width: 100%;
+    border-radius: 5px;
+    padding: 8px;
+    border: 2px solid #DB8876;
+    font-size: larger;
+    resize: none;
+    font-size: larger;
 }
 
 /*LightBox*/
@@ -352,7 +366,8 @@ input {
 .mediaShow {
     text-align: center;
     line-height: 1px;
-    max-height: 80vh; /*ajout*/
+    max-height: 80vh;
+    /*ajout*/
 }
 
 .mediaShow img {

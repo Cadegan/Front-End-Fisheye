@@ -1,32 +1,72 @@
-/*
+// //Lightbox v3
+// import { media } from '../pages/pageProfile.js'
+// console.log(media)
+// const screenView = document.querySelector("#lightbox-screen") //Fenetre d'affichage du media à visualiser
+// const lightboxScreenContainer = document.querySelector(".lightboxScreenContainer") //Zone du screen view contenant l'image et le titre
+// const root = document.querySelector("body, html");
+// let mediasLightbox = document.querySelectorAll(".mediasLightbox"); //Slecetionne tous les medias (images et videos)
 
-export default class LightBox {
 
-//Url de l'image
-    constructor() {
-        const element = this.buildDOM()
-        document.body.appendChild(element)
-    }
+// // mediasLightbox.forEach(id => {
+// //     id.addEventListener("click", () => openLightbox(id))
+// // })
 
-//Retourne un element HTML
-    buildDOM(url, alt) {
-        const screenView = document.createElement('div')
-        screenView.classList.add('lightbox-screen')
-        screenView.innerHTML = `
-        
-            <button class="btClose btnScreenview">&times;</button>
-            <button class="btNext btnScreenview">&lsaquo;</button>
-            <button class="btPrev btnScreenview">&rsaquo;</button>
-            <div class="mediaShow">
-                <img src="${url}" alt="${alt}">
-                <div class="mediaTitle"></div>
-            </div>`
 
-    return screenView
-    }
-    
-}
-*/
+// function openLightbox(id) {
+//     lightboxMedia(id);
+//     screenView.style.display = "flex";
+// }
+
+// function hide() {
+//     screenView.style.display = "none";
+//     lightboxScreenContainer.innerHTML = "";
+// }
+
+// function lightboxMedia(id) {
+//     const media = document.querySelector(`[data-id="${id}"]`);
+//     const mediaClone = media.cloneNode();
+//     if (media.nodeName == "video") {
+//         mediaClone.setAttribute("controls", true);
+//     }
+//     lightboxScreenContainer.innerHTML = "";
+//     mediaClone.setAttribute("tabindex", "0");
+
+//     lightboxScreenContainer.appendChild(mediaClone)
+//     // currentMediaShowing.focus();
+// }
+
+// //Diffrents medias à afficher
+// function changeMedia(index) {
+//     let indexMedia = media.findIndex(
+//         (id) => id == lightboxScreenContainer.firstChild.dataset.id);
+//     if (indexMedia + index < 0) {
+//         indexMedia = media.length - 1;
+//     } else if (indexMedia + index == media.length) {
+//         indexMedia = 0;
+//     } else {
+//         indexMedia = index;
+//     }
+//     mediaFocus(media[indexMedia]);
+// }
+
+// //Fonctions de navigation
+// screenView.addEventListener("click", function (e) {
+//     if (e.target == this || e.target == close) hide();
+// });
+
+// document.addEventListener("keydown", (e) => {
+//     if (e.key == "ArrowLeft") {
+//         changeMedia(-1);
+//     } else if (e.key == "ArrowRight") {
+//         changeMedia(1)
+//     }
+// });
+
+// root.addEventListener("keydown", function (e) {
+//     if (e.keyCode == 37 || e.keyCode == 38) changeMedia(-1);
+//     if (e.keyCode == 39 || e.keyCode == 40) changeMedia(1);
+//     if (e.keyCode == 27) hide();
+// });
 
 //Lightbox v2
 export function lightbox() {
@@ -38,7 +78,7 @@ export function lightbox() {
     console.log("Nombre total de medias :", l)
 
     for (var i = 0; i < l; i++) {
-        mediasLightbox[i].addEventListener("click", function loadMedia (i) { //Pour chaque media, on ecoute le click
+        mediasLightbox[i].addEventListener("click", function loadMedia(i) { //Pour chaque media, on ecoute le click
             var currentMedia = this; //Chargera le media actuellement visionné
             console.log("Media visionné :", this)
             const screenView = document.createElement('div'); //Zonne d'ouverture du media
@@ -95,6 +135,20 @@ export function lightbox() {
 
             prevBtn.addEventListener("click", prev);
             nextBtn.addEventListener("click", next);
+
+            function changeMedia(index) {
+                let indexMedia = mediasLightbox.findIndex(
+                    (id) => id == imgItem.firstChild.dataset.id
+                );
+                if (indexMedia + index < 0) {
+                    indexMedia = mediasLightbox.length - 1;
+                } else if (indexMedia + index == mediasLightbox.length) {
+                    indexMedia = 0;
+                } else {
+                    indexMedia += index;
+                }
+                loadMedia(mediasLightbox[indexMedia]);
+            }
 
             //Fonction d'appel du media précédent
             function prev() {

@@ -5,6 +5,7 @@ const lastName = document.getElementById("nom_input");
 const lastError = document.getElementById("lastError")
 const emailAdress = document.getElementById("mail_input");
 const body = document.querySelector('body');
+const formulaire = document.querySelector('#formulaire');
 
 //Controle du format du mail
 const mailError = document.getElementById("mailError");
@@ -24,7 +25,7 @@ function closeModal() {
 }
 
 const clearInput = () => {
-    //Suppression de ce qui a pu etre entré
+    //Réinitialise les inputs
     form.reset();
 
     //Suppression des cadres rouges
@@ -118,7 +119,7 @@ function mailValidation() {
         mailError.innerHTML = '';
         return true;
     }
-};
+}
 
 //Ecoute des evenements dans chaque input et lance la fonction associée
 firstName.addEventListener('input', firstNameValidation);
@@ -126,7 +127,7 @@ lastName.addEventListener('input', lastNameValidation);
 emailAdress.addEventListener('input', mailValidation);
 
 //Envoi du formulaire
-document.getElementsByClassName('submit').onsubmit = function (event) {
+formulaire.addEventListener('submit', (event) => {
     event.preventDefault();
     firstNameValidation();
     lastNameValidation();
@@ -142,7 +143,8 @@ document.getElementsByClassName('submit').onsubmit = function (event) {
         //Si tout est bon, on enleve le formulaire
         const modal = document.getElementById("contact_modal");
         modal.style.display = "none";
+        clearInput()
     } else {
         return false;
     }
-}
+})

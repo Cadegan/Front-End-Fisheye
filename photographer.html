@@ -54,20 +54,22 @@
         <h2 class="modal-header"></h2>
         <img src="assets/icons/close.svg" onclick="closeModal()" />
       </header>
-      <form>
-        <div>
+      <form name="formulaire" id="formulaire" method="get" action="index.html">
           <label>Prénom</label>
           <input type="text" id="prenom_input" />
           <div class="result" id="firstError"></div>
+          
           <label>Nom</label>
           <input type="text" id="nom_input" />
           <div class="result" id="lastError"></div>
+         
           <label>Email</label>
           <input type="text" id="mail_input" />
           <div class="result" id="mailError"></div>
+          
           <label>Votre message</label>
-          <input type="textarea" id="message_input" />
-        </div>
+          <textarea type="textarea" id="message_input"></textarea>
+
         <button class="submit contact_button">Envoyer</button>
       </form>
     </div>
