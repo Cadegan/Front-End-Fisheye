@@ -75,14 +75,36 @@ export function showGallery(medias) {
 //Filtre menu
 let btDropdown = document.querySelector(".btDropdown") //Par défaut sur "Popularité"
 let dropdownContent = document.getElementById("dropdownContent")
+let menuDropdown = document.querySelector("#menu_dropdown")
 
 function dropdownFc() {
     dropdownContent.classList.toggle('show')
+    let expanded = menuDropdown.getAttribute('aria-expanded') == "true" ? "false" : "true";
+    menuDropdown.setAttribute('aria-expanded', expanded);  
     /*console.log("show ::", dropdownContent)
     console.log(document.body)*/
 }
 
 btDropdown.addEventListener('click', dropdownFc);
+
+function toggleOption(event) {
+    console.log("toggleOption()", event)
+    var filter = []
+    let dropdownContentClass = document.querySelector(".dropdown-content");
+    for (let i = 0; i < dropdownContentClass.length; i++) {
+        let dropdownContentOpen = dropdownContentClass[i];
+        if (dropdownContentOpen.classList.contains("show")) {
+            dropdownContentOpen.classList.remove("show");
+        }
+        //Le titre du filtre est injecté dans le titre du bouton
+        if (event.target.matches('.dropdownItem')) {
+            document.getElementById('btDropdown').textContent = event.target.textContent;
+            filter = event.target.dataset.filterType;
+            galleryContainer.innerHTML = ""
+            switchFilter(filter)
+        }
+    }
+}
 
 // Fermeture du menu
 // On ecoute si un evenement se realise à l'exterieur du menu
@@ -106,25 +128,6 @@ btDropdown.addEventListener('click', dropdownFc);
 //         // }
 //     }
 // }
-
-function toggleOption(event) {
-    console.log("toggleOption()", event)
-    var filter = []
-    let dropdownContentClass = document.getElementsByClassName("dropdown-content");
-    for (let i = 0; i < dropdownContentClass.length; i++) {
-        let dropdownContentOpen = dropdownContentClass[i];
-        if (dropdownContentOpen.classList.contains("show")) {
-            dropdownContentOpen.classList.remove("show");
-        }
-        //Le titre du filtre est injecté dans le titre du bouton
-        if (event.target.matches('.dropdownItem')) {
-            document.getElementById('btDropdown').textContent = event.target.textContent;
-            filter = event.target.dataset.filterType;
-            galleryContainer.innerHTML = ""
-            switchFilter(filter)
-        }
-    }
-}
 
 document.getElementById("btDropdown").addEventListener("click", toggleOption)
 
