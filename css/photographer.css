@@ -344,7 +344,7 @@ input {
 
 /*LightBox*/
 
-#lightbox-screen {
+.lightbox-screen {
     display: flex;
     position: fixed;
     width: 100%;
@@ -374,7 +374,7 @@ input {
     max-height: 80vh;
 }
 
-#lightbox-screen p {
+.lightbox-screen p {
     display: flex;
     font-size: 1.5rem;
     color: #901C1C;

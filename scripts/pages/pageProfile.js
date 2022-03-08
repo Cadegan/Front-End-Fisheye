@@ -160,7 +160,7 @@ async function switchFilter(selectedFilter) {
 init()
 
 function initLightbox() {
-    const links = Array.from(document.querySelectorAll('a[href$=".png"], a[href$=".jpg"], a[href$=".jpeg"]'))
+    const links = Array.from(document.querySelectorAll('a[href$=".png"], a[href$=".jpg"], a[href$=".jpeg"], a[href$=".gif"], a[href$=".mp4"]'))
 
     const gallery = links.map(link => link.getAttribute('href'))
 
@@ -168,5 +168,6 @@ function initLightbox() {
         e.preventDefault()
         new Lightbox(e.currentTarget.getAttribute('href'), gallery)
     }))
+    console.log('Medias chargés dans la lightbox :', gallery)
 }
 
