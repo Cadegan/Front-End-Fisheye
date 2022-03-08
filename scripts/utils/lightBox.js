@@ -27,55 +27,58 @@
 // }
 export class Lightbox {
 
+
     constructor(id, medias, title) {
         this.element = this.buildDOM(id)
         this.medias = medias
         this.title = title
-        this.loadMedia(id)
+        this.loadMedia(id) //Charge le media dans le container
         this.onKeyUp = this.onKeyUp.bind(this)
         const galleryContainer = document.querySelector(".gallery-container");
         galleryContainer.prepend(this.element)
         document.addEventListener('keyup', this.onKeyUp)
     }
 
+    //Injecte le media recupéré
     loadMedia(id) {
-        this.id = null
+        this.id = null //Reinitialise le media
         const media = new Image()
         const container = this.element.querySelector('.mediaShow')
         container.innerHTML = ''
         media.onload = () => {
-            container.appendChild(media)
-            this.id = id
+            container.appendChild(media)//Injecte le media
+            this.id = id //Charge le media passé en paramettre
         }
         media.src = id
     }
 
+    //Navigation en fonction du Keyboard event
     onKeyUp(e) {
         if (e.key === 'Escape') {
-            this.close(e)
+            this.close(e) // Lance la fonction Close
         } else if (e.key === 'ArrowLeft') {
-            this.prev(e)
+            this.prev(e) // Lance la fonction Preview
         } else if (e.key === 'ArrowRight') {
-            this.next(e)
+            this.next(e) // Lance la fonction Next
         }
     }
 
+    //Fermeture de la Lightbox
     close(e) {
         e.preventDefault()
-        // enableBodyScroll(this.element)
             this.element.parentElement.removeChild(this.element)
             const root = document.querySelector("body, html"); //Va servir à ecouter les evenements et cacher toute la page
             root.style.overflow = ''; //Remet la page générale
-        document.removeEventListener('keyup', this.onKeyUp)
+        document.removeEventListener('keyup', this.onKeyUp) //Enleve de la fonction onKeyUp
     }
 
     next(e) {
         e.preventDefault()
-        let i = this.medias.findIndex(media => media === this.id)
+        let i = this.medias.findIndex(media => media === this.id) //Parcour l'index
         if (i === this.medias.length - 1) {
             i = -1
-        }
-        this.loadMedia(this.medias[i + 1])
+        } //Reviens au debut de l'index au denier media
+        this.loadMedia(this.medias[i + 1]) //Passe au media suivant
     }
 
     prev(e) {
@@ -83,11 +86,11 @@ export class Lightbox {
         let i = this.medias.findIndex(media => media === this.id)
         if (i === 0) {
             i = this.medias.length
-        }
-        this.loadMedia(this.medias[i - 1])
+        } //Reviens à la fin de l'index au denier media
+        this.loadMedia(this.medias[i - 1]) //Passe au media pécédent
     }
 
-
+//Construction HTML
     buildDOM() {
         const root = document.querySelector("body, html"); //Va servir à ecouter les evenements et cacher toute la page
         var currentMedia = this
@@ -185,117 +188,117 @@ export class Lightbox {
 //     if (e.keyCode == 27) hide();
 // });
 
-//Lightbox v2
-export function lightbox() {
-    const root = document.querySelector("body, html"); //Va servir à ecouter les evenements et cacher toute la page
-    const galleryContainer = document.querySelector(".gallery-container");
-    const mediasLightbox = document.querySelectorAll(".mediasLightbox"); //Slecetionne tous les medias (images et videos)
-    console.log("Ensemble des medias lightbox :", mediasLightbox)
-    const l = mediasLightbox.length; //Longeur de la collection
-    console.log("Nombre total de medias :", l)
+// //Lightbox v2
+// export function lightbox() {
+//     const root = document.querySelector("body, html"); //Va servir à ecouter les evenements et cacher toute la page
+//     const galleryContainer = document.querySelector(".gallery-container");
+//     const mediasLightbox = document.querySelectorAll(".mediasLightbox"); //Slecetionne tous les medias (images et videos)
+//     console.log("Ensemble des medias lightbox :", mediasLightbox)
+//     const l = mediasLightbox.length; //Longeur de la collection
+//     console.log("Nombre total de medias :", l)
 
-    for (var i = 0; i < l; i++) {
-        mediasLightbox[i].addEventListener("click", function loadMedia(i) { //Pour chaque media, on ecoute le click
-            var currentMedia = this; //Chargera le media actuellement visionné
-            console.log("Media visionné :", this)
-            const screenView = document.createElement('div'); //Zonne d'ouverture du media
-            screenView.id = "lightbox-screen";
-            galleryContainer.prepend(screenView);
-            var mediaFocus = currentMedia.src; //Recupere le media
-            var mediaFocusTitle = currentMedia.alt //Recupere le titre du media
-            console.log("Titre du media selectionné :", mediaFocusTitle);
-            console.log("Chemin du média affiché :", mediaFocus)
-            root.style.overflow = 'hidden'; //Cache la page générale
-            screenView.innerHTML = `
-                            <button class="btClose btnScreenview">&times;</button>
-                            <button class="btNext btnScreenview">&lsaquo;</button>
-                            <button class="btPrev btnScreenview">&rsaquo;</button>
-                            <div class="lightboxScreenContainer">
-                                <div class="mediaShow"></div>
-                                <p classe="mediaTitle">${mediaFocusTitle}</p>
-                            </div>`;
-            const first = mediasLightbox[0].src, last = mediasLightbox[l - 1].src; //Determine le 1er et le dernier media de la liste
-            //Cible les différents éléments pour la visualisation
-            const imgItem = document.querySelector(".mediaShow"), prevBtn = document.querySelector(".btPrev"), nextBtn = document.querySelector(".btNext"), close = document.querySelector(".btClose");
-            imgItem.innerHTML = '<img src="' + mediaFocus + '">'; //Affiche le media
-            //Conditions qui détermine si c'est le 1er, un ou le dernier media
-            if (l > 1) {
-                if (mediaFocus == first) {
-                    nextBtn.hidden = true;
-                    var prevImg = false;
-                    // var nextImg = currentMedia.nextElementSibling; //!!!Impossible d'accéder au media suivant
-                }
-                else if (mediaFocus == last) {
-                    prevBtn.hidden = true;
-                    var nextImg = false;
-                    // var prevImg = currentMedia.previousElementSibling;
-                }
-                else {
-                    var prevImg = currentMedia.previousElementSibling;
-                    var nextImg = currentMedia.nextElementSibling;
-                }
-            }
-            else {
-                prevBtn.hidden = true;
-                nextBtn.hidden = true;
-            }
-            //Fonctions de navigation
-            screenView.addEventListener("click", function (e) {
-                if (e.target == this || e.target == close) hide();
-            });
+//     for (var i = 0; i < l; i++) {
+//         mediasLightbox[i].addEventListener("click", function loadMedia(i) { //Pour chaque media, on ecoute le click
+//             var currentMedia = this; //Chargera le media actuellement visionné
+//             console.log("Media visionné :", this)
+//             const screenView = document.createElement('div'); //Zonne d'ouverture du media
+//             screenView.id = "lightbox-screen";
+//             galleryContainer.prepend(screenView);
+//             var mediaFocus = currentMedia.src; //Recupere le media
+//             var mediaFocusTitle = currentMedia.alt //Recupere le titre du media
+//             console.log("Titre du media selectionné :", mediaFocusTitle);
+//             console.log("Chemin du média affiché :", mediaFocus)
+//             root.style.overflow = 'hidden'; //Cache la page générale
+//             screenView.innerHTML = `
+//                             <button class="btClose btnScreenview">&times;</button>
+//                             <button class="btNext btnScreenview">&lsaquo;</button>
+//                             <button class="btPrev btnScreenview">&rsaquo;</button>
+//                             <div class="lightboxScreenContainer">
+//                                 <div class="mediaShow"></div>
+//                                 <p classe="mediaTitle">${mediaFocusTitle}</p>
+//                             </div>`;
+//             const first = mediasLightbox[0].src, last = mediasLightbox[l - 1].src; //Determine le 1er et le dernier media de la liste
+//             //Cible les différents éléments pour la visualisation
+//             const imgItem = document.querySelector(".mediaShow"), prevBtn = document.querySelector(".btPrev"), nextBtn = document.querySelector(".btNext"), close = document.querySelector(".btClose");
+//             imgItem.innerHTML = '<img src="' + mediaFocus + '">'; //Affiche le media
+//             //Conditions qui détermine si c'est le 1er, un ou le dernier media
+//             if (l > 1) {
+//                 if (mediaFocus == first) {
+//                     nextBtn.hidden = true;
+//                     var prevImg = false;
+//                     // var nextImg = currentMedia.nextElementSibling; //!!!Impossible d'accéder au media suivant
+//                 }
+//                 else if (mediaFocus == last) {
+//                     prevBtn.hidden = true;
+//                     var nextImg = false;
+//                     // var prevImg = currentMedia.previousElementSibling;
+//                 }
+//                 else {
+//                     var prevImg = currentMedia.previousElementSibling;
+//                     var nextImg = currentMedia.nextElementSibling;
+//                 }
+//             }
+//             else {
+//                 prevBtn.hidden = true;
+//                 nextBtn.hidden = true;
+//             }
+//             //Fonctions de navigation
+//             screenView.addEventListener("click", function (e) {
+//                 if (e.target == this || e.target == close) hide();
+//             });
 
-            root.addEventListener("keydown", function (e) {
-                if (e.keyCode == 37 || e.keyCode == 38) prev();
-                if (e.keyCode == 39 || e.keyCode == 40) next();
-                if (e.keyCode == 27) hide();
-            });
+//             root.addEventListener("keydown", function (e) {
+//                 if (e.keyCode == 37 || e.keyCode == 38) prev();
+//                 if (e.keyCode == 39 || e.keyCode == 40) next();
+//                 if (e.keyCode == 27) hide();
+//             });
 
-            prevBtn.addEventListener("click", prev);
-            nextBtn.addEventListener("click", next);
+//             prevBtn.addEventListener("click", prev);
+//             nextBtn.addEventListener("click", next);
 
-            function changeMedia(index) {
-                let indexMedia = mediasLightbox.findIndex(
-                    (id) => id == imgItem.firstChild.dataset.id
-                );
-                if (indexMedia + index < 0) {
-                    indexMedia = mediasLightbox.length - 1;
-                } else if (indexMedia + index == mediasLightbox.length) {
-                    indexMedia = 0;
-                } else {
-                    indexMedia += index;
-                }
-                loadMedia(mediasLightbox[indexMedia]);
-            }
+//             function changeMedia(index) {
+//                 let indexMedia = mediasLightbox.findIndex(
+//                     (id) => id == imgItem.firstChild.dataset.id
+//                 );
+//                 if (indexMedia + index < 0) {
+//                     indexMedia = mediasLightbox.length - 1;
+//                 } else if (indexMedia + index == mediasLightbox.length) {
+//                     indexMedia = 0;
+//                 } else {
+//                     indexMedia += index;
+//                 }
+//                 loadMedia(mediasLightbox[indexMedia]);
+//             }
 
-            //Fonction d'appel du media précédent
-            function prev() {
-                var index = mediasLightbox.findIndex(this);
+//             //Fonction d'appel du media précédent
+//             function prev() {
+//                 var index = mediasLightbox.findIndex(this);
 
-                if (index == this.mediasLightbox.length - 1) {
-                    this.currentMedia = this.mediasLightbox[0];
-                } else {
-                    this.currentMedia = this.mediasLightbox[index + 1];
-                }
+//                 if (index == this.mediasLightbox.length - 1) {
+//                     this.currentMedia = this.mediasLightbox[0];
+//                 } else {
+//                     this.currentMedia = this.mediasLightbox[index + 1];
+//                 }
 
-                // prevImg = currentMedia.previousElementSibling; //Fonctionnne pas
-                // imgItem.innerHTML = '<img src="' + prevImg.src + '">';
-                // currentMedia = currentMedia.previousElementSibling;
-            }
+//                 // prevImg = currentMedia.previousElementSibling; //Fonctionnne pas
+//                 // imgItem.innerHTML = '<img src="' + prevImg.src + '">';
+//                 // currentMedia = currentMedia.previousElementSibling;
+//             }
 
-            //Fonction d'appel du media d'après
-            function next() {
-                nextImg = currentMedia.nextElementSibling;
-                imgItem.innerHTML = '<img src="' + nextImg.src + '">';
-                currentMedia = currentMedia.nextElementSibling;
-            }
+//             //Fonction d'appel du media d'après
+//             function next() {
+//                 nextImg = currentMedia.nextElementSibling;
+//                 imgItem.innerHTML = '<img src="' + nextImg.src + '">';
+//                 currentMedia = currentMedia.nextElementSibling;
+//             }
 
-            function hide() {
-                root.style.overflow = 'auto';
-                screenView.remove();
-            }
-        });
-    }
-}
+//             function hide() {
+//                 root.style.overflow = 'auto';
+//                 screenView.remove();
+//             }
+//         });
+//     }
+// }
 
 
 /*
