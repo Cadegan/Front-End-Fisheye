@@ -8,7 +8,9 @@ export default class BookTemplate {
     createImage() {
         return `
             <article class="media-container" tabindex="0" data-type="image" aria-label="${this._media.title}">
+                <a href="${this._media.image}">
                 <img class="photo mediasLightbox" alt="${this._media.title}" src="${this._media.image}" data-id="${this._media.id}"/>
+                </a>
                 <div class="titleContent">
                     <h3 class="title">${this._media.title}</h3>
                     <div class="reviewElement">
@@ -24,7 +26,9 @@ export default class BookTemplate {
     createVideo () {
         return `
             <article class="media-container" tabindex="0" data-type="video" aria-label="${this._media.title}">
-                <video class="video mediasLightbox" alt="${this._media.title}" src="${this._media.video}" controls="controls" data-id="${this._media.id}"></video>
+            <a href="${this._media.video}">
+                 <video class="video mediasLightbox" alt="${this._media.title}" src="${this._media.video}" controls="controls" data-id="${this._media.id}"></video>
+            </a>
                 <div class="titleContent">
                     <h3 class="title">${this._media.title}</h3>
                     <div class="reviewElement">

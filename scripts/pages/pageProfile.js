@@ -2,7 +2,7 @@
 import PhotographBook from '../factories/models/photographBook.js'
 import BookTemplate from '../factories/templates/bookTemplate.js'
 import { getAllLikes, addLikes } from '../utils/like.js'
-import { lightbox } from '../utils/lightBox.js'
+import { Lightbox } from '../utils/lightBox.js'
 let urlProfile = new URLSearchParams(window.location.search)
 let id = urlProfile.get('id');
 const galleryContainer = document.querySelector(".gallery-container");
@@ -26,7 +26,7 @@ async function init() {
             mediaDisplay()
             getAllLikes()
             addLikes()
-            lightbox()
+            initLightbox()
             console.log(media)
         });
     //Retourne le profil et les medias
@@ -153,7 +153,20 @@ async function switchFilter(selectedFilter) {
     }
     showGallery(mediaFiltred)
     addLikes()
-    lightbox()
+    initLightbox()
+    // lightbox()
 }
 
 init()
+
+function initLightbox() {
+    const links = Array.from(document.querySelectorAll('a[href$=".png"], a[href$=".jpg"], a[href$=".jpeg"]'))
+
+    const gallery = links.map(link => link.getAttribute('href'))
+
+    links.forEach(link => link.addEventListener('click', e => {
+        e.preventDefault()
+        new Lightbox(e.currentTarget.getAttribute('href'), gallery)
+    }))
+}
+
