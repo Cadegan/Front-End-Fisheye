@@ -162,9 +162,9 @@ init()
 //Initialisation de la lightbox
 function initLightbox() {
     //Tableau de tous les medias pour la Lightbox
-    const links = Array.from(document.querySelectorAll('a[href$=""], a[href$=".jpg"], a[href$=".jpeg"], a[href$=".gif"], a[href$=".mp4"]'))
+    const links = Array.from(document.querySelectorAll('a[href$=".png"], a[href$=".jpg"], a[href$=".jpeg"], a[href$=".gif"], a[href$=".mp4"]'))
 
-    //Pour chaque lien on recupere les href (faudrait récupèrer tous les alt!!!)
+    //Pour chaque élément on recupere les href (faudrait récupèrer tous les alt!!!)
     const gallery = links.map(link => link.getAttribute('href'))
 
     links.forEach(link => link.addEventListener('click', e => {
