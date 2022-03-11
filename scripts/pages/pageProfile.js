@@ -153,7 +153,7 @@ async function switchFilter(selectedFilter) {
     }
     showGallery(mediaFiltred)
     addLikes()
-    initLightbox()
+    initLightbox(mediaFiltred)
     // lightbox()
 }
 
@@ -162,10 +162,16 @@ init()
 //Initialisation de la lightbox
 function initLightbox() {
     //Tableau de tous les medias pour la Lightbox
-    const links = Array.from(document.querySelectorAll('a[href$=".png"], a[href$=".jpg"], a[href$=".jpeg"], a[href$=".gif"], a[href$=".mp4"]'))
+
+    const links = Array.from(document.querySelectorAll('.media-container a'))
+    console.log ("Ensemble des medias qui seront chargés dans la Lightbox :", links)
 
     //Pour chaque élément on recupere les href (faudrait récupèrer tous les alt!!!)
     const gallery = links.map(link => link.getAttribute('href'))
+
+    // const gallery = links.map(link => link.getAttribute('a'))
+    const titles = links.map(link => link.getAttribute('alt'))
+    console.log("Titres des medias chargés :", titles)
 
     links.forEach(link => link.addEventListener('click', e => {
         e.preventDefault()

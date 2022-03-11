@@ -42,14 +42,16 @@ export class Lightbox {
     //Injecte le media recupéré
     loadMedia(id) {
         this.id = null //Reinitialise le media
-        const media = new Image()
+        let media = new Image()
         const container = this.element.querySelector('.mediaShow')
         container.innerHTML = ''
         media.onload = () => {
             container.appendChild(media)//Injecte le media
             this.id = id //Charge le media passé en paramettre
+            this.alt = id
         }
         media.src = id
+        media.alt = id
     }
 
     //Navigation en fonction du Keyboard event
@@ -90,11 +92,11 @@ export class Lightbox {
         this.loadMedia(this.medias[i - 1]) //Passe au media pécédent
     }
 
-//Construction HTML
-    buildDOM() {
+//Construction HTML du loader
+    buildDOM(mediaTitle) {
         const root = document.querySelector("body, html"); //Va servir à ecouter les evenements et cacher toute la page
-        var currentMedia = this
-        var mediaFocusTitle = currentMedia.alt
+        // var currentMedia = this
+        // var mediaFocusTitle = currentMedia.alt
         root.style.overflow = 'hidden'; //Cache la page générale
         const dom = document.createElement('div')
         dom.classList.add('lightbox-screen')
@@ -104,7 +106,7 @@ export class Lightbox {
         <button class="btPrev btnScreenview">&rsaquo;</button>
         <div class="lightboxScreenContainer">
             <div class="mediaShow"></div>
-            <p classe="mediaTitle">${mediaFocusTitle}</p>
+            <p classe="mediaTitle">${mediaTitle}</p>
         </div>
         `
         dom.querySelector('.btClose').addEventListener('click', this.close.bind(this))
