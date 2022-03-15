@@ -1,50 +1,44 @@
 
 export class Lightbox {
-    static initLightbox() {
+    static initLightbox(media) {
         //Tableau de tous les medias pour la Lightbox
 
         const links = Array.from(document.querySelectorAll('.media-container a'))
         console.log("Ensemble des medias qui seront chargés dans la Lightbox :", links)
 
-        //Pour chaque élément on recupere les href (faudrait récupèrer tous les alt!!!)
-        const gallery = links.map(link => link.getAttribute('href'))
-
-        // const gallery = links.map(link => link.getAttribute('a'))
-        const titles = links.map(link => link.getAttribute('alt'))
-        console.log("Titres des medias chargés :", titles)
-
         links.forEach(link => link.addEventListener('click', e => {
             e.preventDefault()
-            new Lightbox(e.currentTarget.getAttribute('href'), gallery)
+            new Lightbox(e.currentTarget.dataset.id , media)
         }))
-        console.log('Medias chargés dans la lightbox :', gallery)
+        console.log('Medias chargés dans la lightbox :', media)
 }
 
-    constructor(id, media, title) {
-        this.element = this.buildDOM(id)
+    constructor(id, media) {
         this.media = media
-        this.title = title
-        this.loadMedia(id) //Charge le media dans le container
+        this.mediaFocus = this.media.find(el => el.id == id)
+        this.element = this.buildDOM(id)
+        // this.title = title
+        // this.loadMedia(id) //Charge le media dans le container
         this.onKeyUp = this.onKeyUp.bind(this)
         const galleryContainer = document.querySelector(".gallery-container");
         galleryContainer.prepend(this.element)
         document.addEventListener('keyup', this.onKeyUp)
     }
 
-    //Injecte le media recupéré
-    loadMedia(id, alt) {
-        this.id = null //Reinitialise le media
-        let media = new Image()
-        const container = this.element.querySelector('.mediaShow')
-        container.innerHTML = ''
-        media.onload = () => {
-            container.appendChild(media)//Injecte le media
-            this.id = id //Charge le media passé en paramettre
-            this.alt = alt
-        }
-        media.src = id
-        media.alt = alt
-    }
+    // //Injecte le media recupéré
+    // loadMedia(id, alt) {
+    //     this.id = null //Reinitialise le media
+    //     let media = new Image()
+    //     const container = this.element.querySelector('.mediaShow')
+    //     container.innerHTML = ''
+    //     media.onload = () => {
+    //         container.appendChild(media)//Injecte le media
+    //         this.id = id //Charge le media passé en paramettre
+    //         this.alt = alt
+    //     }
+    //     media.src = id
+    //     media.alt = alt
+    // }
 
     //Navigation en fonction du Keyboard event
     onKeyUp(e) {
@@ -68,24 +62,28 @@ export class Lightbox {
 
     next(e) {
         e.preventDefault()
-        let i = this.media.findIndex(media => media === this.id) //Parcour l'index
+        let i = this.media.findIndex(media => media.id === this.mediaFocus.id) //Parcour l'index
         if (i === this.media.length - 1) {
-            i = -1
-        } //Reviens au debut de l'index au denier media
-        this.loadMedia(this.media[i + 1]) //Passe au media suivant
+            this.mediaFocus = this.media[0]
+        } else {//Reviens au debut de l'index au denier media
+        this.mediaFocus = this.media[i + 1] //Passe au media suivant
+        }
+        this.element.querySelector('.lightboxScreenContainer').innerHTML = this.mediaFocus.createMediaLightbox()
     }
 
     prev(e) {
         e.preventDefault()
-        let i = this.media.findIndex(media => media === this.id)
+        let i = this.media.findIndex(media => media.id === this.mediaFocus.id)
         if (i === 0) {
-            i = this.media.length
-        } //Reviens à la fin de l'index au denier media
-        this.loadMedia(this.media[i - 1]) //Passe au media pécédent
+            this.mediaFocus = this.media[this.media.length - 1] //Reviens à la fin de l'index au denier media
+        } else {
+            this.mediaFocus = this.media[i - 1] //Passe au media pécédent
+        }
+        this.element.querySelector('.lightboxScreenContainer').innerHTML = this.mediaFocus.createMediaLightbox()
     }
 
 //Construction HTML du loader
-    buildDOM(alt) {
+    buildDOM() {
         const root = document.querySelector("body, html"); //Va servir à ecouter les evenements et cacher toute la page
         // var currentMedia = this
         // var mediaFocusTitle = currentMedia.alt
@@ -97,8 +95,7 @@ export class Lightbox {
         <button class="btNext btnScreenview">&lsaquo;</button>
         <button class="btPrev btnScreenview">&rsaquo;</button>
         <div class="lightboxScreenContainer">
-            <div class="mediaShow"></div>
-            <p classe="mediaTitle">${alt}</p>
+            ${this.mediaFocus.createMediaLightbox()}
         </div>
         `
         dom.querySelector('.btClose').addEventListener('click', this.close.bind(this))

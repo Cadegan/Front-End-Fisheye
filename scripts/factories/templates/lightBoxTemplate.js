@@ -36,4 +36,5 @@ class Video {
                 <p>alt="${this._media.title}"</p>
         `
     }
+
 }

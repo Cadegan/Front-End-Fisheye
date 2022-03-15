@@ -26,8 +26,8 @@ async function init() {
             mediaDisplay()
             getAllLikes()
             addLikes()
-            initLightbox()
-            console.log(media)
+            // initLightbox()
+            // console.log(media)
         });
     //Retourne le profil et les medias
     return { profile, media }
@@ -70,6 +70,7 @@ export function showGallery(medias) {
             galleryContainer.innerHTML += BookTemplateData.createVideo()
         }
     })
+    Lightbox.initLightbox(medias);
 }
 
 //Filtre menu
@@ -153,30 +154,31 @@ async function switchFilter(selectedFilter) {
     }
     showGallery(mediaFiltred)
     addLikes()
-    initLightbox(mediaFiltred)
+    Lightbox.initLightbox(mediaFiltred)
+    // initLightbox(mediaFiltred)
     // lightbox()
 }
 
 init()
 
 //Initialisation de la lightbox
-function initLightbox() {
-    //Tableau de tous les medias pour la Lightbox
+// function initLightbox() {
+//     //Tableau de tous les medias pour la Lightbox
 
-    const links = Array.from(document.querySelectorAll('.media-container a'))
-    console.log ("Ensemble des medias qui seront chargés dans la Lightbox :", links)
+//     const links = Array.from(document.querySelectorAll('.media-container a'))
+//     console.log ("Ensemble des medias qui seront chargés dans la Lightbox :", links)
 
-    //Pour chaque élément on recupere les href (faudrait récupèrer tous les alt!!!)
-    const gallery = links.map(link => link.getAttribute('href'))
+//     //Pour chaque élément on recupere les href (faudrait récupèrer tous les alt!!!)
+//     const gallery = links.map(link => link.getAttribute('href'))
 
-    // const gallery = links.map(link => link.getAttribute('a'))
-    const titles = links.map(link => link.getAttribute('alt'))
-    console.log("Titres des medias chargés :", titles)
+//     // const gallery = links.map(link => link.getAttribute('a'))
+//     const titles = links.map(link => link.getAttribute('alt'))
+//     console.log("Titres des medias chargés :", titles)
 
-    links.forEach(link => link.addEventListener('click', e => {
-        e.preventDefault()
-        new Lightbox(e.currentTarget.getAttribute('href'), gallery)
-    }))
-    console.log('Medias chargés dans la lightbox :', gallery)
-}
+//     links.forEach(link => link.addEventListener('click', e => {
+//         e.preventDefault()
+//         new Lightbox(e.currentTarget.getAttribute('href'), gallery)
+//     }))
+//     console.log('Medias chargés dans la lightbox :', gallery)
+// }
 

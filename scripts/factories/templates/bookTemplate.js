@@ -9,7 +9,7 @@ export default class BookTemplate {
         return `
             <article class="media-container" tabindex="0" data-type="image" aria-label="${this._media.title}">
                 <a href="${this._media.image}" alt="${this._media.title}" data-id="${this._media.id}">
-                <img class="photo mediasLightbox" alt="${this._media.title}" src="${this._media.image}" data-id="${this._media.id}"/>
+                <img class="photo mediasLightbox" alt="${this._media.title}" src="${this._media.image}"/>
                 </a>
                 <div class="titleContent">
                     <h3 class="title">${this._media.title}</h3>
@@ -27,7 +27,7 @@ export default class BookTemplate {
         return `
             <article class="media-container" tabindex="0" data-type="video" aria-label="${this._media.title}">
             <a href="${this._media.video}" alt="${this._media.title}">
-                 <video class="video mediasLightbox" alt="${this._media.title}" src="${this._media.video}" controls="controls" data-id="${this._media.id}"></video>
+                 <video class="video mediasLightbox" alt="${this._media.title}" src="${this._media.video}" controls="controls"></video>
             </a>
                 <div class="titleContent">
                     <h3 class="title">${this._media.title}</h3>
