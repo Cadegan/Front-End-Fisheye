@@ -26,7 +26,7 @@ async function init() {
             mediaDisplay()
             getAllLikes()
             addLikes()
-            // initLightbox()
+            initLightbox()
             // console.log(media)
         });
     //Retourne le profil et les medias
@@ -70,7 +70,6 @@ export function showGallery(medias) {
             galleryContainer.innerHTML += BookTemplateData.createVideo()
         }
     })
-    Lightbox.initLightbox(medias);
 }
 
 //Filtre menu
@@ -85,7 +84,6 @@ function toggleDropdownVisibility() {
 }
 
 btDropdown.addEventListener('click', toggleDropdownVisibility);
-
 
 // recuper l'arrray des options
 var optionsElements = document.getElementsByClassName('dropdownItem');
@@ -107,31 +105,6 @@ function toggleOption(event) {
     galleryContainer.innerHTML = ""
     switchFilter(filter)
 }
-
-// function qui execute le filtre
-
-// Fermeture du menu
-// On ecoute si un evenement se realise à l'exterieur du menu
-// On le cache si c'est le cas
-// window.onclick = function (event) {
-//     var filter = []
-//     if (!event.target.matches('#btDropdown')) {
-//         // let dropdownContentClass = document.getElementsByClassName("dropdown-content");
-//         // for (let i = 0; i < dropdownContentClass.length; i++) {
-//         //     let dropdownContentOpen = dropdownContentClass[i];
-//         //     if (dropdownContentOpen.classList.contains("show")) {
-//         //         dropdownContentOpen.classList.remove("show");
-//         //     }
-//         //     //Le titre du filtre est injecté dans le titre du bouton
-//         //     if (event.target.matches('.dropdownItem')) {
-//         //         document.getElementById('btDropdown').textContent = event.target.textContent;
-//         //         filter = event.target.dataset.filterType;
-//         //         galleryContainer.innerHTML = ""
-//         //         switchFilter(filter)
-//         //     }
-//         // }
-//     }
-// }
 
 async function switchFilter(selectedFilter) {
     let mediaFiltred = []
@@ -155,31 +128,29 @@ async function switchFilter(selectedFilter) {
     }
     showGallery(mediaFiltred)
     addLikes()
-    Lightbox.initLightbox(mediaFiltred)
-    // initLightbox(mediaFiltred)
-    // lightbox()
+    initLightbox(mediaFiltred)
 }
 
 init()
 
 //Initialisation de la lightbox
-// function initLightbox() {
-//     //Tableau de tous les medias pour la Lightbox
+function initLightbox() {
+    //Tableau de tous les medias pour la Lightbox
 
-//     const links = Array.from(document.querySelectorAll('.media-container a'))
-//     console.log ("Ensemble des medias qui seront chargés dans la Lightbox :", links)
+    const links = Array.from(document.querySelectorAll('.media-container a'))
+    console.log ("Ensemble des medias qui seront chargés dans la Lightbox :", links)
 
-//     //Pour chaque élément on recupere les href (faudrait récupèrer tous les alt!!!)
-//     const gallery = links.map(link => link.getAttribute('href'))
+    //Pour chaque élément on recupere les href (faudrait récupèrer tous les alt!!!)
+    const gallery = links.map(link => link.getAttribute('href'))
 
-//     // const gallery = links.map(link => link.getAttribute('a'))
-//     const titles = links.map(link => link.getAttribute('alt'))
-//     console.log("Titres des medias chargés :", titles)
+    // const gallery = links.map(link => link.getAttribute('a'))
+    const titles = links.map(link => link.getAttribute('alt'))
+    console.log("Titres des medias chargés :", titles)
 
-//     links.forEach(link => link.addEventListener('click', e => {
-//         e.preventDefault()
-//         new Lightbox(e.currentTarget.getAttribute('href'), gallery)
-//     }))
-//     console.log('Medias chargés dans la lightbox :', gallery)
-// }
+    links.forEach(link => link.addEventListener('click', e => {
+        e.preventDefault()
+        new Lightbox(e.currentTarget.getAttribute('href'), gallery)
+    }))
+    console.log('Medias chargés dans la lightbox :', gallery)
+}
 
