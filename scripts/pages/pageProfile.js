@@ -75,37 +75,40 @@ export function showGallery(medias) {
 
 //Filtre menu
 let btDropdown = document.querySelector(".btDropdown") //Par défaut sur "Popularité"
-let dropdownContent = document.getElementById("dropdownContent")
+let dropdownContainer = document.getElementById("dropdownContent")
 let menuDropdown = document.querySelector("#menu_dropdown")
 
-function dropdownFc() {
-    dropdownContent.classList.toggle('show')
+function toggleDropdownVisibility() {
+    dropdownContainer.classList.toggle('show')
     let expanded = menuDropdown.getAttribute('aria-expanded') == "true" ? "false" : "true";
     menuDropdown.setAttribute('aria-expanded', expanded);  
-    /*console.log("show ::", dropdownContent)
-    console.log(document.body)*/
 }
 
-btDropdown.addEventListener('click', dropdownFc);
+btDropdown.addEventListener('click', toggleDropdownVisibility);
+
+
+// recuper l'arrray des options
+var optionsElements = document.getElementsByClassName('dropdownItem');
+
+// lié event au click
+for (let i = 0; i < optionsElements.length; i++) {
+    const optionElement = optionsElements[i];
+    optionElement.addEventListener("click", toggleOption);
+}
 
 function toggleOption(event) {
-    console.log("toggleOption()", event)
     var filter = []
-    let dropdownContentClass = document.querySelector(".dropdown-content");
-    for (let i = 0; i < dropdownContentClass.length; i++) {
-        let dropdownContentOpen = dropdownContentClass[i];
-        if (dropdownContentOpen.classList.contains("show")) {
-            dropdownContentOpen.classList.remove("show");
-        }
-        //Le titre du filtre est injecté dans le titre du bouton
-        if (event.target.matches('.dropdownItem')) {
-            document.getElementById('btDropdown').textContent = event.target.textContent;
-            filter = event.target.dataset.filterType;
-            galleryContainer.innerHTML = ""
-            switchFilter(filter)
-        }
-    }
+
+    dropdownContainer.classList.remove('show')
+
+    document.getElementById('btDropdown').textContent = event.target.textContent;
+
+    filter = event.target.dataset.filterType;
+    galleryContainer.innerHTML = ""
+    switchFilter(filter)
 }
+
+// function qui execute le filtre
 
 // Fermeture du menu
 // On ecoute si un evenement se realise à l'exterieur du menu
@@ -129,8 +132,6 @@ function toggleOption(event) {
 //         // }
 //     }
 // }
-
-document.getElementById("btDropdown").addEventListener("click", toggleOption)
 
 async function switchFilter(selectedFilter) {
     let mediaFiltred = []
