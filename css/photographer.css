@@ -374,6 +374,10 @@ input {
     max-height: 80vh;
 }
 
+.mediaShow video {
+    max-height : 80vh;
+}
+
 .lightbox-screen p {
     display: flex;
     font-size: 1.5rem;

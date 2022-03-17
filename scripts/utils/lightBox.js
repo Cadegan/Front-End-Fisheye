@@ -1,6 +1,6 @@
 // import MediaImage from "../models/MediaImage.js"
 
-// TODO: mettre le bon tag video
+// TODO: mettre le bon tag video : ok
 // mettre le system loop dans la boucle index
 // mettre a jour le style
 export class Lightbox {
@@ -9,7 +9,7 @@ export class Lightbox {
     media = {
         url: null,
         title: null,
-        mediaType: null,
+        mediatype: null,
     };
 
     constructor(index) {
@@ -30,14 +30,15 @@ export class Lightbox {
 
     getImageData() {
         let mediaElements = Array.from(document.querySelectorAll('.media-container a'))
-        console.log(mediaElements)
+        // console.log(mediaElements)
         let mediaElement = mediaElements[this.index];
 
         this.media = {
             url: mediaElement.getAttribute("href"),
             title: mediaElement.getAttribute("alt"),
-            type: mediaElement.dataset.mediaType,
+            type: mediaElement.dataset.mediatype,
         };
+        // console.log(this.media)
     }
 
 
@@ -130,8 +131,7 @@ export class MediaVideo {
 
     createAndGetElement() {
         return `
-                <img src="${this._media.url}"/>
-                <p>${this._media.title}</p>
+                <video src="${this._media.url}" type="video" controls="true"></video>
         `
     }
 }
