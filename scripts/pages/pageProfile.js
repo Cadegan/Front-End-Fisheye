@@ -57,18 +57,23 @@ const mediaDisplay = () => {
 
 export function showGallery(medias) {
     //Pour chaque media (data)
+    let index = 0;
+
     medias.forEach((media) => {
         //On récupère les informations à chaque media
         const photographBook = new PhotographBook(media)
         //On applique une mise en forme selon si c'est une image ou autre, donc video
         const BookTemplateData = new BookTemplate(photographBook)
+
         if (media.image) {
             //Ajoute un nouveau media "image"
-            galleryContainer.innerHTML += BookTemplateData.createImage()
+            galleryContainer.innerHTML += BookTemplateData.createImage(index)
         } else {
             //Ajoute un nouveau media "video"
-            galleryContainer.innerHTML += BookTemplateData.createVideo()
+            galleryContainer.innerHTML += BookTemplateData.createVideo(index)
         }
+
+        index++;
     })
 }
 
@@ -138,19 +143,19 @@ function initLightbox() {
     //Tableau de tous les medias pour la Lightbox
 
     const links = Array.from(document.querySelectorAll('.media-container a'))
-    console.log ("Ensemble des medias qui seront chargés dans la Lightbox :", links)
+    // console.log ("Ensemble des medias qui seront chargés dans la Lightbox :", links)
 
     //Pour chaque élément on recupere les href (faudrait récupèrer tous les alt!!!)
     const gallery = links.map(link => link.getAttribute('href'))
 
     // const gallery = links.map(link => link.getAttribute('a'))
     const titles = links.map(link => link.getAttribute('alt'))
-    console.log("Titres des medias chargés :", titles)
+    // console.log("Titres des medias chargés :", titles)
 
     links.forEach(link => link.addEventListener('click', e => {
         e.preventDefault()
-        new Lightbox(e.currentTarget.getAttribute('href'), gallery)
+        new Lightbox(e.currentTarget.dataset.index, gallery)
     }))
-    console.log('Medias chargés dans la lightbox :', gallery)
+    // console.log('Medias chargés dans la lightbox :', gallery)
 }
 
