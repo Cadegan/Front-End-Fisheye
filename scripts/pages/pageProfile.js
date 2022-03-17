@@ -148,10 +148,6 @@ function initLightbox() {
     //Pour chaque élément on recupere les href (faudrait récupèrer tous les alt!!!)
     const gallery = links.map(link => link.getAttribute('href'))
 
-    // const gallery = links.map(link => link.getAttribute('a'))
-    const titles = links.map(link => link.getAttribute('alt'))
-    // console.log("Titres des medias chargés :", titles)
-
     links.forEach(link => link.addEventListener('click', e => {
         e.preventDefault()
         new Lightbox(e.currentTarget.dataset.index, gallery)

@@ -30,7 +30,7 @@ export class Lightbox {
 
     getImageData() {
         let mediaElements = Array.from(document.querySelectorAll('.media-container a'))
-        
+        console.log(mediaElements)
         let mediaElement = mediaElements[this.index];
 
         this.media = {
@@ -62,9 +62,7 @@ export class Lightbox {
         <button class="btNext btnScreenview">&lsaquo;</button>
         <button class="btPrev btnScreenview">&rsaquo;</button>
         <div class="lightboxScreenContainer">
-            <div class="mediaShow">
-            </div>
-            <p classe="mediaTitle"></p>
+            <div class="mediaShow"></div>
         </div>
         `
         dom.querySelector('.btClose').addEventListener('click', this.close.bind(this))
@@ -120,8 +118,8 @@ export default class MediaImage {
 
     createAndGetElement() {
         return `
-            <img src="${this._media.url}" />
-            <p>alt="${this._media.title}"</p>
+            <img src="${this._media.url}"/>
+            <p>${this._media.title}</p>
         `
     }
 }
@@ -132,8 +130,8 @@ export class MediaVideo {
 
     createAndGetElement() {
         return `
-                <img src="${this._media.url}" />
-                <p>alt="${this._media.title}"</p>
+                <img src="${this._media.url}"/>
+                <p>${this._media.title}</p>
         `
     }
 }
