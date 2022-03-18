@@ -1,7 +1,7 @@
 // import MediaImage from "../models/MediaImage.js"
 
 // TODO: mettre le bon tag video : ok
-// mettre le system loop dans la boucle index
+// mettre le system loop dans la boucle index : Loop ok
 // mettre a jour le style
 export class Lightbox {
     lightboxContainerElement = null;
@@ -10,6 +10,7 @@ export class Lightbox {
         url: null,
         title: null,
         mediatype: null,
+        index : null,
     };
 
     constructor(index) {
@@ -32,13 +33,15 @@ export class Lightbox {
         let mediaElements = Array.from(document.querySelectorAll('.media-container a'))
         // console.log(mediaElements)
         let mediaElement = mediaElements[this.index];
+        // console.log(mediaElement)
 
         this.media = {
             url: mediaElement.getAttribute("href"),
             title: mediaElement.getAttribute("alt"),
             type: mediaElement.dataset.mediatype,
+            index: mediaElement.dataset.index,
         };
-        // console.log(this.media)
+        console.log(this.media)
     }
 
 
@@ -62,7 +65,7 @@ export class Lightbox {
         <button class="btClose btnScreenview">&times;</button>
         <button class="btNext btnScreenview">&lsaquo;</button>
         <button class="btPrev btnScreenview">&rsaquo;</button>
-        <div class="lightboxScreenContainer">
+        <div class="lightboxScreenContainer" tabindex="0">
             <div class="mediaShow"></div>
         </div>
         `
@@ -94,20 +97,31 @@ export class Lightbox {
             this.next(e) // Lance la fonction Next
         }
     }
+    
     next(e) {
         e.preventDefault()
-        this.index++;
-
+        let mediaElements = Array.from(document.querySelectorAll('.media-container a'))
+        const links = mediaElements.length
+        this.index--;
+        if (this.index < 0) {
+            this.index = links - 1
+        }
         this.getImageData();
         this.updateSelectedMedia();
+        // console.log('next :', this.index)
     }
 
     prev(e) {
         e.preventDefault()
-        this.index--;
-
+        let mediaElements = Array.from(document.querySelectorAll('.media-container a'))
+        const links = mediaElements.length
+        this.index++;
+        if (this.index === links) {
+            this.index = 0
+        }
         this.getImageData();
         this.updateSelectedMedia();
+        // console.log('prev :', this.index)
     }
 }
 

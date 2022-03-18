@@ -25,8 +25,8 @@ export default class BookTemplate {
     // Si c'est une video
     createVideo (index) {
         return `
-            <article class="media-container" tabindex="0" data-type="video" aria-label="${this._media.title}" data-index="${index}">
-            <a href="${this._media.video}" alt="${this._media.title}" data-mediaType="video">
+            <article class="media-container" tabindex="0" data-type="video" aria-label="${this._media.title}">
+            <a href="${this._media.video}" alt="${this._media.title}" data-mediaType="video" data-index="${index}">
                  <video class="video mediasLightbox" alt="${this._media.title}" src="${this._media.video}" controls="controls"></video>
             </a>
                 <div class="titleContent">
