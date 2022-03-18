@@ -24,9 +24,9 @@ export class Lightbox {
         // afficher la image
         this.updateSelectedMedia();
 
-
-        // this.onKeyUp = this.onKeyUp.bind(this)
-        // document.addEventListener('keyup', this.onKeyUp)
+        ////Navigation en fonction du Keyboard event
+        this.onKeyUp = this.onKeyUp.bind(this)
+        document.addEventListener('keyup', this.onKeyUp)
     }
 
     getImageData() {
@@ -43,7 +43,6 @@ export class Lightbox {
         };
         console.log(this.media)
     }
-
 
     updateSelectedMedia() {
         const container = this.lightboxContainerElement.querySelector('.mediaShow')
@@ -62,10 +61,10 @@ export class Lightbox {
         const dom = document.createElement('div')
         dom.classList.add('lightbox-screen')
         dom.innerHTML = `
-        <button class="btClose btnScreenview">&times;</button>
-        <button class="btNext btnScreenview">&lsaquo;</button>
-        <button class="btPrev btnScreenview">&rsaquo;</button>
-        <div class="lightboxScreenContainer" tabindex="0">
+        <button class="btClose btnScreenview" tabindex="1">&times;</button>
+        <button class="btNext btnScreenview" tabindex="1">&lsaquo;</button>
+        <button class="btPrev btnScreenview" tabindex="1">&rsaquo;</button>
+        <div class="lightboxScreenContainer">
             <div class="mediaShow"></div>
         </div>
         `
@@ -78,27 +77,17 @@ export class Lightbox {
         galleryContainer.prepend(dom);
     }
 
-    close(e) {
-        e.preventDefault()
-        this.lightboxContainerElement.classList.add('fadeOut')
-        window.setTimeout(() => {
-            this.lightboxContainerElement.parentElement.removeChild(this.lightboxContainerElement)
-        }, 200)
-        
-        const root = document.querySelector("body, html"); //Va servir à ecouter les evenements et cacher toute la page
-        root.style.overflow = ''; //Remet la page générale
-        document.removeEventListener('keyup', this.onKeyUp) //Enleve de la fonction onKeyUp
-    }
-
-    
     //Navigation en fonction du Keyboard event
     onKeyUp(e) {
         if (e.key === 'Escape') {
-            this.close(e) // Lance la fonction Close
+            this.close(e);
+            return; // Lance la fonction Close
         } else if (e.key === 'ArrowLeft') {
-            this.prev(e) // Lance la fonction Preview
+            this.prev(e)
+            return; // Lance la fonction Preview
         } else if (e.key === 'ArrowRight') {
-            this.next(e) // Lance la fonction Next
+            this.next(e)
+            return; // Lance la fonction Next
         }
     }
     
@@ -126,6 +115,18 @@ export class Lightbox {
         this.getImageData();
         this.updateSelectedMedia();
         // console.log('prev :', this.index)
+    }
+
+    close(e) {
+        e.preventDefault()
+        this.lightboxContainerElement.classList.add('fadeOut')
+        window.setTimeout(() => {
+            this.lightboxContainerElement.parentElement.removeChild(this.lightboxContainerElement)
+        }, 200)
+
+        const root = document.querySelector("body, html"); //Va servir à ecouter les evenements et cacher toute la page
+        root.style.overflow = ''; //Remet la page générale
+        document.removeEventListener('keyup', this.onKeyUp) //Enleve de la fonction onKeyUp
     }
 }
 
