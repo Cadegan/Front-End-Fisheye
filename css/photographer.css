@@ -351,8 +351,10 @@ input {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: white;
+    background-color: rgba(0, 0, 0, .9);
     z-index: 20;
+    animation: fadeIn .5s;
+    transition: opacity .2s;
 }
 
 .lightboxScreenContainer {
@@ -370,12 +372,10 @@ input {
     /*ajout*/
 }
 
-.mediaShow img {
+.mediaShow img,
+video {
     max-height: 80vh;
-}
-
-.mediaShow video {
-    max-height : 80vh;
+    max-width: 80vw;
 }
 
 .lightbox-screen p {
@@ -407,4 +407,18 @@ input {
 .btClose {
     top: 20%;
     right: 43px;
+}
+
+.fadeOut {
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }

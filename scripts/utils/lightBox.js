@@ -18,7 +18,7 @@ export class Lightbox {
 
         this.index = index;
 
-        // selectionn'e une image
+        // selectionne une image
         this.getImageData();
 
         // afficher la image
@@ -80,7 +80,11 @@ export class Lightbox {
 
     close(e) {
         e.preventDefault()
-        this.lightboxContainerElement.parentElement.removeChild(this.lightboxContainerElement)
+        this.lightboxContainerElement.classList.add('fadeOut')
+        window.setTimeout(() => {
+            this.lightboxContainerElement.parentElement.removeChild(this.lightboxContainerElement)
+        }, 200)
+        
         const root = document.querySelector("body, html"); //Va servir à ecouter les evenements et cacher toute la page
         root.style.overflow = ''; //Remet la page générale
         document.removeEventListener('keyup', this.onKeyUp) //Enleve de la fonction onKeyUp
