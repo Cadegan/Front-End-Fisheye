@@ -351,7 +351,7 @@ input {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, .9);
+    background-color: rgba(255, 255, 255, 0.93);
     z-index: 20;
     animation: fadeIn .5s;
     transition: opacity .2s;
@@ -390,23 +390,53 @@ video {
     cursor: pointer;
     background-color: transparent;
     border: none;
-    font-size: 4em;
     z-index: 30;
+    padding: 0;
+}
+
+.btnScreenview div {
+    font-size: 4em;
+    margin: 0;
 }
 
 .btNext {
     top: 50%;
-    left: 50px;
+    right: 50px;
+}
+
+.btNext div {
+    transition: transform 150ms ease-out;
+}
+
+.btNext:hover div {
+    transform: translate(5px);
 }
 
 .btPrev {
     top: 50%;
-    right: 50px;
+    left: 50px;
+
+}
+
+.btPrev div {
+    transition: transform 150ms ease-out;
+}
+
+.btPrev:hover div {
+    transform: translate(-5px);
 }
 
 .btClose {
     top: 20%;
     right: 43px;
+}
+
+.btClose div {
+    transition: transform 150ms ease-out;
+}
+
+.btClose:hover div {
+    transform: scale(1.2);
 }
 
 .fadeOut {

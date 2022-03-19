@@ -61,16 +61,17 @@ export class Lightbox {
         const dom = document.createElement('div')
         dom.classList.add('lightbox-screen')
         dom.innerHTML = `
-        <button class="btClose btnScreenview" tabindex="1">&times;</button>
-        <button class="btNext btnScreenview" tabindex="1">&lsaquo;</button>
-        <button class="btPrev btnScreenview" tabindex="1">&rsaquo;</button>
+        <button class="btClose btnScreenview" tabindex="1"><div>&times;</div></button>
+        <button class="btPrev btnScreenview" tabindex="1"><div>&lsaquo;</div></button>
+        <button class="btNext btnScreenview" tabindex="1"><div>&rsaquo;</div></button>
         <div class="lightboxScreenContainer">
             <div class="mediaShow"></div>
         </div>
         `
         dom.querySelector('.btClose').addEventListener('click', this.close.bind(this))
-        dom.querySelector('.btNext').addEventListener('click', this.next.bind(this))
         dom.querySelector('.btPrev').addEventListener('click', this.prev.bind(this))
+        dom.querySelector('.btNext').addEventListener('click', this.next.bind(this))
+        
 
         const galleryContainer = document.querySelector(".gallery-container");
         this.lightboxContainerElement = dom;
@@ -91,7 +92,7 @@ export class Lightbox {
         }
     }
     
-    next(e) {
+    prev(e) {
         e.preventDefault()
         let mediaElements = Array.from(document.querySelectorAll('.media-container a'))
         const links = mediaElements.length
@@ -104,7 +105,7 @@ export class Lightbox {
         // console.log('next :', this.index)
     }
 
-    prev(e) {
+    next(e) {
         e.preventDefault()
         let mediaElements = Array.from(document.querySelectorAll('.media-container a'))
         const links = mediaElements.length
