@@ -4,25 +4,36 @@ const firstError = document.getElementById("firstError")
 const lastName = document.getElementById("nom_input");
 const lastError = document.getElementById("lastError")
 const emailAdress = document.getElementById("mail_input");
-const body = document.querySelector('body');
+const main = document.querySelector('main');
 const formulaire = document.querySelector('#formulaire');
+const modal = document.getElementById("contact_modal");
 
 //Controle du format du mail
 const mailError = document.getElementById("mailError");
 const mailRegex = /^[a-zA-Z][a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}$/;
 
 function displayModal() {
-    const modal = document.getElementById("contact_modal");
     modal.style.display = "block";
+    main.onkeydown = function () {
+        return false;
+    }
     //body.classList.add('no-scroll');
 }
 
 function closeModal() {
-    const modal = document.getElementById("contact_modal");
     modal.style.display = "none";
     //body.classList.remove('no-scroll');
     clearInput();
+    main.onkeydown = function () {
+        return true;
+    }
 }
+
+window.addEventListener("keydown", (e) => {
+    if (modal.style.display = "block" && e.key === "Escape") {
+        closeModal();
+    }
+})
 
 const clearInput = () => {
     //Réinitialise les inputs
@@ -141,7 +152,6 @@ formulaire.addEventListener('submit', (event) => {
         mailValidation() == true
     ) {
         //Si tout est bon, on enleve le formulaire
-        const modal = document.getElementById("contact_modal");
         modal.style.display = "none";
         clearInput()
     } else {

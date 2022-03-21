@@ -30,8 +30,8 @@ export class Lightbox {
     }
 
     getImageData() {
-        let mediaElements = Array.from(document.querySelectorAll('.media-container .picture'))
-        // console.log("Medias chargés dans l'Array", mediaElements)
+        let mediaElements = Array.from(document.querySelectorAll('.picture'))
+        // console.log("Medias chargés dans mediaElements", mediaElements)
         let mediaElement = mediaElements[this.index];
         // console.log(mediaElement)
 
@@ -42,6 +42,10 @@ export class Lightbox {
             index: mediaElement.dataset.index,
         };
         console.log(this.media)
+
+        document.onkeydown = function () {
+            return false;
+        }
     }
 
     updateSelectedMedia() {
@@ -76,6 +80,7 @@ export class Lightbox {
         const galleryContainer = document.querySelector(".gallery-container");
         this.lightboxContainerElements = dom;
         galleryContainer.prepend(dom);
+
     }
 
     //Navigation en fonction du Keyboard event
@@ -128,6 +133,10 @@ export class Lightbox {
         const root = document.querySelector("body, html"); //Va servir à ecouter les evenements et cacher toute la page
         root.style.overflow = ''; //Remet la page générale
         document.removeEventListener('keyup', this.onKeyUp) //Enleve de la fonction onKeyUp
+
+        document.onkeydown = function () {
+            return true;
+        }
     }
 }
 

@@ -142,10 +142,10 @@ init()
 function initLightbox() {
     //Tableau de tous les medias pour la Lightbox
 
-    const links = Array.from(document.querySelectorAll('.media-container .picture'))
+    const links = Array.from(document.querySelectorAll('.picture'))
     // console.log ("Ensemble des medias qui seront chargés dans la Lightbox :", links)
 
-    //Pour chaque élément on attribue un href
+    //Pour chaque élément on obtient son href
     const gallery = links.map(link => link.getAttribute('href'))
 
     links.forEach(link => link.addEventListener('click', e => {

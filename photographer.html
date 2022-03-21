@@ -9,7 +9,7 @@
   <title>Fisheye - photographe </title>
 </head>
 
-<body>
+<body tabindex="-1">
   <header>
     <a href="./index.html">
       <img src="assets/images/logo.png" class="logo" />
@@ -45,7 +45,10 @@
     <div class="modal">
       <header>
         <h2 class="modal-header"></h2>
-        <img src="assets/icons/close.svg" onclick="closeModal()" />
+        <button class="closeModalBt" tabindex="0">
+          <img src="assets/icons/close.svg" onclick="closeModal()" />
+        </button>
+        
       </header>
       <form name="formulaire" id="formulaire" method="get" action="index.html">
           <label>Prénom</label>
