@@ -20,7 +20,7 @@ export function getAllLikes() {
 
 
 //Like par media
-export function addLikes() {
+export async function addLikes() {
     //Cible tous les coeur et ecoute les clicks
     const heartIcon = document.querySelectorAll('.heartIcon')
     heartIcon.forEach((icon) => {
@@ -34,21 +34,3 @@ export function addLikes() {
         }, { once: true }) // N'autorise qu'un click
     })
 }
-
-/* V0
-export async function getAllLikes() {
-
-    let likes = 0;
-    for (let i = 0; i < media.length; i++) {
-        likes += media[i].likes;
-    }
-    console.log("Totaux des likes : " + likes);
-    return likes;
-}
-
-export async function showAllLikes() {
-    const allLikes = await getAllLikes();
-    const likes = document.getElementById("totalLikesNumber")
-    likes.innerHTML = `${allLikes}`
-}
-*/

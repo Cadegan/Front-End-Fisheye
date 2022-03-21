@@ -148,3 +148,33 @@ formulaire.addEventListener('submit', (event) => {
         return false;
     }
 })
+
+// document.addEventListener("DOMContentLoaded", () => {
+
+//     let inputs = ('input, textarea, select, button'),
+//         inputTo;
+
+
+//     inputs.addEventListener('keydown', (e) => {
+
+
+//         if (e.keyCode == 9 || e.which == 9) {
+
+//             e.preventDefault();
+
+//             if (e.shiftKey) {
+
+//                 inputTo = inputs.get(inputs.index(this) - 1);
+//             } else {
+
+//                 inputTo = inputs.get(inputs.index(this) + 1);
+//             }
+
+//             if (inputTo) {
+//                 inputTo.focus();
+//             } else {
+//                 inputs[0].focus();
+//             }
+//         }
+//     });
+// });

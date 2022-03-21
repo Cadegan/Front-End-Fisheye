@@ -30,8 +30,8 @@ export class Lightbox {
     }
 
     getImageData() {
-        let mediaElements = Array.from(document.querySelectorAll('.media-container a'))
-        // console.log(mediaElements)
+        let mediaElements = Array.from(document.querySelectorAll('.media-container .picture'))
+        // console.log("Medias chargés dans l'Array", mediaElements)
         let mediaElement = mediaElements[this.index];
         // console.log(mediaElement)
 
@@ -57,7 +57,7 @@ export class Lightbox {
 //Construction HTML du loader
     open() {
         const root = document.querySelector("body, html"); //Va servir à ecouter les evenements et cacher toute la page
-        root.style.overflow = 'hidden'; //Cache la page générale
+        root.style.overflow = 'hidden'; //Bloque le défilement de la page générale
         const dom = document.createElement('div')
         dom.classList.add('lightbox-screen')
         dom.innerHTML = `
@@ -94,7 +94,7 @@ export class Lightbox {
     
     prev(e) {
         e.preventDefault()
-        let mediaElements = Array.from(document.querySelectorAll('.media-container a'))
+        let mediaElements = Array.from(document.querySelectorAll('.media-container .picture'))
         const links = mediaElements.length
         this.index--;
         if (this.index < 0) {
@@ -107,7 +107,7 @@ export class Lightbox {
 
     next(e) {
         e.preventDefault()
-        let mediaElements = Array.from(document.querySelectorAll('.media-container a'))
+        let mediaElements = Array.from(document.querySelectorAll('.media-container .picture'))
         const links = mediaElements.length
         this.index++;
         if (this.index === links) {
