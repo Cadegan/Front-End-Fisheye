@@ -4,7 +4,7 @@
 // mettre le system loop dans la boucle index : Loop ok
 // mettre a jour le style
 export class Lightbox {
-    lightboxContainerElement = null;
+    lightboxContainerElements = null;
     index = null;
     media = {
         url: null,
@@ -14,9 +14,9 @@ export class Lightbox {
     };
 
     constructor(index) {
-        this.open();
-
         this.index = index;
+        
+        this.open();
 
         // selectionne une image
         this.getImageData();
@@ -45,7 +45,7 @@ export class Lightbox {
     }
 
     updateSelectedMedia() {
-        const container = this.lightboxContainerElement.querySelector('.mediaShow')
+        const container = this.lightboxContainerElements.querySelector('.mediaShow')
         if (this.media.type == "image") {
             container.innerHTML = new MediaImage(this.media).createAndGetElement();
         }
@@ -74,7 +74,7 @@ export class Lightbox {
         
 
         const galleryContainer = document.querySelector(".gallery-container");
-        this.lightboxContainerElement = dom;
+        this.lightboxContainerElements = dom;
         galleryContainer.prepend(dom);
     }
 
@@ -120,9 +120,9 @@ export class Lightbox {
 
     close(e) {
         e.preventDefault()
-        this.lightboxContainerElement.classList.add('fadeOut')
+        this.lightboxContainerElements.classList.add('fadeOut')
         window.setTimeout(() => {
-            this.lightboxContainerElement.parentElement.removeChild(this.lightboxContainerElement)
+            this.lightboxContainerElements.parentElement.removeChild(this.lightboxContainerElements)
         }, 200)
 
         const root = document.querySelector("body, html"); //Va servir à ecouter les evenements et cacher toute la page
