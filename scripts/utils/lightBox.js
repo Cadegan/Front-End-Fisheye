@@ -84,10 +84,10 @@ export class Lightbox {
         if (e.key === 'Escape') {
             this.close(e);
             return; // Lance la fonction Close
-        } else if (e.key === 'ArrowLeft') {
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
             this.prev(e)
             return; // Lance la fonction Preview
-        } else if (e.key === 'ArrowRight') {
+        } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
             this.next(e)
             return; // Lance la fonction Next
         }
