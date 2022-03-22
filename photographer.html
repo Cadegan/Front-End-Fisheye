@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
   <link href="css/style.css" rel="stylesheet" type="text/css" />
@@ -12,7 +12,7 @@
 <body tabindex="-1">
   <header>
     <a href="./index.html">
-      <img src="assets/images/logo.png" class="logo" />
+      <img src="assets/images/logo.png" class="logo" alt="logo Fisheye"/>
     </a>
   </header>
   <main id="main">
@@ -42,32 +42,46 @@
     </div>
   </main>
   <div id="contact_modal">
-    <div class="modal">
+    <div class="modal-content">
       <header>
         <h2 class="modal-header"></h2>
         <button class="closeModalBt" tabindex="0">
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <img src="assets/icons/close.svg" onclick="closeModal()" alt="Logo du bouton de fermeture du formulaire"/>
         </button>
         
       </header>
-      <form name="formulaire" id="formulaire" method="get" action="index.html">
-          <label>Prénom</label>
-          <input type="text" id="prenom_input" />
+      <form name="formulaire" id="formulaire" method="get">
+
+          <p>
+          <label for="prenom_input">Prénom</label>
+          <input type="text" id="prenom_input" name="mytext"/>
+          </p>
           <div class="result" id="firstError"></div>
           
-          <label>Nom</label>
-          <input type="text" id="nom_input" />
+          <p>
+          <label for="nom_input">Nom</label>
+          <input type="text" id="nom_input" name="mytext"/>
+          </p>
           <div class="result" id="lastError"></div>
          
-          <label>Email</label>
-          <input type="text" id="mail_input" />
+          <p>
+          <label for="mail_input">Email</label>
+          <input type="email" id="mail_input" name="mytext"/>
+          </p>
           <div class="result" id="mailError"></div>
           
-          <label>Votre message</label>
+          <label for="message_input">Votre message</label>
           <textarea type="textarea" id="message_input"></textarea>
 
-        <button class="submit contact_button">Envoyer</button>
+        <button class="submit contact_button" type="submit" value="Envoyer">Envoyer</button>
       </form>
+    </div>
+    <div class="message-validation">
+      <div id="text-message-validation">
+        <h2>Merci pour votre message</h2>
+      </div>
+      <button id="submitClose" class="submit contact_button" type="submit" value="Fermer"
+        onclick="closeModal()">Fermer</button>
     </div>
   </div>
 

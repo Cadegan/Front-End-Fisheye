@@ -7,6 +7,8 @@ const emailAdress = document.getElementById("mail_input");
 const main = document.querySelector('main');
 const formulaire = document.querySelector('#formulaire');
 const modal = document.getElementById("contact_modal");
+const modalContent = document.querySelector(".modal-content")
+const messageValidation = document.querySelector('.message-validation')
 
 //Controle du format du mail
 const mailError = document.getElementById("mailError");
@@ -14,6 +16,7 @@ const mailRegex = /^[a-zA-Z][a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}$
 
 function displayModal() {
     modal.style.display = "block";
+    modalContent.style.display = "flex";
     main.onkeydown = function () {
         return false;
     }
@@ -22,6 +25,8 @@ function displayModal() {
 
 function closeModal() {
     modal.style.display = "none";
+    modalContent.style.display = "none";
+    messageValidation.style.display = "none";
     //body.classList.remove('no-scroll');
     clearInput();
     main.onkeydown = function () {
@@ -151,40 +156,12 @@ formulaire.addEventListener('submit', (event) => {
         lastNameValidation() == true &&
         mailValidation() == true
     ) {
-        //Si tout est bon, on enleve le formulaire
-        modal.style.display = "none";
-        clearInput()
+        //Si tout est bon, on enleve le formulaire et affiche le message de validation
+        modalContent.style.display = "none";
+        messageValidation.style.display = "flex";
+        // clearInput()
+        return true;
     } else {
         return false;
     }
 })
-
-// document.addEventListener("DOMContentLoaded", () => {
-
-//     let inputs = ('input, textarea, select, button'),
-//         inputTo;
-
-
-//     inputs.addEventListener('keydown', (e) => {
-
-
-//         if (e.keyCode == 9 || e.which == 9) {
-
-//             e.preventDefault();
-
-//             if (e.shiftKey) {
-
-//                 inputTo = inputs.get(inputs.index(this) - 1);
-//             } else {
-
-//                 inputTo = inputs.get(inputs.index(this) + 1);
-//             }
-
-//             if (inputTo) {
-//                 inputTo.focus();
-//             } else {
-//                 inputs[0].focus();
-//             }
-//         }
-//     });
-// });
