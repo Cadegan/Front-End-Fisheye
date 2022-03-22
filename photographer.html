@@ -21,13 +21,13 @@
     </div>
     <div id="filtre">
       <label id="label_trier">Trier par</label>
-      <div id="menu_dropdown" aria-expanded="false" href="#">
-        <button aria-labelledby="order-button" aria-label="Order by" id="btDropdown"
+      <div id="menu_dropdown" role="menu" aria-expanded="false">
+        <button aria-label="Order by" id="btDropdown"
           class="btDropdown">Date</button>
         <div id="dropdownContent" class="dropdown-content">
-          <p class="dropdownItem" id="dropdownFirst popularity" tabindex="0" data-filter-type="review">Popularité</p>
-          <p class="dropdownItem" id="date" tabindex="0" data-filter-type="date">Date</p>
-          <p class="dropdownItem" id="title" tabindex="0" data-filter-type="title">Titre</p>
+          <p class="dropdownItem" id="dropdownFirst" tabindex="0" data-filter-type="review">Popularité</p>
+          <p class="dropdownItem" tabindex="0" data-filter-type="date">Date</p>
+          <p class="dropdownItem" tabindex="0" data-filter-type="title">Titre</p>
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@
   <div id="contact_modal">
     <div class="modal-content">
       <header>
-        <h2 class="modal-header"></h2>
+        <h2 class="modal-header">Header du formulaire</h2>
         <button class="closeModalBt" tabindex="0">
           <img src="assets/icons/close.svg" onclick="closeModal()" alt="Logo du bouton de fermeture du formulaire"/>
         </button>
@@ -71,7 +71,7 @@
           <div class="result" id="mailError"></div>
           
           <label for="message_input">Votre message</label>
-          <textarea type="textarea" id="message_input"></textarea>
+          <textarea id="message_input"></textarea>
 
         <button class="submit contact_button" type="submit" value="Envoyer">Envoyer</button>
       </form>
