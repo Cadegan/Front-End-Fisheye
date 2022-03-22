@@ -85,7 +85,7 @@ let menuDropdown = document.querySelector("#menu_dropdown")
 function toggleDropdownVisibility() {
     dropdownContainer.classList.toggle('show')
     let expanded = menuDropdown.getAttribute('aria-expanded') == "true" ? "false" : "true";
-    menuDropdown.setAttribute('aria-expanded', expanded);  
+    menuDropdown.setAttribute('aria-expanded', expanded);
 }
 
 btDropdown.addEventListener('click', toggleDropdownVisibility);

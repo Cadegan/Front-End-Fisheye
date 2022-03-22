@@ -1,6 +1,6 @@
 //Informations des productions des photographes
 export default class PhotographBook {
-    constructor (media) {
+    constructor(media) {
         this._id = media.id
         this._photographerId = media.photographerId
         this._title = media.title
@@ -11,35 +11,35 @@ export default class PhotographBook {
         this._price = media.price
     }
 
-    get id () {
+    get id() {
         return this._id
     }
 
-    get PhotographerId () {
+    get PhotographerId() {
         return this._photographerId
     }
 
-    get title () {
+    get title() {
         return this._title
     }
 
-    get image () {
+    get image() {
         return `/assets/photos/${this._image}`
     }
 
-    get video () {
+    get video() {
         return `/assets/photos/${this._video}`
     }
 
-    get likes () {
+    get likes() {
         return this._likes
     }
 
-    get date () {
+    get date() {
         return this._date
     }
 
-    get price () {
+    get price() {
         return this._price
     }
 }

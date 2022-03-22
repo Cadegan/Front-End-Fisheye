@@ -19,15 +19,9 @@ function profileFactories(profile) {
         quote.className = 'quote';
         quote.textContent = tagline;
 
-        /*
-        const priceDay = document.createElement('div');
-        priceDay.className = 'priceDay'
-        priceDay.textContent = price + "€/jour";
-        */
-
         const photographeName = document.querySelector(".modal-header")
         photographeName.innerHTML = "Contactez-moi" + "<br/>" + name;
-        
+
 
         const presentation = document.createElement('div');
         presentation.className = 'presentation'

@@ -19,7 +19,7 @@ function mediaFactories(data) {
 
         const movie = document.createElement('video');
         movie.className = 'photo video'
-        
+
         const likeCount = document.createElement('span');
         likeCount.className = 'likes';
         likeCount.textContent = likes;
@@ -37,8 +37,8 @@ function mediaFactories(data) {
             mediaLike += 1;
             likeCount.innerText = mediaLike;
             addLikes();
-        }, {once : true}
-        );    
+        }, { once: true }
+        );
 
         const reviewElement = document.createElement('div');
         reviewElement.className = 'reviewElement';
@@ -50,7 +50,7 @@ function mediaFactories(data) {
         titleContent.className = 'titleContent';
         titleContent.appendChild(titles);
         titleContent.appendChild(reviewElement);
-        
+
 
         if (image) {
             img.setAttribute('src', mediaData);
@@ -60,7 +60,7 @@ function mediaFactories(data) {
             article.appendChild(img);
             article.appendChild(titleContent);
             article.dataset.type = 'image';
-            
+
         } if (video) {
             movie.setAttribute('src', mediaData);
             movie.setAttribute('aria-label', `${title}`);
@@ -79,8 +79,8 @@ function mediaFactories(data) {
     return { image, video, likes, title, id, photographerId, date, getMediaCardDOM };
 }
 
- //Fonction des likes
-        function addLikes() {
-            const likes = document.getElementById("totalLikesNumber")
-            likes.innerHTML = Number(likes.innerHTML) + 1;
-        }
+//Fonction des likes
+function addLikes() {
+    const likes = document.getElementById("totalLikesNumber")
+    likes.innerHTML = Number(likes.innerHTML) + 1;
+}

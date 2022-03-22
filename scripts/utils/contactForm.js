@@ -149,8 +149,8 @@ formulaire.addEventListener('submit', (event) => {
     lastNameValidation();
     mailValidation();
 
-    //Verifie si toutes les conditions sont remplies
-    //C'est a dire "true"
+    // Verifie si toutes les conditions sont remplies
+    // C'est a dire "true"
     if (
         firstNameValidation() == true &&
         lastNameValidation() == true &&

@@ -23,7 +23,7 @@ export default class BookTemplate {
     }
 
     // Si c'est une video
-    createVideo (index) {
+    createVideo(index) {
         return `
             <article class="media-container" tabindex="0" data-type="video" aria-label="${this._media.title}">
             <button class="picture" href="${this._media.video}" alt="${this._media.title}" data-mediaType="video" data-index="${index}">

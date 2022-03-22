@@ -1,8 +1,4 @@
 // import MediaImage from "../models/MediaImage.js"
-
-// TODO: mettre le bon tag video : ok
-// mettre le system loop dans la boucle index : Loop ok
-// mettre a jour le style
 export class Lightbox {
     lightboxContainerElements = null;
     index = null;
@@ -10,12 +6,12 @@ export class Lightbox {
         url: null,
         title: null,
         mediatype: null,
-        index : null,
+        index: null,
     };
 
     constructor(index) {
         this.index = index;
-        
+
         this.open();
 
         // selectionne une image
@@ -58,7 +54,7 @@ export class Lightbox {
         }
     }
 
-//Construction HTML du loader
+    //Construction HTML du loader
     open() {
         const root = document.querySelector("body, html"); //Va servir à ecouter les evenements et cacher toute la page
         root.style.overflow = 'hidden'; //Bloque le défilement de la page générale
@@ -75,7 +71,7 @@ export class Lightbox {
         dom.querySelector('.btClose').addEventListener('click', this.close.bind(this))
         dom.querySelector('.btPrev').addEventListener('click', this.prev.bind(this))
         dom.querySelector('.btNext').addEventListener('click', this.next.bind(this))
-        
+
 
         const galleryContainer = document.querySelector(".gallery-container");
         this.lightboxContainerElements = dom;
@@ -96,7 +92,7 @@ export class Lightbox {
             return; // Lance la fonction Next
         }
     }
-    
+
     prev(e) {
         e.preventDefault()
         let mediaElements = Array.from(document.querySelectorAll('.media-container .picture'))
@@ -139,7 +135,6 @@ export class Lightbox {
         }
     }
 }
-
 
 export default class MediaImage {
     constructor(media) {

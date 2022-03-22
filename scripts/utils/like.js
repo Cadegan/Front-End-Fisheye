@@ -15,9 +15,8 @@ export function getAllLikes() {
     })
     console.log(totalLikesNumber)
     //Retourne et affiche les totaux
-    return totalLikesShow.innerHTML = totalLikesNumber  
+    return totalLikesShow.innerHTML = totalLikesNumber
 }
-
 
 //Like par media
 export async function addLikes() {
