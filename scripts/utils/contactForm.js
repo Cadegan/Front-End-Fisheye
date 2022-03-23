@@ -8,6 +8,7 @@ const main = document.querySelector("main")
 const formulaire = document.querySelector("#formulaire")
 const modal = document.getElementById("contact_modal")
 const modalContent = document.querySelector(".modal-content")
+const message = document.querySelector("#message_input")
 const messageValidation = document.querySelector(".message-validation")
 const contactButton = document.querySelector(".contact_button")
 
@@ -162,6 +163,12 @@ formulaire.addEventListener("submit", (event) => {
     modalContent.style.display = "none"
     messageValidation.style.display = "flex"
     // clearInput()
+    console.log(`
+      Prénom: ${firstName.value}
+      Nom: ${lastName.value}
+      Email: ${emailAdress.value}
+      Message: ${message.value}
+    `)
     return true
   } else {
     return false

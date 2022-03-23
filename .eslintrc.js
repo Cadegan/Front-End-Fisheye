@@ -4,8 +4,8 @@ module.exports = {
     es2021: true
   },
   extends: [
-    "standard",
-    "babel-eslint"
+    "standard"
+    // "babel-eslint"
   ],
   parserOptions: {
     ecmaVersion: "latest"
