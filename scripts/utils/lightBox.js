@@ -1,4 +1,3 @@
-// import MediaImage from "../models/MediaImage.js"
 export class Lightbox {
     lightboxContainerElements = null;
     index = null;
@@ -7,7 +6,7 @@ export class Lightbox {
         title: null,
         mediatype: null,
         index: null,
-    };
+    }
 
     constructor(index) {
         this.index = index;
