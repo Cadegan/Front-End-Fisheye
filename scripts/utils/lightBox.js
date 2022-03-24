@@ -155,6 +155,7 @@ export class MediaVideo {
     createAndGetElement() {
         return `
                 <video src="${this._media.url}" type="video" controls="true"></video>
+                 <p>${this._media.title}</p>
         `
     }
 }
