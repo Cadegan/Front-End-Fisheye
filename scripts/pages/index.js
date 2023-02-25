@@ -4,7 +4,7 @@ async function getPhotographers () {
   let photographers = [] // Changement de la constant en variable. On déclare un tableau "photographers"
 
   // et bien retourner le tableau photographers seulement une fois
-  await fetch("/data/photographersData.json") // On attend la resolution de la promesse : l'extraction des données
+  await fetch("https://cadegan.github.io/Data/photographers_data.json") // On attend la resolution de la promesse : l'extraction des données
     .then(reponse => reponse.json())
     .then((data) => (photographers = data.photographers))
   return { photographers }

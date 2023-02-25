@@ -16,7 +16,7 @@ export const gallery = []
 // Aquisition des éléments du photographe
 async function init () {
   // Consultation de l'API
-  await fetch("/data/photographersData.json")
+  await fetch("https://cadegan.github.io/Data/photographers_data.json")
     .then(res => res.json())
     .then((data) => {
       // Charge les éléments du profile dans la variable profile selon l'id du photographe
