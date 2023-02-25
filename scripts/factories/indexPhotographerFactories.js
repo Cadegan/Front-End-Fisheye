@@ -24,7 +24,7 @@ export function photographerFactory (data) {
     priceDay.textContent = price + "€/jour"
 
     function linkProfile () {
-      window.open(`photographer.html?id=${id}`)
+      window.open(`./photographer.html?id=${id}`)
     }
 
     article.appendChild(img)
