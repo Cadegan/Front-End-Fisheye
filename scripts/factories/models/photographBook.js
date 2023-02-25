@@ -24,11 +24,11 @@ export default class PhotographBook {
   }
 
   get image () {
-    return `/assets/photos/${this._image}`
+    return `./assets/photos/${this._image}`
   }
 
   get video () {
-    return `/assets/photos/${this._video}`
+    return `./assets/photos/${this._video}`
   }
 
   get likes () {
